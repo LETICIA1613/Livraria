@@ -19,10 +19,11 @@ namespace Livraria
 
         private void TelaEntrada_Load(object sender, EventArgs e)
         {
-
+            Txtwrite.Text = "Digite sua busca";
+            Txtwrite.ForeColor = Color.Black;
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void Txtwrite_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -32,9 +33,51 @@ namespace Livraria
 
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void Btnsciencefiction_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Btnmenu_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Btnfantasy_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Txtwrite_Enter(object sender, EventArgs e)
+        {
+            if (Txtwrite.Text == "Digite sua busca")
+            {
+                Txtwrite.Text = "";
+                Txtwrite.ForeColor = Color.Black; // cor normal do texto
+            }
+        }
+
+        private void Txtwrite_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(Txtwrite.Text))
+            {
+                Txtwrite.Text = "Digite sua busca";
+                Txtwrite.ForeColor = Color.Black; // cor de placeholder
+            }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Txtwrite_Click(object sender, EventArgs e)
+        {
+            if (Txtwrite.Text == "Digite sua busca")
+            {
+                Txtwrite.Text = "";
+                Txtwrite.ForeColor = Color.Black; // cor normal do texto
+            }
         }
     }
 }

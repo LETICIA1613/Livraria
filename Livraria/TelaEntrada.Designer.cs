@@ -28,153 +28,203 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TelaEntrada));
+            this.Txtwrite = new System.Windows.Forms.TextBox();
             this.Txt01 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
+            this.BtnRomance = new System.Windows.Forms.Button();
+            this.Btnfantasy = new System.Windows.Forms.Button();
+            this.Btnterror = new System.Windows.Forms.Button();
+            this.Btnselfhelp = new System.Windows.Forms.Button();
+            this.Btnsciencefiction = new System.Windows.Forms.Button();
+            this.BtnComedy = new System.Windows.Forms.Button();
+            this.Btnthriller = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
+            this.Btnmenu = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.Btnreligious = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // textBox1
+            // Txtwrite
             // 
-            this.textBox1.Location = new System.Drawing.Point(74, 7);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(132, 20);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "Digite sua busca";
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.Txtwrite.Location = new System.Drawing.Point(478, 6);
+            this.Txtwrite.Name = "Txtwrite";
+            this.Txtwrite.Size = new System.Drawing.Size(211, 20);
+            this.Txtwrite.TabIndex = 0;
+            this.Txtwrite.Text = "Digite sua busca";
+            this.Txtwrite.Click += new System.EventHandler(this.Txtwrite_Click);
+            this.Txtwrite.TextChanged += new System.EventHandler(this.Txtwrite_TextChanged);
+            this.Txtwrite.Enter += new System.EventHandler(this.Txtwrite_Enter);
+            this.Txtwrite.Leave += new System.EventHandler(this.Txtwrite_Leave);
             // 
             // Txt01
             // 
             this.Txt01.AutoSize = true;
-            this.Txt01.Font = new System.Drawing.Font("RomanC", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Txt01.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Txt01.Location = new System.Drawing.Point(12, 37);
             this.Txt01.Name = "Txt01";
-            this.Txt01.Size = new System.Drawing.Size(135, 17);
+            this.Txt01.Size = new System.Drawing.Size(0, 13);
             this.Txt01.TabIndex = 1;
-            this.Txt01.Text = "Gênero do Livro";
             this.Txt01.Click += new System.EventHandler(this.Txt01_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label1.Font = new System.Drawing.Font("RomanC", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 17);
+            this.label1.Size = new System.Drawing.Size(0, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Menu";
             // 
-            // button1
+            // BtnRomance
             // 
-            this.button1.Location = new System.Drawing.Point(15, 57);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(119, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Romance";
-            this.button1.UseVisualStyleBackColor = true;
+            this.BtnRomance.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.BtnRomance.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BtnRomance.Location = new System.Drawing.Point(37, 99);
+            this.BtnRomance.Name = "BtnRomance";
+            this.BtnRomance.Size = new System.Drawing.Size(119, 23);
+            this.BtnRomance.TabIndex = 3;
+            this.BtnRomance.Text = "Romance";
+            this.BtnRomance.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // Btnfantasy
             // 
-            this.button2.Location = new System.Drawing.Point(15, 86);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(119, 23);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Fantasia";
-            this.button2.UseVisualStyleBackColor = true;
+            this.Btnfantasy.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.Btnfantasy.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Btnfantasy.Location = new System.Drawing.Point(37, 128);
+            this.Btnfantasy.Name = "Btnfantasy";
+            this.Btnfantasy.Size = new System.Drawing.Size(119, 23);
+            this.Btnfantasy.TabIndex = 4;
+            this.Btnfantasy.Text = "Fantasia";
+            this.Btnfantasy.UseVisualStyleBackColor = false;
+            this.Btnfantasy.Click += new System.EventHandler(this.Btnfantasy_Click);
             // 
-            // button3
+            // Btnterror
             // 
-            this.button3.Location = new System.Drawing.Point(15, 115);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(119, 23);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Terror";
-            this.button3.UseVisualStyleBackColor = true;
+            this.Btnterror.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.Btnterror.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Btnterror.Location = new System.Drawing.Point(37, 157);
+            this.Btnterror.Name = "Btnterror";
+            this.Btnterror.Size = new System.Drawing.Size(119, 23);
+            this.Btnterror.TabIndex = 5;
+            this.Btnterror.Text = "Terror";
+            this.Btnterror.UseVisualStyleBackColor = false;
             // 
-            // button4
+            // Btnselfhelp
             // 
-            this.button4.Location = new System.Drawing.Point(15, 144);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(119, 23);
-            this.button4.TabIndex = 6;
-            this.button4.Text = "Autoajuda";
-            this.button4.UseVisualStyleBackColor = true;
+            this.Btnselfhelp.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.Btnselfhelp.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Btnselfhelp.Location = new System.Drawing.Point(37, 186);
+            this.Btnselfhelp.Name = "Btnselfhelp";
+            this.Btnselfhelp.Size = new System.Drawing.Size(119, 23);
+            this.Btnselfhelp.TabIndex = 6;
+            this.Btnselfhelp.Text = "Autoajuda";
+            this.Btnselfhelp.UseVisualStyleBackColor = false;
             // 
-            // button5
+            // Btnsciencefiction
             // 
-            this.button5.Location = new System.Drawing.Point(15, 173);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(119, 23);
-            this.button5.TabIndex = 7;
-            this.button5.Text = "Ficção Científica";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.Btnsciencefiction.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.Btnsciencefiction.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Btnsciencefiction.Location = new System.Drawing.Point(37, 215);
+            this.Btnsciencefiction.Name = "Btnsciencefiction";
+            this.Btnsciencefiction.Size = new System.Drawing.Size(119, 23);
+            this.Btnsciencefiction.TabIndex = 7;
+            this.Btnsciencefiction.Text = "Ficção Científica";
+            this.Btnsciencefiction.UseVisualStyleBackColor = false;
+            this.Btnsciencefiction.Click += new System.EventHandler(this.Btnsciencefiction_Click);
             // 
-            // button6
+            // BtnComedy
             // 
-            this.button6.Location = new System.Drawing.Point(15, 202);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(119, 23);
-            this.button6.TabIndex = 8;
-            this.button6.Text = "Comédia";
-            this.button6.UseVisualStyleBackColor = true;
+            this.BtnComedy.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.BtnComedy.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BtnComedy.Location = new System.Drawing.Point(37, 244);
+            this.BtnComedy.Name = "BtnComedy";
+            this.BtnComedy.Size = new System.Drawing.Size(119, 23);
+            this.BtnComedy.TabIndex = 8;
+            this.BtnComedy.Text = "Comédia";
+            this.BtnComedy.UseVisualStyleBackColor = false;
             // 
-            // button7
+            // Btnthriller
             // 
-            this.button7.Location = new System.Drawing.Point(15, 231);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(119, 23);
-            this.button7.TabIndex = 9;
-            this.button7.Text = "Suspense";
-            this.button7.UseVisualStyleBackColor = true;
+            this.Btnthriller.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.Btnthriller.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Btnthriller.Location = new System.Drawing.Point(37, 273);
+            this.Btnthriller.Name = "Btnthriller";
+            this.Btnthriller.Size = new System.Drawing.Size(119, 23);
+            this.Btnthriller.TabIndex = 9;
+            this.Btnthriller.Text = "Suspense";
+            this.Btnthriller.UseVisualStyleBackColor = false;
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(15, 260);
+            this.button8.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button8.Location = new System.Drawing.Point(37, 302);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(119, 23);
             this.button8.TabIndex = 10;
             this.button8.Text = "Utopia";
-            this.button8.UseVisualStyleBackColor = true;
+            this.button8.UseVisualStyleBackColor = false;
             // 
-            // button9
+            // Btnmenu
             // 
-            this.button9.Location = new System.Drawing.Point(212, 7);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(75, 23);
-            this.button9.TabIndex = 11;
-            this.button9.Text = "Buscar";
-            this.button9.UseVisualStyleBackColor = true;
+            this.Btnmenu.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.Btnmenu.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Btnmenu.Location = new System.Drawing.Point(614, 6);
+            this.Btnmenu.Name = "Btnmenu";
+            this.Btnmenu.Size = new System.Drawing.Size(75, 20);
+            this.Btnmenu.TabIndex = 11;
+            this.Btnmenu.Text = "Buscar";
+            this.Btnmenu.UseVisualStyleBackColor = false;
+            this.Btnmenu.Click += new System.EventHandler(this.Btnmenu_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(-1, -86);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(805, 624);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 12;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // Btnreligious
+            // 
+            this.Btnreligious.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.Btnreligious.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Btnreligious.Location = new System.Drawing.Point(37, 331);
+            this.Btnreligious.Name = "Btnreligious";
+            this.Btnreligious.Size = new System.Drawing.Size(119, 23);
+            this.Btnreligious.TabIndex = 13;
+            this.Btnreligious.Text = "Religioso";
+            this.Btnreligious.UseVisualStyleBackColor = false;
             // 
             // TelaEntrada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button9);
+            this.Controls.Add(this.Btnreligious);
             this.Controls.Add(this.button8);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.Btnthriller);
+            this.Controls.Add(this.BtnComedy);
+            this.Controls.Add(this.Btnsciencefiction);
+            this.Controls.Add(this.Btnselfhelp);
+            this.Controls.Add(this.Btnterror);
+            this.Controls.Add(this.Btnfantasy);
+            this.Controls.Add(this.BtnRomance);
+            this.Controls.Add(this.Btnmenu);
+            this.Controls.Add(this.Txtwrite);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Txt01);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.pictureBox1);
             this.Name = "TelaEntrada";
             this.Text = "TelaEntrada";
             this.Load += new System.EventHandler(this.TelaEntrada_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -182,17 +232,19 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox Txtwrite;
         private System.Windows.Forms.Label Txt01;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button BtnRomance;
+        private System.Windows.Forms.Button Btnfantasy;
+        private System.Windows.Forms.Button Btnterror;
+        private System.Windows.Forms.Button Btnselfhelp;
+        private System.Windows.Forms.Button Btnsciencefiction;
+        private System.Windows.Forms.Button BtnComedy;
+        private System.Windows.Forms.Button Btnthriller;
         private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button Btnmenu;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button Btnreligious;
     }
 }

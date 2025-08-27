@@ -31,5 +31,7 @@ namespace Livraria
             product.ShowDialog();
             this.Visible = true;
         }
+
+       
     }
 }

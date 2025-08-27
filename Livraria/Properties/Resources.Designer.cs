@@ -63,9 +63,9 @@ namespace Livraria.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Title_of_your_Brainstorm_Whiteboard {
+        internal static System.Drawing.Bitmap imagemlogin {
             get {
-                object obj = ResourceManager.GetObject("Title of your Brainstorm Whiteboard", resourceCulture);
+                object obj = ResourceManager.GetObject("imagemlogin", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace Livraria.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Title_of_your_Brainstorm_Whiteboard__1_ {
+        internal static System.Drawing.Bitmap Title_of_your_Brainstorm_Whiteboard {
             get {
-                object obj = ResourceManager.GetObject("Title of your Brainstorm Whiteboard (1)", resourceCulture);
+                object obj = ResourceManager.GetObject("Title of your Brainstorm Whiteboard", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
