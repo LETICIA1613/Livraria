@@ -283,7 +283,7 @@ namespace Livraria
         }
 
         private void Textname_Leave(object sender, EventArgs e)
-        {
+        { 
             if (string.IsNullOrWhiteSpace(Textname.Text))
             {
                 Textname.Text = "Nome";
