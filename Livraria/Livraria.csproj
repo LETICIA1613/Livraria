@@ -72,11 +72,23 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Telaadicionarlivro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telaadicionarlivro.Designer.cs">
+      <DependentUpon>Telaadicionarlivro.cs</DependentUpon>
+    </Compile>
     <Compile Include="TelaEntrada.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="TelaEntrada.Designer.cs">
       <DependentUpon>TelaEntrada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Telaentradaadmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Telaentradaadmin.Designer.cs">
+      <DependentUpon>Telaentradaadmin.cs</DependentUpon>
     </Compile>
     <Compile Include="TelaLogin.cs">
       <SubType>Form</SubType>
@@ -95,8 +107,14 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Telaadicionarlivro.resx">
+      <DependentUpon>Telaadicionarlivro.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TelaEntrada.resx">
       <DependentUpon>TelaEntrada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Telaentradaadmin.resx">
+      <DependentUpon>Telaentradaadmin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TelaLogin.resx">
       <DependentUpon>TelaLogin.cs</DependentUpon>

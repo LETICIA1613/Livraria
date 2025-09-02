@@ -9,7 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Livraria
 {
@@ -19,10 +21,11 @@ namespace Livraria
         {
             InitializeComponent();
         }
+        
 
-        private void BntNext1_Click(object sender, EventArgs e)
+
+        private void BntNext1_Click_1(object sender, EventArgs e)
         {
-
             string name = Textname.Text;
             string email = TextEmail2.Text;
             string password = TextPW3.Text;
@@ -41,7 +44,8 @@ namespace Livraria
                     cmd.Parameters.AddWithValue("@Nome", name);
                     cmd.Parameters.AddWithValue("@Email", email);
                     cmd.Parameters.AddWithValue("@Senha", password);
-                    
+
+
 
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -49,6 +53,8 @@ namespace Livraria
                 }
 
                 MessageBox.Show("Usuário cadastrado com sucesso!");
+
+
             }
             catch (Exception ex)
             {
@@ -60,6 +66,7 @@ namespace Livraria
             product.ShowDialog();
             this.Visible = true;
         }
+
 
 
 
@@ -85,7 +92,7 @@ namespace Livraria
                     cmd.Parameters.AddWithValue("@Email", email);
                     cmd.Parameters.AddWithValue("@Senha", password);
                     cmd.Parameters.AddWithValue("@Data", dateborn);
-                    
+
 
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -131,8 +138,7 @@ namespace Livraria
 
         private void TelaLogin_Load(object sender, EventArgs e)
         {
-            TextEmail2.Text = "E-mail";
-            TextEmail2.ForeColor = Color.Black;
+           
         }
 
         private void TextEmail2_TextChanged(object sender, EventArgs e)
@@ -298,6 +304,20 @@ namespace Livraria
                 Textname.Clear();
                 Textname.ForeColor = Color.Black;
             }
+        }
+
+        private void Cadastredate_ValueChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void btncontaad_Enter(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -48,6 +48,14 @@ namespace Livraria
 
         }
 
+        private void Txtwrite_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(Txtwrite.Text))
+            {
+                Txtwrite.Text = "Digite sua busca";
+                Txtwrite.ForeColor = Color.Black; // cor de placeholder
+            }
+        }
         private void Txtwrite_Enter(object sender, EventArgs e)
         {
             if (Txtwrite.Text == "Digite sua busca")
@@ -57,14 +65,6 @@ namespace Livraria
             }
         }
 
-        private void Txtwrite_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(Txtwrite.Text))
-            {
-                Txtwrite.Text = "Digite sua busca";
-                Txtwrite.ForeColor = Color.Black; // cor de placeholder
-            }
-        }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {

@@ -51,7 +51,7 @@
             this.TextEmail2.Location = new System.Drawing.Point(89, 196);
             this.TextEmail2.Name = "TextEmail2";
             this.TextEmail2.Size = new System.Drawing.Size(279, 20);
-            this.TextEmail2.TabIndex = 1;
+            this.TextEmail2.TabIndex = 2;
             this.TextEmail2.Text = "E-mail";
             this.TextEmail2.Click += new System.EventHandler(this.TextEmail2_Click);
             this.TextEmail2.TextChanged += new System.EventHandler(this.TextEmail2_TextChanged);
@@ -63,7 +63,7 @@
             this.TextPW3.Location = new System.Drawing.Point(89, 242);
             this.TextPW3.Name = "TextPW3";
             this.TextPW3.Size = new System.Drawing.Size(279, 20);
-            this.TextPW3.TabIndex = 2;
+            this.TextPW3.TabIndex = 3;
             this.TextPW3.Text = "Senha";
             this.TextPW3.Click += new System.EventHandler(this.TextPW3_Click);
             this.TextPW3.TextChanged += new System.EventHandler(this.TextPW3_TextChanged);
@@ -78,7 +78,7 @@
             this.label1.Location = new System.Drawing.Point(83, 82);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 29);
-            this.label1.TabIndex = 3;
+            this.label1.TabIndex = 0;
             // 
             // BntNext1
             // 
@@ -90,13 +90,14 @@
             this.BntNext1.TabIndex = 4;
             this.BntNext1.Text = "Próximo";
             this.BntNext1.UseVisualStyleBackColor = false;
+            this.BntNext1.Click += new System.EventHandler(this.BntNext1_Click_1);
             // 
             // TextCadastre2
             // 
             this.TextCadastre2.Location = new System.Drawing.Point(450, 152);
             this.TextCadastre2.Name = "TextCadastre2";
             this.TextCadastre2.Size = new System.Drawing.Size(287, 20);
-            this.TextCadastre2.TabIndex = 6;
+            this.TextCadastre2.TabIndex = 5;
             this.TextCadastre2.Text = "Nome";
             this.TextCadastre2.Click += new System.EventHandler(this.TextCadastre2_Click);
             this.TextCadastre2.Enter += new System.EventHandler(this.TextCadastre2_Enter);
@@ -107,7 +108,7 @@
             this.TextCadastre4.Location = new System.Drawing.Point(450, 196);
             this.TextCadastre4.Name = "TextCadastre4";
             this.TextCadastre4.Size = new System.Drawing.Size(287, 20);
-            this.TextCadastre4.TabIndex = 8;
+            this.TextCadastre4.TabIndex = 6;
             this.TextCadastre4.Text = "E-mail";
             this.TextCadastre4.Click += new System.EventHandler(this.TextCadastre4_Click);
             this.TextCadastre4.TextChanged += new System.EventHandler(this.TextCadastre4_TextChanged);
@@ -119,7 +120,7 @@
             this.TextPW2.Location = new System.Drawing.Point(450, 242);
             this.TextPW2.Name = "TextPW2";
             this.TextPW2.Size = new System.Drawing.Size(287, 20);
-            this.TextPW2.TabIndex = 9;
+            this.TextPW2.TabIndex = 7;
             this.TextPW2.Text = "Senha";
             this.TextPW2.Click += new System.EventHandler(this.TextPW2_Click);
             this.TextPW2.Enter += new System.EventHandler(this.TextPW2_Enter);
@@ -132,7 +133,7 @@
             this.NextCadastre2.Location = new System.Drawing.Point(662, 348);
             this.NextCadastre2.Name = "NextCadastre2";
             this.NextCadastre2.Size = new System.Drawing.Size(75, 23);
-            this.NextCadastre2.TabIndex = 10;
+            this.NextCadastre2.TabIndex = 9;
             this.NextCadastre2.Text = "Próximo";
             this.NextCadastre2.UseVisualStyleBackColor = false;
             this.NextCadastre2.Click += new System.EventHandler(this.NextCadastre2_Click);
@@ -146,13 +147,15 @@
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 15;
             this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // Cadastredate
             // 
             this.Cadastredate.Location = new System.Drawing.Point(450, 298);
             this.Cadastredate.Name = "Cadastredate";
             this.Cadastredate.Size = new System.Drawing.Size(287, 20);
-            this.Cadastredate.TabIndex = 16;
+            this.Cadastredate.TabIndex = 0;
+            this.Cadastredate.ValueChanged += new System.EventHandler(this.Cadastredate_ValueChanged);
             // 
             // datewrite
             // 
@@ -162,7 +165,7 @@
             this.datewrite.Location = new System.Drawing.Point(447, 279);
             this.datewrite.Name = "datewrite";
             this.datewrite.Size = new System.Drawing.Size(136, 16);
-            this.datewrite.TabIndex = 17;
+            this.datewrite.TabIndex = 8;
             this.datewrite.Text = "Data de Nascimento :";
             this.datewrite.Click += new System.EventHandler(this.datewrite_Click);
             // 
@@ -171,7 +174,7 @@
             this.Textname.Location = new System.Drawing.Point(88, 152);
             this.Textname.Name = "Textname";
             this.Textname.Size = new System.Drawing.Size(280, 20);
-            this.Textname.TabIndex = 18;
+            this.Textname.TabIndex = 1;
             this.Textname.Text = "Nome";
             this.Textname.Click += new System.EventHandler(this.Textname_Click);
             this.Textname.TextChanged += new System.EventHandler(this.Textname_TextChanged);
