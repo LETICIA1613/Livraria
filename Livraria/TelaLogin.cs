@@ -159,7 +159,9 @@ namespace Livraria
             if (TextPW3.Text == "Senha")
             {
                 TextPW3.Text = "";
+                TextPW3.UseSystemPasswordChar = true;
                 TextPW3.ForeColor = Color.Black; // cor normal do texto
+               
             }
         }
 
@@ -245,6 +247,7 @@ namespace Livraria
             if (TextPW2.Text == "Senha")
             {
                 TextPW2.Text = "";
+                TextPW2.UseSystemPasswordChar = true;
                 TextPW2.ForeColor = Color.Black; // cor normal do texto
             }
         }
