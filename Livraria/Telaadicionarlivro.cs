@@ -62,9 +62,9 @@ namespace Livraria
                 try
                 {
                     // 1) Inserir o livro e pegar o ID gerado
-                    string sqlLivro = @"INSERT INTO Livros (Nome, Editora, Preco, Foto)
+                    string sqlLivro = @"INSERT INTO Livros (Nome, Editora, Preco, Foto, Quantidade)
                                 OUTPUT INSERTED.Id
-                                VALUES (@Nome, @Editora, @Preco, @Foto)";
+                                VALUES (@Nome, @Editora, @Preco, @Foto, @Quantidade)";
                     int livroId;
                     using (SqlCommand cmd = new SqlCommand(sqlLivro, con, tx))
                     {
@@ -72,6 +72,7 @@ namespace Livraria
                         cmd.Parameters.AddWithValue("@Editora", TxtEditora.Text);
                         cmd.Parameters.AddWithValue("@Preco", decimal.Parse(TxtPreco.Text));
                         cmd.Parameters.AddWithValue("@Foto", (object)fotoBytes ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@Quantidade", int.Parse(Txtquant.Text));
                         livroId = (int)cmd.ExecuteScalar();
                     }
 

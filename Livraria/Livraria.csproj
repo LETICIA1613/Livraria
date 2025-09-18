@@ -90,6 +90,12 @@
     <Compile Include="Telaentradaadmin.Designer.cs">
       <DependentUpon>Telaentradaadmin.cs</DependentUpon>
     </Compile>
+    <Compile Include="TelaEscolhaAdmin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TelaEscolhaAdmin.Designer.cs">
+      <DependentUpon>TelaEscolhaAdmin.cs</DependentUpon>
+    </Compile>
     <Compile Include="TelaLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Telaentradaadmin.resx">
       <DependentUpon>Telaentradaadmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TelaEscolhaAdmin.resx">
+      <DependentUpon>TelaEscolhaAdmin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TelaLogin.resx">
       <DependentUpon>TelaLogin.cs</DependentUpon>
