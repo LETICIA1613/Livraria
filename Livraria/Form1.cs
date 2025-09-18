@@ -22,7 +22,7 @@ namespace Livraria
 
         }
 
-       
+     
 
         private void BtnCadastre0_Click(object sender, EventArgs e)
         {
@@ -39,5 +39,18 @@ namespace Livraria
             product.ShowDialog();
             this.Visible = true;
         }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+          
+            // Centralizar botão
+            BtnCadastre0.Left = (this.ClientSize.Width - BtnCadastre0.Width) / 2;
+            BtnCadastre0.Top = (this.ClientSize.Height - BtnCadastre0.Height) / 2;
+
+            // Se quiser manter o Admin logo abaixo:
+            Btnadmin.Left = (this.ClientSize.Width - Btnadmin.Width) / 2;
+            Btnadmin.Top = BtnCadastre0.Bottom + 10; // 10 px abaixo
+        
+    }
     }
 }

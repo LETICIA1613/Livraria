@@ -111,33 +111,37 @@ namespace Livraria
                            .ToArray();
                         foreach (string nomeGenero in generos)
                         {
-                            // 1) Pega Id do gênero (se existir)
                             int generoId;
-                            string sqlSelect = "SELECT Id FROM Generos WHERE Nome = @Nome";
-                            using (SqlCommand cmdSel = new SqlCommand(sqlSelect, con, tx))
+
+                            // 1) Verificar se o gênero já existe
+                            string sqlBusca = "SELECT Id FROM Generos WHERE Nome = @Nome";
+                            using (SqlCommand cmdBusca = new SqlCommand(sqlBusca, con, tx))
                             {
-                                cmdSel.Parameters.AddWithValue("@Nome", nomeGenero);
-                                object result = cmdSel.ExecuteScalar();
+                                cmdBusca.Parameters.AddWithValue("@Nome", nomeGenero);
+                                object result = cmdBusca.ExecuteScalar();
                                 if (result != null)
                                 {
                                     generoId = Convert.ToInt32(result);
                                 }
                                 else
                                 {
-                                    // 2) Insere gênero e pega o Id
-                                    string sqlInserirGenero = "INSERT INTO Generos (Nome) OUTPUT INSERTED.Id VALUES (@Nome)";
-                                    using (SqlCommand cmdIns = new SqlCommand(sqlInserirGenero, con, tx))
+                                    // 2) Inserir gênero novo e pegar o Id
+                                    string sqlInsertGenero = "INSERT INTO Generos (Nome) OUTPUT INSERTED.Id VALUES (@Nome)";
+                                    using (SqlCommand cmdInsertGen = new SqlCommand(sqlInsertGenero, con, tx))
                                     {
-                                        cmdIns.Parameters.AddWithValue("@Nome", nomeGenero);
-                                        generoId = (int)cmdIns.ExecuteScalar();
+                                        cmdInsertGen.Parameters.AddWithValue("@Nome", nomeGenero);
+                                        generoId = (int)cmdInsertGen.ExecuteScalar();
                                     }
                                 }
                             }
 
-                            // 3) Insere relação (evita duplicata)
-                            string sqlRel = @"IF NOT EXISTS (SELECT 1 FROM LivroGeneros WHERE LivroId=@LivroId AND GeneroId=@GeneroId)
-                            INSERT INTO LivroGeneros (LivroId, GeneroId) VALUES (@LivroId, @GeneroId)";
-                            using (SqlCommand cmdRel = new SqlCommand(sqlRel, con, tx))
+                            // 3) Criar a relação livro ↔ gênero (evitando duplicata)
+                            string sqlRelacao = @"IF NOT EXISTS (
+                             SELECT 1 FROM LivroGeneros 
+                             WHERE LivroId = @LivroId AND GeneroId = @GeneroId)
+                          INSERT INTO LivroGeneros (LivroId, GeneroId) 
+                          VALUES (@LivroId, @GeneroId)";
+                            using (SqlCommand cmdRel = new SqlCommand(sqlRelacao, con, tx))
                             {
                                 cmdRel.Parameters.AddWithValue("@LivroId", livroId);
                                 cmdRel.Parameters.AddWithValue("@GeneroId", generoId);
@@ -145,8 +149,7 @@ namespace Livraria
                             }
                         }
                     }
-
-                    tx.Commit();
+                        tx.Commit();
                     MessageBox.Show("Livro e autores cadastrados com sucesso!");
                 }
                 catch (Exception ex)

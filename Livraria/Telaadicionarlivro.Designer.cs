@@ -38,8 +38,6 @@
             this.Btnimage = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.TxtGenero = new System.Windows.Forms.TextBox();
-            this.ListGenero = new System.Windows.Forms.ListBox();
-            this.ComboGenero = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.Picturebook)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -116,34 +114,16 @@
             // 
             // TxtGenero
             // 
-            this.TxtGenero.Location = new System.Drawing.Point(520, 320);
+            this.TxtGenero.Location = new System.Drawing.Point(175, 357);
             this.TxtGenero.Name = "TxtGenero";
             this.TxtGenero.Size = new System.Drawing.Size(185, 20);
             this.TxtGenero.TabIndex = 10;
-            // 
-            // ListGenero
-            // 
-            this.ListGenero.FormattingEnabled = true;
-            this.ListGenero.Location = new System.Drawing.Point(536, 179);
-            this.ListGenero.Name = "ListGenero";
-            this.ListGenero.Size = new System.Drawing.Size(185, 17);
-            this.ListGenero.TabIndex = 11;
-            // 
-            // ComboGenero
-            // 
-            this.ComboGenero.FormattingEnabled = true;
-            this.ComboGenero.Location = new System.Drawing.Point(175, 360);
-            this.ComboGenero.Name = "ComboGenero";
-            this.ComboGenero.Size = new System.Drawing.Size(185, 21);
-            this.ComboGenero.TabIndex = 12;
             // 
             // Telaadicionarlivro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.ComboGenero);
-            this.Controls.Add(this.ListGenero);
             this.Controls.Add(this.TxtGenero);
             this.Controls.Add(this.Btnadd);
             this.Controls.Add(this.TxtPreco);
@@ -172,7 +152,5 @@
         private System.Windows.Forms.Button Btnimage;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox TxtGenero;
-        private System.Windows.Forms.ListBox ListGenero;
-        private System.Windows.Forms.ComboBox ComboGenero;
     }
 }

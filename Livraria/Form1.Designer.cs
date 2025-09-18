@@ -50,6 +50,9 @@
             // 
             // imagementrar
             // 
+            this.imagementrar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.imagementrar.Image = ((System.Drawing.Image)(resources.GetObject("imagementrar.Image")));
             this.imagementrar.Location = new System.Drawing.Point(-8, -2);
             this.imagementrar.Name = "imagementrar";
@@ -83,6 +86,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.imagementrar)).EndInit();
             this.ResumeLayout(false);
 
