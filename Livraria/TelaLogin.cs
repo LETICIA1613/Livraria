@@ -313,11 +313,6 @@ namespace Livraria
         {
         }
 
-        private void btncontaad_Enter(object sender, EventArgs e)
-        {
-           
-        }
-
         private void pictureBox2_Click(object sender, EventArgs e)
         {
 

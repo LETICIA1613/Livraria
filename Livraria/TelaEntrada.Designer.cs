@@ -51,7 +51,7 @@
             this.Txtwrite.Location = new System.Drawing.Point(478, 6);
             this.Txtwrite.Name = "Txtwrite";
             this.Txtwrite.Size = new System.Drawing.Size(211, 20);
-            this.Txtwrite.TabIndex = 0;
+            this.Txtwrite.TabIndex = 9;
             this.Txtwrite.Text = "Digite sua busca";
             this.Txtwrite.Click += new System.EventHandler(this.Txtwrite_Click);
             this.Txtwrite.TextChanged += new System.EventHandler(this.Txtwrite_TextChanged);
@@ -85,7 +85,7 @@
             this.BtnRomance.Location = new System.Drawing.Point(37, 99);
             this.BtnRomance.Name = "BtnRomance";
             this.BtnRomance.Size = new System.Drawing.Size(119, 23);
-            this.BtnRomance.TabIndex = 3;
+            this.BtnRomance.TabIndex = 0;
             this.BtnRomance.Text = "Romance";
             this.BtnRomance.UseVisualStyleBackColor = false;
             // 
@@ -96,7 +96,7 @@
             this.Btnfantasy.Location = new System.Drawing.Point(37, 128);
             this.Btnfantasy.Name = "Btnfantasy";
             this.Btnfantasy.Size = new System.Drawing.Size(119, 23);
-            this.Btnfantasy.TabIndex = 4;
+            this.Btnfantasy.TabIndex = 1;
             this.Btnfantasy.Text = "Fantasia";
             this.Btnfantasy.UseVisualStyleBackColor = false;
             this.Btnfantasy.Click += new System.EventHandler(this.Btnfantasy_Click);
@@ -108,7 +108,7 @@
             this.Btnterror.Location = new System.Drawing.Point(37, 157);
             this.Btnterror.Name = "Btnterror";
             this.Btnterror.Size = new System.Drawing.Size(119, 23);
-            this.Btnterror.TabIndex = 5;
+            this.Btnterror.TabIndex = 2;
             this.Btnterror.Text = "Terror";
             this.Btnterror.UseVisualStyleBackColor = false;
             // 
@@ -119,7 +119,7 @@
             this.Btnselfhelp.Location = new System.Drawing.Point(37, 186);
             this.Btnselfhelp.Name = "Btnselfhelp";
             this.Btnselfhelp.Size = new System.Drawing.Size(119, 23);
-            this.Btnselfhelp.TabIndex = 6;
+            this.Btnselfhelp.TabIndex = 3;
             this.Btnselfhelp.Text = "Autoajuda";
             this.Btnselfhelp.UseVisualStyleBackColor = false;
             // 
@@ -130,7 +130,7 @@
             this.Btnsciencefiction.Location = new System.Drawing.Point(37, 215);
             this.Btnsciencefiction.Name = "Btnsciencefiction";
             this.Btnsciencefiction.Size = new System.Drawing.Size(119, 23);
-            this.Btnsciencefiction.TabIndex = 7;
+            this.Btnsciencefiction.TabIndex = 4;
             this.Btnsciencefiction.Text = "Ficção Científica";
             this.Btnsciencefiction.UseVisualStyleBackColor = false;
             this.Btnsciencefiction.Click += new System.EventHandler(this.Btnsciencefiction_Click);
@@ -142,7 +142,7 @@
             this.BtnComedy.Location = new System.Drawing.Point(37, 244);
             this.BtnComedy.Name = "BtnComedy";
             this.BtnComedy.Size = new System.Drawing.Size(119, 23);
-            this.BtnComedy.TabIndex = 8;
+            this.BtnComedy.TabIndex = 5;
             this.BtnComedy.Text = "Comédia";
             this.BtnComedy.UseVisualStyleBackColor = false;
             // 
@@ -153,7 +153,7 @@
             this.Btnthriller.Location = new System.Drawing.Point(37, 273);
             this.Btnthriller.Name = "Btnthriller";
             this.Btnthriller.Size = new System.Drawing.Size(119, 23);
-            this.Btnthriller.TabIndex = 9;
+            this.Btnthriller.TabIndex = 6;
             this.Btnthriller.Text = "Suspense";
             this.Btnthriller.UseVisualStyleBackColor = false;
             // 
@@ -164,7 +164,7 @@
             this.button8.Location = new System.Drawing.Point(37, 302);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(119, 23);
-            this.button8.TabIndex = 10;
+            this.button8.TabIndex = 7;
             this.button8.Text = "Utopia";
             this.button8.UseVisualStyleBackColor = false;
             // 
@@ -175,17 +175,18 @@
             this.Btnmenu.Location = new System.Drawing.Point(614, 6);
             this.Btnmenu.Name = "Btnmenu";
             this.Btnmenu.Size = new System.Drawing.Size(75, 20);
-            this.Btnmenu.TabIndex = 11;
+            this.Btnmenu.TabIndex = 10;
             this.Btnmenu.Text = "Buscar";
             this.Btnmenu.UseVisualStyleBackColor = false;
             this.Btnmenu.Click += new System.EventHandler(this.Btnmenu_Click);
             // 
             // pictureBox1
             // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(-1, -86);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(805, 624);
+            this.pictureBox1.Size = new System.Drawing.Size(800, 450);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 12;
             this.pictureBox1.TabStop = false;
@@ -198,7 +199,7 @@
             this.Btnreligious.Location = new System.Drawing.Point(37, 331);
             this.Btnreligious.Name = "Btnreligious";
             this.Btnreligious.Size = new System.Drawing.Size(119, 23);
-            this.Btnreligious.TabIndex = 13;
+            this.Btnreligious.TabIndex = 8;
             this.Btnreligious.Text = "Religioso";
             this.Btnreligious.UseVisualStyleBackColor = false;
             // 
