@@ -34,19 +34,17 @@ namespace Livraria
 
             try
             {
-                string connectionString = @"Data Source=sqlexpress;Initial Catalog=CJ3027481PR2;User Id=aluno;Password=aluno;";
+                string connectionString = @"Data Source=DESKTOP-3DSR1N8\SQLEXPRESS;Initial Catalog=CJ3027481PR2;User Id=sa;Password=leticia;";
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    string query = "INSERT INTO USUARIO (NOME, EMAIL, SENHA) VALUES (@Nome, @Email, @Senha)";
+                    string query = "INSERT INTO CLIENTES (NOME, EMAIL, SENHA) VALUES (@Nome, @Email, @Senha)";
                     SqlCommand cmd = new SqlCommand(query, conn);
 
                     cmd.Parameters.AddWithValue("@Nome", name);
                     cmd.Parameters.AddWithValue("@Email", email);
                     cmd.Parameters.AddWithValue("@Senha", password);
-
-
-
+                  
                     conn.Open();
                     cmd.ExecuteNonQuery();
                     conn.Close();
@@ -81,17 +79,21 @@ namespace Livraria
 
             try
             {
-                string connectionString = @"Data Source=sqlexpress;Initial Catalog=CJ3027481PR2;User Id=aluno;Passwordaluno;";
+                string connectionString = @"Data Source=DESKTOP-3DSR1N8\SQLEXPRESS;Initial Catalog=CJ30274B1PR2;Integrated Security=True;";
+
+
+                
 
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    string query = "INSERT INTO USUARIO (NOME, EMAIL, SENHA, Data de Nascimento) VALUES (@Nome, @Email, @Senha, @Data)";
+                    string query = "INSERT INTO CLIENTES (NOME, EMAIL, SENHA, [Data de Nascimento]) VALUES (@Nome, @Email, @Senha, @Data)";
                     SqlCommand cmd = new SqlCommand(query, conn);
 
                     cmd.Parameters.AddWithValue("@Nome", name);
                     cmd.Parameters.AddWithValue("@Email", email);
                     cmd.Parameters.AddWithValue("@Senha", password);
                     cmd.Parameters.AddWithValue("@Data", dateborn);
+                   
 
 
                     conn.Open();

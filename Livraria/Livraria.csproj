@@ -72,11 +72,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Sessao.cs" />
     <Compile Include="Telaadicionarlivro.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Telaadicionarlivro.Designer.cs">
       <DependentUpon>Telaadicionarlivro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TelaCadastro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TelaCadastro.Designer.cs">
+      <DependentUpon>TelaCadastro.cs</DependentUpon>
     </Compile>
     <Compile Include="TelaEntrada.cs">
       <SubType>Form</SubType>
@@ -115,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Telaadicionarlivro.resx">
       <DependentUpon>Telaadicionarlivro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TelaCadastro.resx">
+      <DependentUpon>TelaCadastro.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TelaEntrada.resx">
       <DependentUpon>TelaEntrada.cs</DependentUpon>
