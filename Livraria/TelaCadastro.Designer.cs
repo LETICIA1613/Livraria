@@ -34,6 +34,7 @@
             this.DateNasci = new System.Windows.Forms.DateTimePicker();
             this.BtnConfirmar = new System.Windows.Forms.Button();
             this.TxtPWCadastre2 = new System.Windows.Forms.TextBox();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // TxtNameCadastre
@@ -59,13 +60,15 @@
             this.TxtPWCadastre.Size = new System.Drawing.Size(100, 20);
             this.TxtPWCadastre.TabIndex = 2;
             this.TxtPWCadastre.Text = "Senha";
+            this.TxtPWCadastre.Enter += new System.EventHandler(this.TxtPWCadastre_Enter);
+            this.TxtPWCadastre.Leave += new System.EventHandler(this.TxtPWCadastre_Leave);
             // 
             // DateNasci
             // 
             this.DateNasci.Location = new System.Drawing.Point(374, 240);
             this.DateNasci.Name = "DateNasci";
             this.DateNasci.Size = new System.Drawing.Size(247, 20);
-            this.DateNasci.TabIndex = 3;
+            this.DateNasci.TabIndex = 4;
             this.DateNasci.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // BtnConfirmar
@@ -73,7 +76,7 @@
             this.BtnConfirmar.Location = new System.Drawing.Point(640, 300);
             this.BtnConfirmar.Name = "BtnConfirmar";
             this.BtnConfirmar.Size = new System.Drawing.Size(75, 23);
-            this.BtnConfirmar.TabIndex = 4;
+            this.BtnConfirmar.TabIndex = 6;
             this.BtnConfirmar.Text = "Confirmar";
             this.BtnConfirmar.UseVisualStyleBackColor = true;
             this.BtnConfirmar.Click += new System.EventHandler(this.BtnConfirmar_Click);
@@ -83,14 +86,28 @@
             this.TxtPWCadastre2.Location = new System.Drawing.Point(503, 188);
             this.TxtPWCadastre2.Name = "TxtPWCadastre2";
             this.TxtPWCadastre2.Size = new System.Drawing.Size(100, 20);
-            this.TxtPWCadastre2.TabIndex = 5;
-            this.TxtPWCadastre2.Text = "Senha";
+            this.TxtPWCadastre2.TabIndex = 3;
+            this.TxtPWCadastre2.Text = "Confirmar Senha";
+            this.TxtPWCadastre2.Enter += new System.EventHandler(this.TxtPWCadastre2_Enter);
+            this.TxtPWCadastre2.Leave += new System.EventHandler(this.TxtPWCadastre2_Leave);
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(371, 263);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(112, 13);
+            this.linkLabel1.TabIndex = 5;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Já tenho um cadastro!";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // TelaCadastro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.TxtPWCadastre2);
             this.Controls.Add(this.BtnConfirmar);
             this.Controls.Add(this.DateNasci);
@@ -99,6 +116,7 @@
             this.Controls.Add(this.TxtNameCadastre);
             this.Name = "TelaCadastro";
             this.Text = "TelaCadastro";
+            this.Load += new System.EventHandler(this.TelaCadastro_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -112,5 +130,6 @@
         private System.Windows.Forms.DateTimePicker DateNasci;
         private System.Windows.Forms.Button BtnConfirmar;
         private System.Windows.Forms.TextBox TxtPWCadastre2;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }

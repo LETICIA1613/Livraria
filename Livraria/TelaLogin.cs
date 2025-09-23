@@ -17,101 +17,49 @@ namespace Livraria
 {
     public partial class TelaLogin : Form
     {
+       
+
         public TelaLogin()
         {
             InitializeComponent();
         }
-        
 
+        private string connectionString = @"Data Source=sqlexpress;Initial Catalog=CJ3027481PR2;User Id=aluno;Password=aluno;";
 
         private void BntNext1_Click_1(object sender, EventArgs e)
         {
-            string name = Textname.Text;
             string email = TextEmail2.Text;
-            string password = TextPW3.Text;
+            string senha = TextPW3.Text;
+            string senhaHash = Seguranca.HashSenha(senha);
+            
 
-            MessageBox.Show($"Nome: {name}\nEmail: {email}\nSenha: {password}", "Dados Capturados");
-
-            try
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string connectionString = @"Data Source=DESKTOP-3DSR1N8\SQLEXPRESS;Initial Catalog=CJ3027481PR2;User Id=sa;Password=leticia;";
+                con.Open();
+                SqlCommand cmd = new SqlCommand("SELECT Nome, DataNascimento FROM Usuarios WHERE Email=@e AND SenhaHash=@s", con);
+                cmd.Parameters.AddWithValue("@e", email);
+                cmd.Parameters.AddWithValue("@s", senhaHash);
 
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
                 {
-                    string query = "INSERT INTO CLIENTES (NOME, EMAIL, SENHA) VALUES (@Nome, @Email, @Senha)";
-                    SqlCommand cmd = new SqlCommand(query, conn);
+                    string nome = reader.GetString(0);
+                    DateTime nascimento = reader.GetDateTime(1);
 
-                    cmd.Parameters.AddWithValue("@Nome", name);
-                    cmd.Parameters.AddWithValue("@Email", email);
-                    cmd.Parameters.AddWithValue("@Senha", password);
-                  
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                    conn.Close();
+                    Sessao.UsuarioLogado = new Usuario { Nome = nome, Email = email, DataNascimento = nascimento };
+                    new TelaEntrada().Show();
+                    this.Close();
                 }
-
-                MessageBox.Show("Usuário cadastrado com sucesso!");
-
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro ao salvar no banco: " + ex.Message);
-            }
-
-            TelaEntrada product = new TelaEntrada();
-            this.Visible = false;
-            product.ShowDialog();
-            this.Visible = true;
-        }
-
-
-
-
-        private void NextCadastre2_Click(object sender, EventArgs e)
-        {
-            string name = TextCadastre2.Text;
-            string email = TextEmail2.Text;
-            string password = TextPW3.Text;
-            string dateborn = Cadastredate.Value.ToString("yyyy-MM-dd");
-
-            MessageBox.Show($"Nome: {name}\nEmail: {email}\nSenha: {password}\nData de Nascimento: {dateborn}", "Dados Capturados");
-
-            try
-            {
-                string connectionString = @"Data Source=DESKTOP-3DSR1N8\SQLEXPRESS;Initial Catalog=CJ30274B1PR2;Integrated Security=True;";
-
-
-                
-
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                else
                 {
-                    string query = "INSERT INTO CLIENTES (NOME, EMAIL, SENHA, [Data de Nascimento]) VALUES (@Nome, @Email, @Senha, @Data)";
-                    SqlCommand cmd = new SqlCommand(query, conn);
+                    MessageBox.Show("E-mail ou senha incorretos!");
 
-                    cmd.Parameters.AddWithValue("@Nome", name);
-                    cmd.Parameters.AddWithValue("@Email", email);
-                    cmd.Parameters.AddWithValue("@Senha", password);
-                    cmd.Parameters.AddWithValue("@Data", dateborn);
-                   
-
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                    conn.Close();
+                    TelaEntrada product = new TelaEntrada();
+                    this.Visible = false;
+                    product.ShowDialog();
+                    this.Visible = true;
                 }
-
-                MessageBox.Show("Usuário cadastrado com sucesso!");
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro ao salvar no banco: " + ex.Message);
-            }
-
-            TelaEntrada product = new TelaEntrada();
-            this.Visible = false;
-            product.ShowDialog();
-            this.Visible = true;
         }
 
         private void TextPW3_TextChanged(object sender, EventArgs e)
@@ -185,139 +133,21 @@ namespace Livraria
             }
         }
 
-        private void TextCadastre2_Enter(object sender, EventArgs e)
-        {
-            if (TextCadastre2.Text == "Nome")
-            {
-                TextCadastre2.Text = "";
-                TextCadastre2.ForeColor = Color.Black; // cor normal do texto
-            }
-        }
-
-        private void TextCadastre2_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(TextCadastre2.Text))
-            {
-                TextCadastre2.Text = "Nome";
-                TextCadastre2.ForeColor = Color.Black; // cor de placeholder
-            }
-        }
-
-        private void TextCadastre2_Click(object sender, EventArgs e)
-        {
-            if (TextCadastre2.Text == "Nome")
-            {
-                TextCadastre2.Clear();
-                TextCadastre2.ForeColor = Color.Black;
-            }
-        }
-
-        private void TextCadastre4_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TextCadastre4_Enter(object sender, EventArgs e)
-        {
-            if (TextCadastre4.Text == "E-mail")
-            {
-                TextCadastre4.Text = "";
-                TextCadastre4.ForeColor = Color.Black; // cor normal do texto
-            }
-        }
-
-        private void TextCadastre4_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(TextCadastre4.Text))
-            {
-                TextCadastre4.Text = "E-mail";
-                TextCadastre4.ForeColor = Color.Black; // cor de placeholder
-            }
-        }
-
-        private void TextCadastre4_Click(object sender, EventArgs e)
-        {
-            if (TextCadastre4.Text == "E-mail")
-            {
-                TextCadastre4.Clear();
-                TextCadastre4.ForeColor = Color.Black;
-            }
-        }
-
-        private void TextPW2_Enter(object sender, EventArgs e)
-        {
-            if (TextPW2.Text == "Senha")
-            {
-                TextPW2.Text = "";
-                TextPW2.UseSystemPasswordChar = true;
-                TextPW2.ForeColor = Color.Black; // cor normal do texto
-            }
-        }
-
-        private void TextPW2_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(TextPW2.Text))
-            {
-                TextPW2.Text = "Senha";
-                TextPW2.ForeColor = Color.Black; // cor de placeholder
-            }
-        }
-
-        private void TextPW2_Click(object sender, EventArgs e)
-        {
-            if (TextPW2.Text == "Senha")
-            {
-                TextPW2.Clear();
-                TextPW2.ForeColor = Color.Black;
-            }
-        }
-
         
 
-        private void datewrite_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void Textname_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Textname_Enter(object sender, EventArgs e)
-        {
-            if (Textname.Text == "Nome")
-            {
-                Textname.Text = "";
-                Textname.ForeColor = Color.Black; // cor normal do texto
-            }
-        }
-
-        private void Textname_Leave(object sender, EventArgs e)
-        { 
-            if (string.IsNullOrWhiteSpace(Textname.Text))
-            {
-                Textname.Text = "Nome";
-                Textname.ForeColor = Color.Black; // cor de placeholder
-            }
-        }
-
-        private void Textname_Click(object sender, EventArgs e)
-        {
-            if (Textname.Text == "Nome")
-            {
-                Textname.Clear();
-                Textname.ForeColor = Color.Black;
-            }
-        }
-
-        private void Cadastredate_ValueChanged(object sender, EventArgs e)
-        {
-        }
-
+       
         private void pictureBox2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            TelaCadastro product = new TelaCadastro();
+            this.Visible = false;
+            product.ShowDialog();
+            this.Visible = true;
         }
     }
 }

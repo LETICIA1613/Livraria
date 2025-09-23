@@ -15,14 +15,16 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Livraria
 {
-    public partial class TelaCadastro: Form
+    public partial class TelaCadastro : Form
     {
-        private string connectionString = @"Data Source=DESKTOP-3DSR1N8\SQLEXPRESS;Initial Catalog=CJ3027481PR2;Integrated Security=True";
+        private string connectionString = @"Data Source=sqlexpress;Initial Catalog=CJ3027481PR2;User Id=aluno;Password=aluno;";
 
 
         public TelaCadastro()
         {
             InitializeComponent();
+
+
         }
 
 
@@ -34,28 +36,7 @@ namespace Livraria
             string senha = TxtPWCadastre.Text;
             string confirmarSenha = TxtPWCadastre2.Text;
 
-            try
-            {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    con.Open();
-                    using (SqlCommand cmd = new SqlCommand(
-                        "INSERT INTO Usuarios (Nome, Email, DataNascimento, Senha) " +
-                        "VALUES ('Teste','teste@teste.com','2000-01-01','1234')", con))
-                    {
-                        int linhas = cmd.ExecuteNonQuery();
-                        MessageBox.Show("Linhas inseridas: " + linhas);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro: " + ex.Message);
-            }
-
             // ===== Validações =====
-
-            // Campos obrigatórios
             if (string.IsNullOrEmpty(nome) ||
                 string.IsNullOrEmpty(email) ||
                 string.IsNullOrEmpty(senha) ||
@@ -66,7 +47,6 @@ namespace Livraria
                 return;
             }
 
-            // Senhas iguais
             if (senha != confirmarSenha)
             {
                 MessageBox.Show("As senhas não coincidem.", "Aviso",
@@ -74,7 +54,6 @@ namespace Livraria
                 return;
             }
 
-            // Formato de e-mail simples (opcional)
             if (!Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
             {
                 MessageBox.Show("E-mail inválido.", "Aviso",
@@ -82,7 +61,6 @@ namespace Livraria
                 return;
             }
 
-            // Idade mínima opcional (ex.: 12 anos)
             int idade = DateTime.Today.Year - dataNascimento.Year;
             if (dataNascimento.Date > DateTime.Today.AddYears(-idade)) idade--;
 
@@ -93,60 +71,90 @@ namespace Livraria
                 return;
             }
 
-            // Se chegou até aqui, está tudo validado
-            MessageBox.Show(
-                $"Cadastro validado!\n\n" +
-                $"Nome: {nome}\n" +
-                $"E-mail: {email}\n" +
-                $"Nascimento: {dataNascimento:dd/MM/yyyy}\n" +
-                $"Idade calculada: {idade} anos",
-                "Sucesso",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            );
+            // ===== Grava no banco apenas se passou nas validações =====
+            string query = @"INSERT INTO Usuarios
+                             (Nome, Email, DataNascimento, SenhaHash)
+                             VALUES (@Nome, @Email, @DataNascimento, @SenhaHash)";
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@Nome", nome);
+                    cmd.Parameters.AddWithValue("@Email", email);
+                    cmd.Parameters.AddWithValue("@DataNascimento", dataNascimento);
+                    cmd.Parameters.AddWithValue("@SenhaHash", senha);
+
+                    con.Open();
+                    int linhas = cmd.ExecuteNonQuery();
+                    MessageBox.Show($"Cadastro inserido com sucesso! Linhas afetadas: {linhas}");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao inserir no banco: " + ex.Message);
+
+            }
+            Sessao.UsuarioLogado = new Usuario { Nome = nome, Email = email, DataNascimento = dataNascimento };
+            new TelaLogin().Show();
+            this.Close();
+
+            
         }
-
-
-    /*   if (count > 0)
-       {
-           MessageBox.Show("E-mail já cadastrado!");
-           return;
-       }
-
-       // Insere novo usuário
-       SqlCommand cmd = new SqlCommand("INSERT INTO Usuarios (Nome, Email, DataNascimento, SenhaHash) VALUES (@n, @e, @d, @s)", con);
-       cmd.Parameters.AddWithValue("@n", nome);
-       cmd.Parameters.AddWithValue("@e", email);
-       cmd.Parameters.AddWithValue("@d", nascimento);
-       cmd.Parameters.AddWithValue("@s", senhaHash);
-       cmd.ExecuteNonQuery();
-
-       MessageBox.Show("Cadastro realizado com sucesso!");
-
-       // Login automático
-       Sessao.UsuarioLogado = new Usuario
-       {
-           Nome = nome,
-           Email = email,
-           DataNascimento = nascimento
-       };
-
-       new TelaEntrada().Show();
-       this.Close();
-   }
-   catch (Exception ex)
-   {
-       MessageBox.Show("Erro ao cadastrar: " + ex.Message);
-   }
-}*/
-
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
 
         }
 
+        private void TxtPWCadastre_Enter(object sender, EventArgs e)
+        {
+            if (TxtPWCadastre.Text == "Senha")
+            {
+                TxtPWCadastre.Text = "";
+                TxtPWCadastre.UseSystemPasswordChar = true; // ativa bolinhas
+                TxtPWCadastre.ForeColor = Color.Black;
+            }
+        }
 
+        private void TxtPWCadastre_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(TxtPWCadastre.Text))
+            {
+                TxtPWCadastre.Text = "Senha";
+                TxtPWCadastre.ForeColor = Color.Black; // cor de placeholder
+            }
+        }
+
+        private void TxtPWCadastre2_Enter(object sender, EventArgs e)
+        {
+            if (TxtPWCadastre2.Text == "Confirmar Senha")
+            {
+                TxtPWCadastre2.Text = "";
+                TxtPWCadastre2.UseSystemPasswordChar = true; // ativa bolinhas
+                TxtPWCadastre2.ForeColor = Color.Black;
+            }
+        }
+
+        private void TxtPWCadastre2_Leave(object sender, EventArgs e)
+        {
+            TxtPWCadastre2.Text = "Senha";
+            TxtPWCadastre2.ForeColor = Color.Black; // cor de placeholder
+        }
+
+        private void TelaCadastro_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            TelaLogin product = new TelaLogin();
+            this.Visible = false;
+            product.ShowDialog();
+            this.Visible = true;
+        }
     }
 
 }

@@ -20,6 +20,7 @@ namespace Livraria
         {
             InitializeComponent();
         }
+        
         string sql = "INSERT INTO LivroGeneros (LivroId, GeneroId) VALUES (@LivroId, @GeneroId)";
         string cs = @"Data Source=.\SQLEXPRESS;Initial Catalog=CJ3027481PR2;Integrated Security=True";
      
@@ -159,6 +160,11 @@ namespace Livraria
                     MessageBox.Show("Erro: " + ex.Message);
                 }
             }
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
         }
     }
     }
