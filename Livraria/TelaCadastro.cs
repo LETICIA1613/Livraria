@@ -89,6 +89,11 @@ namespace Livraria
                     con.Open();
                     int linhas = cmd.ExecuteNonQuery();
                     MessageBox.Show($"Cadastro inserido com sucesso! Linhas afetadas: {linhas}");
+                    TelaLogin product = new TelaLogin();
+                    this.Visible = false;
+                    product.ShowDialog();
+                    this.Visible = true;
+
                 }
             }
             catch (Exception ex)
@@ -99,8 +104,6 @@ namespace Livraria
             Sessao.UsuarioLogado = new Usuario { Nome = nome, Email = email, DataNascimento = dataNascimento };
             new TelaLogin().Show();
             this.Close();
-
-            
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
@@ -117,6 +120,7 @@ namespace Livraria
                 TxtPWCadastre.ForeColor = Color.Black;
             }
         }
+
 
         private void TxtPWCadastre_Leave(object sender, EventArgs e)
         {
@@ -139,8 +143,6 @@ namespace Livraria
 
         private void TxtPWCadastre2_Leave(object sender, EventArgs e)
         {
-            TxtPWCadastre2.Text = "Senha";
-            TxtPWCadastre2.ForeColor = Color.Black; // cor de placeholder
         }
 
         private void TelaCadastro_Load(object sender, EventArgs e)
@@ -154,6 +156,48 @@ namespace Livraria
             this.Visible = false;
             product.ShowDialog();
             this.Visible = true;
+        }
+
+        private void TxtEmailCadastre_Enter(object sender, EventArgs e)
+        {
+            if (TxtEmailCadastre.Text == "E-mail")
+            {
+                TxtEmailCadastre.Text = "";
+                TxtEmailCadastre.ForeColor = Color.Black; // cor normal do texto
+            }
+        }
+
+        private void TxtEmailCadastre_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(TxtEmailCadastre.Text))
+            {
+                TxtEmailCadastre.Text = "E-mail";
+                TxtEmailCadastre.ForeColor = Color.Black; // cor de placeholder
+            }
+        }
+
+
+        private void TxtNameCadastre_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TxtNameCadastre_Enter(object sender, EventArgs e)
+        {
+            if (TxtNameCadastre.Text == "Nome")
+            {
+                TxtNameCadastre.Text = "";
+                TxtNameCadastre.ForeColor = Color.Black; // cor normal do texto
+            }
+        }
+
+        private void TxtNameCadastre_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(TxtNameCadastre.Text))
+            {
+                TxtNameCadastre.Text = "Nome";
+                TxtNameCadastre.ForeColor = Color.Black; // cor de placeholder
+            }
         }
     }
 

@@ -28,7 +28,7 @@ namespace Livraria
 
         private void BntNext1_Click_1(object sender, EventArgs e)
         {
-            string email = TextEmail2.Text;
+            string email = TextEmail2.Text.Trim();
             string senha = TextPW3.Text;
             string senhaHash = Seguranca.HashSenha(senha);
             
@@ -53,11 +53,6 @@ namespace Livraria
                 else
                 {
                     MessageBox.Show("E-mail ou senha incorretos!");
-
-                    TelaEntrada product = new TelaEntrada();
-                    this.Visible = false;
-                    product.ShowDialog();
-                    this.Visible = true;
                 }
             }
         }

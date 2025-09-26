@@ -42,23 +42,28 @@
             this.TxtNameCadastre.Location = new System.Drawing.Point(374, 101);
             this.TxtNameCadastre.Name = "TxtNameCadastre";
             this.TxtNameCadastre.Size = new System.Drawing.Size(100, 20);
-            this.TxtNameCadastre.TabIndex = 0;
+            this.TxtNameCadastre.TabIndex = 1;
             this.TxtNameCadastre.Text = "Nome";
+            this.TxtNameCadastre.TextChanged += new System.EventHandler(this.TxtNameCadastre_TextChanged);
+            this.TxtNameCadastre.Enter += new System.EventHandler(this.TxtNameCadastre_Enter);
+            this.TxtNameCadastre.Leave += new System.EventHandler(this.TxtNameCadastre_Leave);
             // 
             // TxtEmailCadastre
             // 
             this.TxtEmailCadastre.Location = new System.Drawing.Point(374, 147);
             this.TxtEmailCadastre.Name = "TxtEmailCadastre";
             this.TxtEmailCadastre.Size = new System.Drawing.Size(100, 20);
-            this.TxtEmailCadastre.TabIndex = 1;
+            this.TxtEmailCadastre.TabIndex = 2;
             this.TxtEmailCadastre.Text = "E-mail";
+            this.TxtEmailCadastre.Enter += new System.EventHandler(this.TxtEmailCadastre_Enter);
+            this.TxtEmailCadastre.Leave += new System.EventHandler(this.TxtEmailCadastre_Leave);
             // 
             // TxtPWCadastre
             // 
             this.TxtPWCadastre.Location = new System.Drawing.Point(374, 188);
             this.TxtPWCadastre.Name = "TxtPWCadastre";
             this.TxtPWCadastre.Size = new System.Drawing.Size(100, 20);
-            this.TxtPWCadastre.TabIndex = 2;
+            this.TxtPWCadastre.TabIndex = 3;
             this.TxtPWCadastre.Text = "Senha";
             this.TxtPWCadastre.Enter += new System.EventHandler(this.TxtPWCadastre_Enter);
             this.TxtPWCadastre.Leave += new System.EventHandler(this.TxtPWCadastre_Leave);
@@ -68,7 +73,7 @@
             this.DateNasci.Location = new System.Drawing.Point(374, 240);
             this.DateNasci.Name = "DateNasci";
             this.DateNasci.Size = new System.Drawing.Size(247, 20);
-            this.DateNasci.TabIndex = 4;
+            this.DateNasci.TabIndex = 0;
             this.DateNasci.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // BtnConfirmar
@@ -86,7 +91,7 @@
             this.TxtPWCadastre2.Location = new System.Drawing.Point(503, 188);
             this.TxtPWCadastre2.Name = "TxtPWCadastre2";
             this.TxtPWCadastre2.Size = new System.Drawing.Size(100, 20);
-            this.TxtPWCadastre2.TabIndex = 3;
+            this.TxtPWCadastre2.TabIndex = 4;
             this.TxtPWCadastre2.Text = "Confirmar Senha";
             this.TxtPWCadastre2.Enter += new System.EventHandler(this.TxtPWCadastre2_Enter);
             this.TxtPWCadastre2.Leave += new System.EventHandler(this.TxtPWCadastre2_Leave);
