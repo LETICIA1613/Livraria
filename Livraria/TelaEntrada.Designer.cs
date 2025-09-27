@@ -43,6 +43,7 @@
             this.Btnmenu = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.Btnreligious = new System.Windows.Forms.Button();
+            this.FlpLivros = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -88,6 +89,7 @@
             this.BtnRomance.TabIndex = 0;
             this.BtnRomance.Text = "Romance";
             this.BtnRomance.UseVisualStyleBackColor = false;
+            this.BtnRomance.Click += new System.EventHandler(this.BtnRomance_Click);
             // 
             // Btnfantasy
             // 
@@ -203,11 +205,20 @@
             this.Btnreligious.Text = "Religioso";
             this.Btnreligious.UseVisualStyleBackColor = false;
             // 
+            // FlpLivros
+            // 
+            this.FlpLivros.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.FlpLivros.Location = new System.Drawing.Point(266, 80);
+            this.FlpLivros.Name = "FlpLivros";
+            this.FlpLivros.Size = new System.Drawing.Size(110, 129);
+            this.FlpLivros.TabIndex = 13;
+            // 
             // TelaEntrada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.FlpLivros);
             this.Controls.Add(this.Btnreligious);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.Btnthriller);
@@ -247,5 +258,6 @@
         private System.Windows.Forms.Button Btnmenu;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button Btnreligious;
+        private System.Windows.Forms.FlowLayoutPanel FlpLivros;
     }
 }

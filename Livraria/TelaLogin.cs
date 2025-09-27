@@ -147,5 +147,26 @@ namespace Livraria
             product.ShowDialog();
             this.Visible = true;
         }
+        private bool mostrandoSenha = false;
+        private void Pictureolhos2_Click(object sender, EventArgs e)
+        {
+            mostrandoSenha = !mostrandoSenha;
+
+            if (mostrandoSenha)
+            {
+                // Mostra a senha
+                TextPW3.UseSystemPasswordChar = false;
+                Pictureolhos2.Image = Properties.Resources.imagem_olhos1;
+            }
+            else
+            {
+                // Esconde a senha
+                TextPW3.UseSystemPasswordChar = true;
+                Pictureolhos2.Image = Properties.Resources.imagem_olhos2;
+            }
+        }
+
+        
     }
+
 }

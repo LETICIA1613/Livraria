@@ -33,11 +33,13 @@
             this.TextPW3 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.BntNext1 = new System.Windows.Forms.Button();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.directoryEntry1 = new System.DirectoryServices.DirectoryEntry();
             this.directoryEntry2 = new System.DirectoryServices.DirectoryEntry();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.PictureLogin = new System.Windows.Forms.PictureBox();
+            this.Pictureolhos2 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureLogin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pictureolhos2)).BeginInit();
             this.SuspendLayout();
             // 
             // TextEmail2
@@ -72,7 +74,7 @@
             this.label1.Location = new System.Drawing.Point(83, 82);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 29);
-            this.label1.TabIndex = 0;
+            this.label1.TabIndex = 1;
             // 
             // BntNext1
             // 
@@ -86,43 +88,55 @@
             this.BntNext1.UseVisualStyleBackColor = false;
             this.BntNext1.Click += new System.EventHandler(this.BntNext1_Click_1);
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(800, 450);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 15;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
-            // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(184, 259);
+            this.linkLabel1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.linkLabel1.Location = new System.Drawing.Point(184, 254);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(184, 13);
-            this.linkLabel1.TabIndex = 16;
+            this.linkLabel1.TabIndex = 0;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Não tenho um Cadastro! Cadastrar-se";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // PictureLogin
+            // 
+            this.PictureLogin.Image = ((System.Drawing.Image)(resources.GetObject("PictureLogin.Image")));
+            this.PictureLogin.Location = new System.Drawing.Point(-1, -49);
+            this.PictureLogin.Name = "PictureLogin";
+            this.PictureLogin.Size = new System.Drawing.Size(805, 545);
+            this.PictureLogin.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PictureLogin.TabIndex = 17;
+            this.PictureLogin.TabStop = false;
+            // 
+            // Pictureolhos2
+            // 
+            this.Pictureolhos2.Image = ((System.Drawing.Image)(resources.GetObject("Pictureolhos2.Image")));
+            this.Pictureolhos2.Location = new System.Drawing.Point(333, 222);
+            this.Pictureolhos2.Name = "Pictureolhos2";
+            this.Pictureolhos2.Size = new System.Drawing.Size(35, 20);
+            this.Pictureolhos2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Pictureolhos2.TabIndex = 18;
+            this.Pictureolhos2.TabStop = false;
+            this.Pictureolhos2.Click += new System.EventHandler(this.Pictureolhos2_Click);
             // 
             // TelaLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.linkLabel1);
+            this.Controls.Add(this.Pictureolhos2);
             this.Controls.Add(this.BntNext1);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.TextPW3);
             this.Controls.Add(this.TextEmail2);
-            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.PictureLogin);
             this.Controls.Add(this.label1);
             this.Name = "TelaLogin";
             this.Load += new System.EventHandler(this.TelaLogin_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureLogin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pictureolhos2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -133,9 +147,10 @@
         private System.Windows.Forms.TextBox TextPW3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button BntNext1;
-        private System.Windows.Forms.PictureBox pictureBox2;
         private System.DirectoryServices.DirectoryEntry directoryEntry1;
         private System.DirectoryServices.DirectoryEntry directoryEntry2;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.PictureBox PictureLogin;
+        private System.Windows.Forms.PictureBox Pictureolhos2;
     }
 }

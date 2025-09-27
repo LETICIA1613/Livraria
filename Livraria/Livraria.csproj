@@ -59,6 +59,12 @@
     <Compile Include="GestaoEstoque.Designer.cs">
       <DependentUpon>GestaoEstoque.cs</DependentUpon>
     </Compile>
+    <Compile Include="LivroCard.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LivroCard.Designer.cs">
+      <DependentUpon>LivroCard.cs</DependentUpon>
+    </Compile>
     <Compile Include="login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +122,9 @@
     <EmbeddedResource Include="GestaoEstoque.resx">
       <DependentUpon>GestaoEstoque.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LivroCard.resx">
+      <DependentUpon>LivroCard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
@@ -157,6 +166,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\imagemlogin.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\imagem_olhos1.jpg" />
+    <None Include="Resources\imagem_olhos21.jpg" />
+    <None Include="Resources\imagem_olhos11.jpg" />
+    <Content Include="Resources\imagem_olhos2.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

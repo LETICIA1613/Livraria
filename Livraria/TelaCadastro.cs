@@ -47,6 +47,7 @@ namespace Livraria
                 return;
             }
 
+
             if (senha != confirmarSenha)
             {
                 MessageBox.Show("As senhas não coincidem.", "Aviso",
@@ -203,9 +204,32 @@ namespace Livraria
                 TxtNameCadastre.ForeColor = Color.Black; // cor de placeholder
             }
         }
-    }
+        
+      
+        private bool mostrandoSenha = false;
+        private void Pictureolhos_Click(object sender, EventArgs e)
+        {
+            mostrandoSenha = !mostrandoSenha;
 
+            if (mostrandoSenha)
+            {
+                // Mostra a senha
+                TxtPWCadastre.UseSystemPasswordChar = false;
+                Pictureolhos.Image = Properties.Resources.imagem_olhos1;
+            }
+            else
+            {
+                // Esconde a senha
+                TxtPWCadastre.UseSystemPasswordChar = true;
+                Pictureolhos.Image = Properties.Resources.imagem_olhos2;
+            }
+        }
+
+
+    }
 }
+
+
 
 
 

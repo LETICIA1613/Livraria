@@ -63,6 +63,26 @@ namespace Livraria.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap imagem_olhos1 {
+            get {
+                object obj = ResourceManager.GetObject("imagem_olhos1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap imagem_olhos2 {
+            get {
+                object obj = ResourceManager.GetObject("imagem_olhos2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap imagemlogin {
             get {
                 object obj = ResourceManager.GetObject("imagemlogin", resourceCulture);
