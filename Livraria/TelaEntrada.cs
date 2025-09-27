@@ -11,10 +11,14 @@ using System.Windows.Forms;
 namespace Livraria
 {
     public partial class TelaEntrada : Form
+
     {
+        private Usuario usuario;
         public TelaEntrada()
         {
             InitializeComponent();
+          
+
         }
 
         private void TelaEntrada_Load(object sender, EventArgs e)

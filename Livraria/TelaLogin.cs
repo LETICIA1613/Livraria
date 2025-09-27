@@ -24,7 +24,7 @@ namespace Livraria
             InitializeComponent();
         }
 
-        private string connectionString = @"Data Source=sqlexpress;Initial Catalog=CJ3027481PR2;User Id=aluno;Password=aluno;";
+        private string connectionString = @"Data Source=DESKTOP-3DSR1N8\SQLEXPRESS;Initial Catalog=CJ3027481PR2;User Id=sa;Password=leticia;";
 
         private void BntNext1_Click_1(object sender, EventArgs e)
         {
@@ -40,6 +40,7 @@ namespace Livraria
                 cmd.Parameters.AddWithValue("@e", email);
                 cmd.Parameters.AddWithValue("@s", senhaHash);
 
+
                 SqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
@@ -49,6 +50,12 @@ namespace Livraria
                     Sessao.UsuarioLogado = new Usuario { Nome = nome, Email = email, DataNascimento = nascimento };
                     new TelaEntrada().Show();
                     this.Close();
+
+                    TelaEntrada product = new TelaEntrada();
+                    this.Visible = false;
+                    product.ShowDialog();
+                    this.Visible = true;
+
                 }
                 else
                 {
@@ -127,10 +134,6 @@ namespace Livraria
                 TextPW3.ForeColor = Color.Black;
             }
         }
-
-        
-
-
        
         private void pictureBox2_Click(object sender, EventArgs e)
         {

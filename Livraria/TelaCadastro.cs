@@ -17,13 +17,13 @@ namespace Livraria
 {
     public partial class TelaCadastro : Form
     {
-        private string connectionString = @"Data Source=sqlexpress;Initial Catalog=CJ3027481PR2;User Id=aluno;Password=aluno;";
+        private string connectionString = @"Data Source=DESKTOP-3DSR1N8\SQLEXPRESS;Initial Catalog=CJ3027481PR2;User Id=sa;Password=leticia;";
 
 
         public TelaCadastro()
         {
+           
             InitializeComponent();
-
 
         }
 
@@ -84,7 +84,9 @@ namespace Livraria
                     cmd.Parameters.AddWithValue("@Nome", nome);
                     cmd.Parameters.AddWithValue("@Email", email);
                     cmd.Parameters.AddWithValue("@DataNascimento", dataNascimento);
-                    cmd.Parameters.AddWithValue("@SenhaHash", senha);
+                    string senhaHash = Seguranca.HashSenha(senha);
+                    cmd.Parameters.AddWithValue("@SenhaHash", senhaHash);
+
 
                     con.Open();
                     int linhas = cmd.ExecuteNonQuery();
@@ -133,12 +135,14 @@ namespace Livraria
 
         private void TxtPWCadastre2_Enter(object sender, EventArgs e)
         {
+
             if (TxtPWCadastre2.Text == "Confirmar Senha")
             {
                 TxtPWCadastre2.Text = "";
                 TxtPWCadastre2.UseSystemPasswordChar = true; // ativa bolinhas
                 TxtPWCadastre2.ForeColor = Color.Black;
             }
+
         }
 
         private void TxtPWCadastre2_Leave(object sender, EventArgs e)
