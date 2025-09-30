@@ -26,7 +26,7 @@ namespace Livraria
 
         private void BtnCadastre0_Click(object sender, EventArgs e)
         {
-            TelaCadastro product = new TelaCadastro();
+            TelaLogin product = new TelaLogin();
             this.Visible = false;
             product.ShowDialog();
             this.Visible = true;

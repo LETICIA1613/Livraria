@@ -17,7 +17,7 @@ namespace Livraria
 {
     public partial class TelaCadastro : Form
     {
-        private string connectionString = @"Data Source=DESKTOP-3DSR1N8\SQLEXPRESS;Initial Catalog=CJ3027481PR2;User Id=sa;Password=leticia;";
+        private string connectionString = @"Data Source=sqlexpress;Initial Catalog=CJ3027481PR2;User Id=aluno;Password=aluno;";
 
 
         public TelaCadastro()

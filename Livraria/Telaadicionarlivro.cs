@@ -22,7 +22,7 @@ namespace Livraria
         }
         
         string sql = "INSERT INTO LivroGeneros (LivroId, GeneroId) VALUES (@LivroId, @GeneroId)";
-        string cs = @"Data Source=.\SQLEXPRESS;Initial Catalog=CJ3027481PR2;Integrated Security=True";
+        string cs = @"Data Source=sqlexpress;Initial Catalog=CJ3027481PR2;User Id=aluno;Password=aluno;";
      
         string caminhoFoto = "";
         private void Btnimage_Click(object sender, EventArgs e)

@@ -24,7 +24,7 @@ namespace Livraria
             InitializeComponent();
         }
 
-        private string connectionString = @"Data Source=DESKTOP-3DSR1N8\SQLEXPRESS;Initial Catalog=CJ3027481PR2;User Id=sa;Password=leticia;";
+        private string connectionString = @"Data Source=sqlexpress;Initial Catalog=CJ3027481PR2;User Id=aluno;Password=aluno;";
 
         private void BntNext1_Click_1(object sender, EventArgs e)
         {

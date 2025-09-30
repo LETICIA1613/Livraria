@@ -15,12 +15,12 @@ namespace Livraria
     public partial class TelaEntrada : Form
 
     {
-        private readonly string connectionString = @"Data Source=DESKTOP-3DSR1N8\SQLEXPRESS;Initial Catalog=CJ3027481PR2;User Id=sa;Password=leticia"
-;
+      
         private Usuario usuario;
         public TelaEntrada()
         {
             InitializeComponent();
+            CarregarLivros();
 
 
         }
@@ -35,62 +35,80 @@ namespace Livraria
             CarregarLivros();
            
         }
+
         private void CarregarLivros(string genero = null)
         {
-            FlpLivros.Controls.Clear();
 
-            using (var conn = new SqlConnection(connectionString))
+            using (SqlConnection con = Conexao.GetConnection())
             {
-                conn.Open();
 
-                const string query = @"
-                SELECT l.Id,
-                       l.Nome,
-                       l.Preco,
-                       l.Foto,
-                       STRING_AGG(a.Nome, ', ') AS Autores
-                  FROM Livros l
-             LEFT JOIN LivroAutores la ON la.LivroId = l.Id
-             LEFT JOIN Autores a ON a.Id = la.AutorId
-              GROUP BY l.Id, l.Nome, l.Preco, l.Foto
-              ORDER BY l.Nome;";
+                string sql = @"
+                    SELECT l.Titulo, a.Nome AS Autor, l.Preco
+                    FROM Livros l
+                    INNER JOIN Autores a ON l.Id = a.Id";
 
-                using (var cmd = new SqlCommand(query, conn))
-                using (var reader = cmd.ExecuteReader())
+                SqlCommand cmd = new SqlCommand(sql, con);
+
+                con.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        var card = new LivroCard
-                        {
-                            Titulo = reader["Nome"].ToString(),
-                            Autor = reader["Autores"]?.ToString() ?? "Autor não informado",
-                            Preco = $"R$ {Convert.ToDecimal(reader["Preco"]):F2}"
-                        };
 
-                        // Foto vinda do banco (campo varbinary)
-                        if (reader["Foto"] != DBNull.Value)
-                        {
-                            byte[] bytes = (byte[])reader["Foto"];
-                            using (var ms = new MemoryStream(bytes))
-                            {
-                                card.Capa = Image.FromStream(ms);
-                            }
-                        }
+                    string titulo = reader["Titulo"].ToString();
+                    string autor = reader["Autor"].ToString();
+                    string preco = reader["Preco"].ToString();
 
-                        FlpLivros.Controls.Add(card);
-                    }
+                    // Criar um painel para cada livro
+                    Panel card = new Panel();
+                    card.Width = 200;
+                    card.Height = 120;
+                    card.BorderStyle = BorderStyle.FixedSingle;
+                    card.Margin = new Padding(10);
+
+                    // Label do título
+                    Label lblTitulo = new Label();
+                    lblTitulo.Text = "📖 " + titulo;
+                    lblTitulo.AutoSize = true;
+                    lblTitulo.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+
+                    // Label do autor
+                    Label lblAutor = new Label();
+                    lblAutor.Text = "Autor: " + autor;
+                    lblAutor.AutoSize = true;
+
+                    // Label do preço
+                    Label lblPreco = new Label();
+                    lblPreco.Text = "Preço: R$ " + preco;
+                    lblPreco.AutoSize = true;
+                    lblPreco.ForeColor = Color.DarkGreen;
+
+                    // Adiciona os labels no card
+                    card.Controls.Add(lblTitulo);
+                    card.Controls.Add(lblAutor);
+                    card.Controls.Add(lblPreco);
+
+                    // Ajusta posição vertical
+                    lblAutor.Top = lblTitulo.Bottom + 5;
+                    lblPreco.Top = lblAutor.Bottom + 5;
+
+                    // Adiciona o card no FlowLayoutPanel
+                    FlpLivros.Controls.Add(card);
+
                 }
             }
-        }
-      
+
+        }       
+       
 
 
 
 
-        
-    
 
-      
+
+
+
 
 
         private void Txtwrite_TextChanged(object sender, EventArgs e)
@@ -153,6 +171,12 @@ namespace Livraria
         private void BtnRomance_Click(object sender, EventArgs e)
         {
             CarregarLivros("Romance");
+        }
+
+        private void FlpLivros_Paint(object sender, PaintEventArgs e)
+        {
+            
+
         }
     }
 }
