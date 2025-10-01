@@ -10,7 +10,7 @@ namespace Livraria
     internal class Conexao
     {
         private static string connectionString =
-            @"Data Source=sqlexpress;Initial Catalog=CJ3027481PR2;User Id=aluno;Password=aluno";
+            @"Server=.\SQLEXPRESS;Database=CJ3027481PR2;Trusted_Connection=True;";
 
         public static SqlConnection GetConnection()
         {

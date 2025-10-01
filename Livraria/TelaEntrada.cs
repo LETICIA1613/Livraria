@@ -39,67 +39,79 @@ namespace Livraria
         private void CarregarLivros(string genero = null)
         {
 
-            using (SqlConnection con = Conexao.GetConnection())
-            {
-
-                string sql = @"
-                    SELECT l.Titulo, a.Nome AS Autor, l.Preco
-                    FROM Livros l
-                    INNER JOIN Autores a ON l.Id = a.Id";
-
-                SqlCommand cmd = new SqlCommand(sql, con);
-
-                con.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-
-
-                while (reader.Read())
+             using (SqlConnection con = Conexao.GetConnection())
                 {
+                    string sql = @"
+            SELECT l.Nome AS Titulo, a.Nome AS Autor, l.Preco
+            FROM Livros l
+            INNER JOIN LivroAutores la ON l.Id = la.LivroId
+            INNER JOIN Autores a ON la.AutorId = a.Id";
 
-                    string titulo = reader["Titulo"].ToString();
-                    string autor = reader["Autor"].ToString();
-                    string preco = reader["Preco"].ToString();
+                    SqlCommand cmd = new SqlCommand(sql, con);
 
-                    // Criar um painel para cada livro
-                    Panel card = new Panel();
-                    card.Width = 200;
-                    card.Height = 120;
-                    card.BorderStyle = BorderStyle.FixedSingle;
-                    card.Margin = new Padding(10);
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
 
-                    // Label do título
-                    Label lblTitulo = new Label();
-                    lblTitulo.Text = "📖 " + titulo;
-                    lblTitulo.AutoSize = true;
-                    lblTitulo.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+                    FlpLivros.Controls.Clear(); // limpar antes de adicionar de novo
 
-                    // Label do autor
-                    Label lblAutor = new Label();
-                    lblAutor.Text = "Autor: " + autor;
-                    lblAutor.AutoSize = true;
+                    while (reader.Read())
+                    {
+                        
+                        string titulo = reader["Titulo"].ToString();
+                        string autor = reader["Autor"].ToString();
+                        string preco = reader["Preco"].ToString();
 
-                    // Label do preço
-                    Label lblPreco = new Label();
-                    lblPreco.Text = "Preço: R$ " + preco;
-                    lblPreco.AutoSize = true;
-                    lblPreco.ForeColor = Color.DarkGreen;
+                        // Criar um painel para cada livro
+                        Panel card = new Panel();
 
-                    // Adiciona os labels no card
-                    card.Controls.Add(lblTitulo);
-                    card.Controls.Add(lblAutor);
-                    card.Controls.Add(lblPreco);
+                    byte[] bytes = (byte[])reader["Foto"];
+                    using (MemoryStream ms = new MemoryStream(bytes))
+                    {
+                        PictureBox PicCapa = new PictureBox();
+                        PicCapa.Image = Image.FromStream(ms);
+                        PicCapa.SizeMode = PictureBoxSizeMode.StretchImage;
+                        PicCapa.Width = 80;
+                        PicCapa.Height = 100;
+                        card.Controls.Add(PicCapa);
 
-                    // Ajusta posição vertical
-                    lblAutor.Top = lblTitulo.Bottom + 5;
-                    lblPreco.Top = lblAutor.Bottom + 5;
 
-                    // Adiciona o card no FlowLayoutPanel
-                    FlpLivros.Controls.Add(card);
 
+                        // Label do título
+                        Label lblTitulo = new Label();
+                        lblTitulo.Text = "📖 " + titulo;
+                        lblTitulo.AutoSize = true;
+                        lblTitulo.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+
+                        // Label do autor
+                        Label lblAutor = new Label();
+                        lblAutor.Text = "Autor: " + autor;
+                        lblAutor.AutoSize = true;
+
+                        // Label do preço
+                        Label lblPreco = new Label();
+                        lblPreco.Text = "Preço: R$ " + preco;
+                        lblPreco.AutoSize = true;
+                        lblPreco.ForeColor = Color.DarkGreen;
+
+                        // Adiciona os labels no card
+                        card.Controls.Add(lblTitulo);
+                        card.Controls.Add(lblAutor);
+                        card.Controls.Add(lblPreco);
+                        card.Controls.Add(PicCapa);
+
+
+                        // Ajusta posição vertical
+                        lblAutor.Top = lblTitulo.Bottom + 5;
+                        lblPreco.Top = lblAutor.Bottom + 5;
+
+                        // Adiciona o card no FlowLayoutPanel
+                        FlpLivros.Controls.Add(card);
+                    }
+                    }
                 }
             }
 
-        }       
+       
        
 
 
@@ -175,8 +187,9 @@ namespace Livraria
 
         private void FlpLivros_Paint(object sender, PaintEventArgs e)
         {
-            
-
+            FlpLivros.WrapContents = true;
+            FlpLivros.AutoScroll = true;
+            FlpLivros.FlowDirection = FlowDirection.LeftToRight;
         }
     }
 }

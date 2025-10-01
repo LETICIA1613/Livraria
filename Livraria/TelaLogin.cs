@@ -24,16 +24,16 @@ namespace Livraria
             InitializeComponent();
         }
 
-        private string connectionString = @"Data Source=sqlexpress;Initial Catalog=CJ3027481PR2;User Id=aluno;Password=aluno;";
+       
 
         private void BntNext1_Click_1(object sender, EventArgs e)
         {
             string email = TextEmail2.Text.Trim();
             string senha = TextPW3.Text;
             string senhaHash = Seguranca.HashSenha(senha);
-            
 
-            using (SqlConnection con = new SqlConnection(connectionString))
+
+            using (SqlConnection con = Conexao.GetConnection())
             {
                 con.Open();
                 SqlCommand cmd = new SqlCommand("SELECT Nome, DataNascimento FROM Usuarios WHERE Email=@e AND SenhaHash=@s", con);
@@ -48,15 +48,12 @@ namespace Livraria
                     DateTime nascimento = reader.GetDateTime(1);
 
                     Sessao.UsuarioLogado = new Usuario { Nome = nome, Email = email, DataNascimento = nascimento };
-                    new TelaEntrada().Show();
-                    this.Close();
-
                     TelaEntrada product = new TelaEntrada();
                     this.Visible = false;
                     product.ShowDialog();
                     this.Visible = true;
-
                 }
+
                 else
                 {
                     MessageBox.Show("E-mail ou senha incorretos!");

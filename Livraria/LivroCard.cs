@@ -17,6 +17,13 @@ namespace Livraria
             InitializeComponent();
         }
 
+       
+
+public Image Capa
+        {
+            get => PicCapa.Image;
+            set => PicCapa.Image = value;
+        }
         // Propriedade para o título
         public string Titulo
         {
@@ -38,13 +45,9 @@ namespace Livraria
             set => lblPreco.Text = value;
         }
 
-        // Propriedade para a capa
-        public Image Capa
-        {
-            get => PicCapa.Image;
-            set => PicCapa.Image = value;
-        }
-        private void Titulo_Click(object sender, EventArgs e)
+
+        
+private void Titulo_Click(object sender, EventArgs e)
         {
 
         }
