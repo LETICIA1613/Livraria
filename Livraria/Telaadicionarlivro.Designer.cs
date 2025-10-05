@@ -39,6 +39,8 @@
             this.TxtGenero = new System.Windows.Forms.TextBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.Txtquant = new System.Windows.Forms.TextBox();
+            this.CbFaixaEtaria = new System.Windows.Forms.ComboBox();
+            this.TxtFaixaEtaria = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.Picturebook)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -128,11 +130,28 @@
             this.Txtquant.Size = new System.Drawing.Size(185, 20);
             this.Txtquant.TabIndex = 12;
             // 
+            // CbFaixaEtaria
+            // 
+            this.CbFaixaEtaria.FormattingEnabled = true;
+            this.CbFaixaEtaria.Location = new System.Drawing.Point(565, 69);
+            this.CbFaixaEtaria.Name = "CbFaixaEtaria";
+            this.CbFaixaEtaria.Size = new System.Drawing.Size(121, 21);
+            this.CbFaixaEtaria.TabIndex = 13;
+            // 
+            // TxtFaixaEtaria
+            // 
+            this.TxtFaixaEtaria.Location = new System.Drawing.Point(175, 409);
+            this.TxtFaixaEtaria.Name = "TxtFaixaEtaria";
+            this.TxtFaixaEtaria.Size = new System.Drawing.Size(185, 20);
+            this.TxtFaixaEtaria.TabIndex = 14;
+            // 
             // Telaadicionarlivro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.TxtFaixaEtaria);
+            this.Controls.Add(this.CbFaixaEtaria);
             this.Controls.Add(this.Txtquant);
             this.Controls.Add(this.Btnadd);
             this.Controls.Add(this.TxtGenero);
@@ -145,6 +164,7 @@
             this.Controls.Add(this.pictureBox2);
             this.Name = "Telaadicionarlivro";
             this.Text = "Telaadicionarlivro";
+            this.Load += new System.EventHandler(this.Telaadicionarlivro_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Picturebook)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
@@ -163,5 +183,7 @@
         private System.Windows.Forms.TextBox TxtGenero;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.TextBox Txtquant;
+        private System.Windows.Forms.ComboBox CbFaixaEtaria;
+        private System.Windows.Forms.TextBox TxtFaixaEtaria;
     }
 }

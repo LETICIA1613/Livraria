@@ -208,9 +208,9 @@
             // FlpLivros
             // 
             this.FlpLivros.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.FlpLivros.Location = new System.Drawing.Point(266, 80);
+            this.FlpLivros.Location = new System.Drawing.Point(252, 70);
             this.FlpLivros.Name = "FlpLivros";
-            this.FlpLivros.Size = new System.Drawing.Size(110, 170);
+            this.FlpLivros.Size = new System.Drawing.Size(548, 380);
             this.FlpLivros.TabIndex = 13;
             this.FlpLivros.Paint += new System.Windows.Forms.PaintEventHandler(this.FlpLivros_Paint);
             // 

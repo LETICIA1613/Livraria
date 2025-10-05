@@ -17,13 +17,14 @@ namespace Livraria
             InitializeComponent();
         }
 
-       
 
-public Image Capa
+
+        public Image Imagem
         {
-            get => PicCapa.Image;
-            set => PicCapa.Image = value;
+            get { return PicCapa.Image; }
+            set { PicCapa.Image = value; }
         }
+
         // Propriedade para o título
         public string Titulo
         {
@@ -50,6 +51,11 @@ public Image Capa
 private void Titulo_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void LivroCard_Load(object sender, EventArgs e)
+        {
+           
         }
     }
 

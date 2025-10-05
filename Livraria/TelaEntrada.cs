@@ -35,91 +35,38 @@ namespace Livraria
             CarregarLivros();
            
         }
-
         private void CarregarLivros(string genero = null)
         {
+            using (SqlConnection con = Conexao.GetConnection())
+            {
+                string sql = "SELECT Nome, Editora, Preco, Foto FROM Livros";
+                SqlCommand cmd = new SqlCommand(sql, con);
+                con.Open();
 
-             using (SqlConnection con = Conexao.GetConnection())
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
                 {
-                    string sql = @"
-            SELECT l.Nome AS Titulo, a.Nome AS Autor, l.Preco
-            FROM Livros l
-            INNER JOIN LivroAutores la ON l.Id = la.LivroId
-            INNER JOIN Autores a ON la.AutorId = a.Id";
+                    LivroCard card = new LivroCard();
+                    card.Titulo = reader["Nome"].ToString();
+                    card.Autor = reader["Editora"].ToString();
+                    card.Preco = "R$ " + reader["Preco"].ToString();
 
-                    SqlCommand cmd = new SqlCommand(sql, con);
-
-                    con.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    FlpLivros.Controls.Clear(); // limpar antes de adicionar de novo
-
-                    while (reader.Read())
+                    // Converter varbinary em imagem
+                    if (reader["Foto"] != DBNull.Value)
                     {
-                        
-                        string titulo = reader["Titulo"].ToString();
-                        string autor = reader["Autor"].ToString();
-                        string preco = reader["Preco"].ToString();
-
-                        // Criar um painel para cada livro
-                        Panel card = new Panel();
-
-                    byte[] bytes = (byte[])reader["Foto"];
-                    using (MemoryStream ms = new MemoryStream(bytes))
-                    {
-                        PictureBox PicCapa = new PictureBox();
-                        PicCapa.Image = Image.FromStream(ms);
-                        PicCapa.SizeMode = PictureBoxSizeMode.StretchImage;
-                        PicCapa.Width = 80;
-                        PicCapa.Height = 100;
-                        card.Controls.Add(PicCapa);
-
-
-
-                        // Label do título
-                        Label lblTitulo = new Label();
-                        lblTitulo.Text = "📖 " + titulo;
-                        lblTitulo.AutoSize = true;
-                        lblTitulo.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-
-                        // Label do autor
-                        Label lblAutor = new Label();
-                        lblAutor.Text = "Autor: " + autor;
-                        lblAutor.AutoSize = true;
-
-                        // Label do preço
-                        Label lblPreco = new Label();
-                        lblPreco.Text = "Preço: R$ " + preco;
-                        lblPreco.AutoSize = true;
-                        lblPreco.ForeColor = Color.DarkGreen;
-
-                        // Adiciona os labels no card
-                        card.Controls.Add(lblTitulo);
-                        card.Controls.Add(lblAutor);
-                        card.Controls.Add(lblPreco);
-                        card.Controls.Add(PicCapa);
-
-
-                        // Ajusta posição vertical
-                        lblAutor.Top = lblTitulo.Bottom + 5;
-                        lblPreco.Top = lblAutor.Bottom + 5;
-
-                        // Adiciona o card no FlowLayoutPanel
-                        FlpLivros.Controls.Add(card);
+                        byte[] imgBytes = (byte[])reader["Foto"];
+                        using (MemoryStream ms = new MemoryStream(imgBytes))
+                        {
+                            card.Imagem = Image.FromStream(ms);
+                        }
                     }
-                    }
+
+                    FlpLivros.Controls.Add(card); // usa o nome real do teu painel
                 }
             }
+        
 
-       
-       
-
-
-
-
-
-
-
+        }
 
 
 

@@ -32,7 +32,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.Btnescolhaadd = new System.Windows.Forms.Button();
             this.Btnescolhagestão = new System.Windows.Forms.Button();
-            this.Btnescolha = new System.Windows.Forms.Button();
+            this.BtnTelaEntrada = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,26 +65,28 @@
             this.Btnescolhagestão.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Btnescolhagestão.Location = new System.Drawing.Point(200, 222);
             this.Btnescolhagestão.Name = "Btnescolhagestão";
-            this.Btnescolhagestão.Size = new System.Drawing.Size(193, 26);
+            this.Btnescolhagestão.Size = new System.Drawing.Size(193, 29);
             this.Btnescolhagestão.TabIndex = 2;
             this.Btnescolhagestão.Text = "Gestão de Estoque";
             this.Btnescolhagestão.UseVisualStyleBackColor = false;
             // 
-            // Btnescolha
+            // BtnTelaEntrada
             // 
-            this.Btnescolha.Location = new System.Drawing.Point(200, 272);
-            this.Btnescolha.Name = "Btnescolha";
-            this.Btnescolha.Size = new System.Drawing.Size(193, 26);
-            this.Btnescolha.TabIndex = 3;
-            this.Btnescolha.Text = "button3";
-            this.Btnescolha.UseVisualStyleBackColor = true;
+            this.BtnTelaEntrada.BackColor = System.Drawing.Color.Pink;
+            this.BtnTelaEntrada.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BtnTelaEntrada.Location = new System.Drawing.Point(200, 266);
+            this.BtnTelaEntrada.Name = "BtnTelaEntrada";
+            this.BtnTelaEntrada.Size = new System.Drawing.Size(193, 26);
+            this.BtnTelaEntrada.TabIndex = 3;
+            this.BtnTelaEntrada.Text = "Arrumar Tela Catálogo";
+            this.BtnTelaEntrada.UseVisualStyleBackColor = false;
             // 
             // TelaEscolhaAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.Btnescolha);
+            this.Controls.Add(this.BtnTelaEntrada);
             this.Controls.Add(this.Btnescolhagestão);
             this.Controls.Add(this.Btnescolhaadd);
             this.Controls.Add(this.pictureBox1);
@@ -100,6 +102,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button Btnescolhaadd;
         private System.Windows.Forms.Button Btnescolhagestão;
-        private System.Windows.Forms.Button Btnescolha;
+        private System.Windows.Forms.Button BtnTelaEntrada;
     }
 }
