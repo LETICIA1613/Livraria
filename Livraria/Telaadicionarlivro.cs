@@ -310,7 +310,7 @@ namespace Livraria
         {
             using (SqlConnection con = Conexao.GetConnection())
             {
-                string sql = "SELECT Id, Nome FROM FaixasEtarias";
+                string sql = "SELECT Id, Idade FROM FaixaEtaria";
                 SqlCommand cmd = new SqlCommand(sql, con);
                 con.Open();
 
@@ -318,7 +318,7 @@ namespace Livraria
                 dt.Load(cmd.ExecuteReader());
 
                 CbFaixaEtaria.DataSource = dt;
-                CbFaixaEtaria.DisplayMember = "Nome";
+                CbFaixaEtaria.DisplayMember = "Idade";
                 CbFaixaEtaria.ValueMember = "Id";
             }
         }
