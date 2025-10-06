@@ -39,11 +39,12 @@
             this.Btnsciencefiction = new System.Windows.Forms.Button();
             this.BtnComedy = new System.Windows.Forms.Button();
             this.Btnthriller = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
+            this.BtnUtopia = new System.Windows.Forms.Button();
             this.Btnmenu = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.Btnreligious = new System.Windows.Forms.Button();
             this.FlpLivros = new System.Windows.Forms.FlowLayoutPanel();
+            this.BtnFiction = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -113,6 +114,7 @@
             this.Btnterror.TabIndex = 2;
             this.Btnterror.Text = "Terror";
             this.Btnterror.UseVisualStyleBackColor = false;
+            this.Btnterror.Click += new System.EventHandler(this.Btnterror_Click);
             // 
             // Btnselfhelp
             // 
@@ -124,6 +126,7 @@
             this.Btnselfhelp.TabIndex = 3;
             this.Btnselfhelp.Text = "Autoajuda";
             this.Btnselfhelp.UseVisualStyleBackColor = false;
+            this.Btnselfhelp.Click += new System.EventHandler(this.Btnselfhelp_Click);
             // 
             // Btnsciencefiction
             // 
@@ -147,6 +150,7 @@
             this.BtnComedy.TabIndex = 5;
             this.BtnComedy.Text = "Comédia";
             this.BtnComedy.UseVisualStyleBackColor = false;
+            this.BtnComedy.Click += new System.EventHandler(this.BtnComedy_Click);
             // 
             // Btnthriller
             // 
@@ -158,17 +162,19 @@
             this.Btnthriller.TabIndex = 6;
             this.Btnthriller.Text = "Suspense";
             this.Btnthriller.UseVisualStyleBackColor = false;
+            this.Btnthriller.Click += new System.EventHandler(this.Btnthriller_Click);
             // 
-            // button8
+            // BtnUtopia
             // 
-            this.button8.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button8.Location = new System.Drawing.Point(37, 302);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(119, 23);
-            this.button8.TabIndex = 7;
-            this.button8.Text = "Utopia";
-            this.button8.UseVisualStyleBackColor = false;
+            this.BtnUtopia.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.BtnUtopia.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BtnUtopia.Location = new System.Drawing.Point(37, 302);
+            this.BtnUtopia.Name = "BtnUtopia";
+            this.BtnUtopia.Size = new System.Drawing.Size(119, 23);
+            this.BtnUtopia.TabIndex = 7;
+            this.BtnUtopia.Text = "Utopia";
+            this.BtnUtopia.UseVisualStyleBackColor = false;
+            this.BtnUtopia.Click += new System.EventHandler(this.BtnUtopia_Click);
             // 
             // Btnmenu
             // 
@@ -204,6 +210,7 @@
             this.Btnreligious.TabIndex = 8;
             this.Btnreligious.Text = "Religioso";
             this.Btnreligious.UseVisualStyleBackColor = false;
+            this.Btnreligious.Click += new System.EventHandler(this.Btnreligious_Click);
             // 
             // FlpLivros
             // 
@@ -214,14 +221,27 @@
             this.FlpLivros.TabIndex = 13;
             this.FlpLivros.Paint += new System.Windows.Forms.PaintEventHandler(this.FlpLivros_Paint);
             // 
+            // BtnFiction
+            // 
+            this.BtnFiction.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.BtnFiction.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BtnFiction.Location = new System.Drawing.Point(37, 360);
+            this.BtnFiction.Name = "BtnFiction";
+            this.BtnFiction.Size = new System.Drawing.Size(119, 23);
+            this.BtnFiction.TabIndex = 14;
+            this.BtnFiction.Text = "Ficção ";
+            this.BtnFiction.UseVisualStyleBackColor = false;
+            this.BtnFiction.Click += new System.EventHandler(this.BtnFiction_Click);
+            // 
             // TelaEntrada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.BtnFiction);
             this.Controls.Add(this.FlpLivros);
             this.Controls.Add(this.Btnreligious);
-            this.Controls.Add(this.button8);
+            this.Controls.Add(this.BtnUtopia);
             this.Controls.Add(this.Btnthriller);
             this.Controls.Add(this.BtnComedy);
             this.Controls.Add(this.Btnsciencefiction);
@@ -255,10 +275,11 @@
         private System.Windows.Forms.Button Btnsciencefiction;
         private System.Windows.Forms.Button BtnComedy;
         private System.Windows.Forms.Button Btnthriller;
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button BtnUtopia;
         private System.Windows.Forms.Button Btnmenu;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button Btnreligious;
         private System.Windows.Forms.FlowLayoutPanel FlpLivros;
+        private System.Windows.Forms.Button BtnFiction;
     }
 }

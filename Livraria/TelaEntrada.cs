@@ -35,8 +35,49 @@ namespace Livraria
             CarregarLivros();
            
         }
-        private void CarregarLivros(string genero = null)
+        private void CarregarLivros(string genero = "", string busca = "")
         {
+            FlpLivros.Controls.Clear(); // limpa cards antigos
+
+            using (SqlConnection con = Conexao.GetConnection())
+            {
+                con.Open();
+
+                string sql = @"
+            SELECT L.Nome, L.Preco, L.Foto, E.Nome AS Editora
+            FROM Livros L
+            INNER JOIN Editora E ON L.EditoraId = E.Id
+            INNER JOIN Generos G ON L.GenerosId = G.Id
+            WHERE (@Generos = '' OR G.Nome = @Generos)
+              AND (@Busca = '' OR L.Nome LIKE '%' + @Busca + '%')";
+
+                SqlCommand cmd = new SqlCommand(sql, con);
+                cmd.Parameters.AddWithValue("@Generos", genero);
+                cmd.Parameters.AddWithValue("@Busca", busca);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    LivroCard card = new LivroCard
+                    {
+                        Titulo = reader["Nome"].ToString(),
+                        Editora = reader["Editora"].ToString(),
+                        Preco = "R$ " + Convert.ToDecimal(reader["Preco"]).ToString("N2")
+                    };
+
+                    if (reader["Foto"] != DBNull.Value)
+                    {
+                        byte[] imgBytes = (byte[])reader["Foto"];
+                        using (MemoryStream ms = new MemoryStream(imgBytes))
+                        {
+                            card.Imagem = Image.FromStream(ms);
+                        }
+                    }
+
+                    FlpLivros.Controls.Add(card);
+                }
+            }
+   
             using (SqlConnection con = Conexao.GetConnection())
             {
                 string sql = "SELECT Nome, Editora, Preco, Foto FROM Livros";
@@ -48,7 +89,7 @@ namespace Livraria
                 {
                     LivroCard card = new LivroCard();
                     card.Titulo = reader["Nome"].ToString();
-                    card.Autor = reader["Editora"].ToString();
+                    card.Editora = reader["Editora"].ToString();
                     card.Preco = "R$ " + reader["Preco"].ToString();
 
                     // Converter varbinary em imagem
@@ -68,7 +109,7 @@ namespace Livraria
 
         }
 
-
+        
 
         private void Txtwrite_TextChanged(object sender, EventArgs e)
         {
@@ -82,17 +123,21 @@ namespace Livraria
 
         private void Btnsciencefiction_Click(object sender, EventArgs e)
         {
-
+            CarregarLivros("Ficção Científica");
         }
 
         private void Btnmenu_Click(object sender, EventArgs e)
         {
-            
+            CarregarLivros(Txtwrite.Text.Trim());
+            string termo = Txtwrite.Text.Trim();
+            CarregarLivros("", termo); // "" = sem filtro de gênero
         }
+
+       
 
         private void Btnfantasy_Click(object sender, EventArgs e)
         {
-
+            CarregarLivros("Fantasia");
         }
 
         private void Txtwrite_Leave(object sender, EventArgs e)
@@ -138,5 +183,41 @@ namespace Livraria
             FlpLivros.AutoScroll = true;
             FlpLivros.FlowDirection = FlowDirection.LeftToRight;
         }
+
+        private void Btnterror_Click(object sender, EventArgs e)
+        {
+            CarregarLivros("Terror");
+        }
+
+        private void Btnselfhelp_Click(object sender, EventArgs e)
+        {
+            CarregarLivros("Autoajuda");
+        }
+
+        private void BtnComedy_Click(object sender, EventArgs e)
+        {
+            CarregarLivros("Comédia");
+        }
+
+        private void Btnthriller_Click(object sender, EventArgs e)
+        {
+            CarregarLivros("Suspense");
+        }
+
+        private void BtnUtopia_Click(object sender, EventArgs e)
+        {
+            CarregarLivros("Utopia");
+        }
+
+        private void Btnreligious_Click(object sender, EventArgs e)
+        {
+            CarregarLivros("Religioso");
+        }
+
+        private void BtnFiction_Click(object sender, EventArgs e)
+        {
+            CarregarLivros("Ficção");
+        }
+    
     }
 }

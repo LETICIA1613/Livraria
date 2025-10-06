@@ -60,14 +60,14 @@ namespace Livraria
                     try
                     {
                         // 1) Inserir livro (sem coluna FaixaEtaria na tabela Livros)
-                        string sqlLivro = @"INSERT INTO Livros (Nome, Editora, Preco, Foto, Quantidade)
+                        string sqlLivro = @"INSERT INTO Livros (Nome, Editoraid, Preco, Foto, Quantidade)
                                     OUTPUT INSERTED.Id
-                                    VALUES (@Nome, @Editora, @Preco, @Foto, @Quantidade)";
+                                    VALUES (@Nome, @Editoraid, @Preco, @Foto, @Quantidade)";
                         int livroId;
                         using (SqlCommand cmd = new SqlCommand(sqlLivro, con, tx))
                         {
                             cmd.Parameters.AddWithValue("@Nome", Txtnamebook.Text);
-                            cmd.Parameters.AddWithValue("@Editora", TxtEditora.Text);
+                            cmd.Parameters.AddWithValue("@Editoraid", TxtEditora.Text);
                             cmd.Parameters.AddWithValue("@Preco", decimal.Parse(TxtPreco.Text));
                             cmd.Parameters.AddWithValue("@Foto", (object)fotoBytes ?? DBNull.Value);
                             cmd.Parameters.AddWithValue("@Quantidade", int.Parse(Txtquant.Text));

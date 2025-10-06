@@ -33,10 +33,10 @@ namespace Livraria
         }
 
         // Propriedade para o autor
-        public string Autor
+        public string Editora
         {
-            get => lblAutor.Text;
-            set => lblAutor.Text = value;
+            get => lblEditora.Text;
+            set => lblEditora.Text = value;
         }
 
         // Propriedade para o preço
@@ -56,6 +56,11 @@ private void Titulo_Click(object sender, EventArgs e)
         private void LivroCard_Load(object sender, EventArgs e)
         {
            
+        }
+
+        private void lblEditora_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

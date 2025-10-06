@@ -30,7 +30,7 @@
         {
             this.PicCapa = new System.Windows.Forms.PictureBox();
             this.lblTitulo = new System.Windows.Forms.Label();
-            this.lblAutor = new System.Windows.Forms.Label();
+            this.lblEditora = new System.Windows.Forms.Label();
             this.BtnAddbook = new System.Windows.Forms.Button();
             this.lblPreco = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PicCapa)).BeginInit();
@@ -56,14 +56,15 @@
             this.lblTitulo.Text = "label1";
             this.lblTitulo.Click += new System.EventHandler(this.Titulo_Click);
             // 
-            // lblAutor
+            // lblEditora
             // 
-            this.lblAutor.AutoSize = true;
-            this.lblAutor.Location = new System.Drawing.Point(49, 203);
-            this.lblAutor.Name = "lblAutor";
-            this.lblAutor.Size = new System.Drawing.Size(35, 13);
-            this.lblAutor.TabIndex = 2;
-            this.lblAutor.Text = "label1";
+            this.lblEditora.AutoSize = true;
+            this.lblEditora.Location = new System.Drawing.Point(49, 203);
+            this.lblEditora.Name = "lblEditora";
+            this.lblEditora.Size = new System.Drawing.Size(35, 13);
+            this.lblEditora.TabIndex = 2;
+            this.lblEditora.Text = "label1";
+            this.lblEditora.Click += new System.EventHandler(this.lblEditora_Click);
             // 
             // BtnAddbook
             // 
@@ -93,11 +94,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.BtnAddbook);
             this.Controls.Add(this.lblPreco);
-            this.Controls.Add(this.lblAutor);
+            this.Controls.Add(this.lblEditora);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.PicCapa);
             this.Name = "LivroCard";
-            this.Size = new System.Drawing.Size(132, 295);
+            this.Size = new System.Drawing.Size(139, 295);
             this.Load += new System.EventHandler(this.LivroCard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PicCapa)).EndInit();
             this.ResumeLayout(false);
@@ -109,7 +110,7 @@
 
         private System.Windows.Forms.PictureBox PicCapa;
         private System.Windows.Forms.Label lblTitulo;
-        private System.Windows.Forms.Label lblAutor;
+        private System.Windows.Forms.Label lblEditora;
         private System.Windows.Forms.Button BtnAddbook;
         private System.Windows.Forms.Label lblPreco;
     }
