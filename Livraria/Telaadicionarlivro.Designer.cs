@@ -40,7 +40,9 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.Txtquant = new System.Windows.Forms.TextBox();
             this.CbFaixaEtaria = new System.Windows.Forms.ComboBox();
-            this.TxtFaixaEtaria = new System.Windows.Forms.TextBox();
+            this.CbAutores = new System.Windows.Forms.ComboBox();
+            this.CbEditora = new System.Windows.Forms.ComboBox();
+            this.ClbGenero = new System.Windows.Forms.CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this.Picturebook)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -48,7 +50,7 @@
             // Btnadd
             // 
             this.Btnadd.BackColor = System.Drawing.Color.Pink;
-            this.Btnadd.Location = new System.Drawing.Point(401, 357);
+            this.Btnadd.Location = new System.Drawing.Point(579, 409);
             this.Btnadd.Name = "Btnadd";
             this.Btnadd.Size = new System.Drawing.Size(75, 23);
             this.Btnadd.TabIndex = 1;
@@ -133,24 +135,43 @@
             // CbFaixaEtaria
             // 
             this.CbFaixaEtaria.FormattingEnabled = true;
-            this.CbFaixaEtaria.Location = new System.Drawing.Point(565, 69);
+            this.CbFaixaEtaria.Location = new System.Drawing.Point(175, 411);
             this.CbFaixaEtaria.Name = "CbFaixaEtaria";
             this.CbFaixaEtaria.Size = new System.Drawing.Size(121, 21);
             this.CbFaixaEtaria.TabIndex = 13;
             // 
-            // TxtFaixaEtaria
+            // CbAutores
             // 
-            this.TxtFaixaEtaria.Location = new System.Drawing.Point(175, 409);
-            this.TxtFaixaEtaria.Name = "TxtFaixaEtaria";
-            this.TxtFaixaEtaria.Size = new System.Drawing.Size(185, 20);
-            this.TxtFaixaEtaria.TabIndex = 14;
+            this.CbAutores.FormattingEnabled = true;
+            this.CbAutores.Location = new System.Drawing.Point(378, 282);
+            this.CbAutores.Name = "CbAutores";
+            this.CbAutores.Size = new System.Drawing.Size(121, 21);
+            this.CbAutores.TabIndex = 15;
+            // 
+            // CbEditora
+            // 
+            this.CbEditora.FormattingEnabled = true;
+            this.CbEditora.Location = new System.Drawing.Point(378, 307);
+            this.CbEditora.Name = "CbEditora";
+            this.CbEditora.Size = new System.Drawing.Size(121, 21);
+            this.CbEditora.TabIndex = 16;
+            // 
+            // ClbGenero
+            // 
+            this.ClbGenero.FormattingEnabled = true;
+            this.ClbGenero.Location = new System.Drawing.Point(379, 357);
+            this.ClbGenero.Name = "ClbGenero";
+            this.ClbGenero.Size = new System.Drawing.Size(120, 49);
+            this.ClbGenero.TabIndex = 18;
             // 
             // Telaadicionarlivro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.TxtFaixaEtaria);
+            this.Controls.Add(this.ClbGenero);
+            this.Controls.Add(this.CbEditora);
+            this.Controls.Add(this.CbAutores);
             this.Controls.Add(this.CbFaixaEtaria);
             this.Controls.Add(this.Txtquant);
             this.Controls.Add(this.Btnadd);
@@ -184,6 +205,8 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.TextBox Txtquant;
         private System.Windows.Forms.ComboBox CbFaixaEtaria;
-        private System.Windows.Forms.TextBox TxtFaixaEtaria;
+        private System.Windows.Forms.ComboBox CbAutores;
+        private System.Windows.Forms.ComboBox CbEditora;
+        private System.Windows.Forms.CheckedListBox ClbGenero;
     }
 }

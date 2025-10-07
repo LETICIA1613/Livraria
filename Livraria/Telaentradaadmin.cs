@@ -44,9 +44,13 @@ namespace Livraria
                 MessageBox.Show("Login realizado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // abrir a tela do admin
-                TelaEscolhaAdmin tela = new TelaEscolhaAdmin();
-                tela.Show();
-               
+                //TelaEscolhaAdmin tela = new TelaEscolhaAdmin();
+                //tela.Show();
+                TelaEscolhaAdmin product = new TelaEscolhaAdmin();
+                this.Visible = false;
+                product.ShowDialog();
+                this.Visible = true;
+
             }
             else
             {

@@ -61,7 +61,7 @@ namespace Livraria
                     LivroCard card = new LivroCard
                     {
                         Titulo = reader["Nome"].ToString(),
-                        Editora = reader["Editora"].ToString(),
+                        Editora = reader["Editoraid"].ToString(),
                         Preco = "R$ " + Convert.ToDecimal(reader["Preco"]).ToString("N2")
                     };
 
@@ -80,7 +80,7 @@ namespace Livraria
    
             using (SqlConnection con = Conexao.GetConnection())
             {
-                string sql = "SELECT Nome, Editora, Preco, Foto FROM Livros";
+                string sql = "SELECT Nome, Editoraid, Preco, Foto FROM Livros";
                 SqlCommand cmd = new SqlCommand(sql, con);
                 con.Open();
 
@@ -89,7 +89,7 @@ namespace Livraria
                 {
                     LivroCard card = new LivroCard();
                     card.Titulo = reader["Nome"].ToString();
-                    card.Editora = reader["Editora"].ToString();
+                    card.Editora = reader["Editoraid"].ToString();
                     card.Preco = "R$ " + reader["Preco"].ToString();
 
                     // Converter varbinary em imagem

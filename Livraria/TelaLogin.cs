@@ -35,7 +35,7 @@ namespace Livraria
 
             using (SqlConnection con = Conexao.GetConnection())
             {
-                con.Open();
+                 con.Open();
                 SqlCommand cmd = new SqlCommand("SELECT Nome, DataNascimento FROM Usuarios WHERE Email=@e AND SenhaHash=@s", con);
                 cmd.Parameters.AddWithValue("@e", email);
                 cmd.Parameters.AddWithValue("@s", senhaHash);

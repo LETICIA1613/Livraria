@@ -92,6 +92,7 @@ namespace Livraria
                     con.Open();
                     int linhas = cmd.ExecuteNonQuery();
                     MessageBox.Show($"Cadastro inserido com sucesso! Linhas afetadas: {linhas}");
+
                     TelaLogin product = new TelaLogin();
                     this.Visible = false;
                     product.ShowDialog();
