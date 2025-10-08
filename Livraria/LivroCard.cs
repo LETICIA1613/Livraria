@@ -17,8 +17,6 @@ namespace Livraria
             InitializeComponent();
         }
 
-
-
         public Image Imagem
         {
             get { return PicCapa.Image; }

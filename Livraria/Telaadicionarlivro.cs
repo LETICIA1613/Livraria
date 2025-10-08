@@ -39,21 +39,29 @@ namespace Livraria
         }
 
         private void Btnadd_Click(object sender, EventArgs e)
-        {
+        { 
             try
             {
                 List<int> generosSelecionados = new List<int>();
 
-                // 📚 Gêneros selecionados
-                foreach (var item in ClbGenero.CheckedItems)
+                // 📚 Gêneros selecionados (CheckedListBox)
+                foreach (KeyValuePair<int, string> item in ClbGenero.CheckedItems)
                 {
-                    if (item is DataRowView row)
-                    {
-                        generosSelecionados.Add(Convert.ToInt32(row["Id"]));
-                    }
+                    generosSelecionados.Add(item.Key);
                 }
 
-                // ✍️ Autores separados por vírgula
+
+                // ⚠️ Verifica se pelo menos 1 gênero foi selecionado
+                if (generosSelecionados.Count == 0)
+                {
+                    MessageBox.Show("Selecione pelo menos um gênero!");
+                    return;
+                }
+
+                // Gênero principal → o primeiro selecionado
+                int generoPrincipalId = generosSelecionados[0];
+
+                // ✍️ Autores separados por vírgula (TextBox)
                 string[] nomesAutores = TxtAutor.Text.Split(',');
                 List<int> autorIds = new List<int>();
 
@@ -83,9 +91,12 @@ namespace Livraria
                                 else
                                 {
                                     SqlCommand cmdInsert = new SqlCommand(
-                                        "INSERT INTO Autores (Nome) OUTPUT INSERTED.Id VALUES (@Nome)", con, trans);
+                                    "INSERT INTO Autores (Nome, Nacionalidade, Biografia) OUTPUT INSERTED.Id VALUES (@Nome, @Nacionalidade, @Biografia)", con, trans);
                                     cmdInsert.Parameters.AddWithValue("@Nome", autor);
+                                    cmdInsert.Parameters.AddWithValue("@Nacionalidade", TxtNacionalidade.Text.Trim());
+                                    cmdInsert.Parameters.AddWithValue("@Biografia", TxtBiografia.Text.Trim());
                                     autorId = (int)cmdInsert.ExecuteScalar();
+
                                 }
 
                                 autorIds.Add(autorId);
@@ -93,7 +104,7 @@ namespace Livraria
 
                             string autoresIdString = string.Join(",", autorIds);
 
-                            // 🏢 EDITORA — cria se não existir
+                            // 🏢 EDITORA (ComboBox)
                             string nomeEditora = CbEditora.Text?.Trim();
                             if (string.IsNullOrEmpty(nomeEditora))
                             {
@@ -118,9 +129,9 @@ namespace Livraria
                                 editoraId = (int)cmdInsertEditora.ExecuteScalar();
                             }
 
-                            // 👶 FAIXA ETÁRIA — seleciona pela idade digitada/selecionada
+                            // 👶 FAIXA ETÁRIA (ComboBox)
                             int faixaId;
-                            string faixaEscolhida = CbFaixaEtaria.Text?.Trim(); // ex: "12" ou "Infantil"
+                            string faixaEscolhida = CbFaixaEtaria.Text?.Trim();
                             if (string.IsNullOrEmpty(faixaEscolhida))
                             {
                                 MessageBox.Show("Selecione ou digite uma Faixa Etária válida!");
@@ -137,17 +148,20 @@ namespace Livraria
                             }
                             else
                             {
-                                // Opcional: criar faixa se não existir
                                 SqlCommand cmdInsertFaixa = new SqlCommand(
                                     "INSERT INTO FaixaEtaria (Idades) OUTPUT INSERTED.Id VALUES (@Idades)", con, trans);
-                                cmdInsertFaixa.Parameters.AddWithValue("@Idade", faixaEscolhida);
+                                cmdInsertFaixa.Parameters.AddWithValue("@Idades", faixaEscolhida);
                                 faixaId = (int)cmdInsertFaixa.ExecuteScalar();
                             }
 
-                            // 💾 Insere o livro
-                            string sqlLivro = @"INSERT INTO Livros
-                        (Nome, AutoresId, EditoraId, Preco, Quantidade, FaixaEtariaId, Foto)
-                        VALUES (@Nome, @AutoresId, @EditoraId, @Preco, @Quantidade, @FaixaEtariaId, @Foto);
+                            // 💾 Insere o livro com GenerosId
+                            string sqlLivro = @"
+                        INSERT INTO Livros
+                        (Nome, AutoresId, EditoraId, Preco, Quantidade, FaixaEtariaId, Foto,
+                         AnoPublicacao, NumeroPaginas, Idioma, Descricao, GenerosId, DataCadastro, Ativo)
+                        VALUES
+                        (@Nome, @AutoresId, @EditoraId, @Preco, @Quantidade, @FaixaEtariaId, @Foto,
+                         @AnoPublicacao, @NumeroPaginas, @Idioma, @Descricao, @GenerosId, GETDATE(), 1);
                         SELECT SCOPE_IDENTITY();";
 
                             SqlCommand cmd = new SqlCommand(sqlLivro, con, trans);
@@ -155,10 +169,11 @@ namespace Livraria
                             cmd.Parameters.AddWithValue("@AutoresId", autoresIdString);
                             cmd.Parameters.AddWithValue("@EditoraId", editoraId);
                             cmd.Parameters.AddWithValue("@FaixaEtariaId", faixaId);
+                            cmd.Parameters.AddWithValue("@GenerosId", generoPrincipalId);
                             cmd.Parameters.AddWithValue("@Preco", decimal.Parse(TxtPreco.Text.Replace(",", "."), System.Globalization.CultureInfo.InvariantCulture));
                             cmd.Parameters.AddWithValue("@Quantidade", int.Parse(Txtquant.Text));
 
-                            // 📸 Foto do livro
+                            // 📸 Foto do livro (PictureBox)
                             if (Picturebook.Image != null)
                             {
                                 using (MemoryStream ms = new MemoryStream())
@@ -172,9 +187,15 @@ namespace Livraria
                                 cmd.Parameters.AddWithValue("@Foto", DBNull.Value);
                             }
 
+                            // 🆕 Novos campos
+                            cmd.Parameters.AddWithValue("@AnoPublicacao", int.Parse(TxtYears.Text));
+                            cmd.Parameters.AddWithValue("@NumeroPaginas", int.Parse(TxtPages.Text));
+                            cmd.Parameters.AddWithValue("@Idioma", TxtLanguage.Text);
+                            cmd.Parameters.AddWithValue("@Descricao", TxtDescription.Text);
+
                             int idLivro = Convert.ToInt32(cmd.ExecuteScalar());
 
-                            // 🎭 Gêneros
+                            // 🎭 Gêneros extras — Tabela LivroGeneros
                             foreach (int idGenero in generosSelecionados)
                             {
                                 SqlCommand cmdGenero = new SqlCommand(
@@ -201,114 +222,285 @@ namespace Livraria
             }
         }
 
+        /*  try
+          {
+              List<int> generosSelecionados = new List<int>();
 
+              // 📚 Gêneros selecionados (CheckedListBox)
+              foreach (var item in ClbGenero.CheckedItems)
+              {
+                  if (item is DataRowView row)
+                  {
+                      generosSelecionados.Add(Convert.ToInt32(row["Id"]));
+                  }
+              }
+
+              // ✍️ Autores separados por vírgula (TextBox)
+              string[] nomesAutores = TxtAutor.Text.Split(',');
+              List<int> autorIds = new List<int>();
+
+              using (SqlConnection con = Conexao.GetConnection())
+              {
+                  con.Open();
+
+                  using (SqlTransaction trans = con.BeginTransaction())
+                  {
+                      try
+                      {
+                          // 🔄 Processa autores (cria se não existir)
+                          foreach (string nome in nomesAutores)
+                          {
+                              string autor = nome.Trim();
+                              if (string.IsNullOrEmpty(autor)) continue;
+
+                              SqlCommand cmdCheck = new SqlCommand("SELECT Id FROM Autores WHERE Nome = @Nome", con, trans);
+                              cmdCheck.Parameters.AddWithValue("@Nome", autor);
+                              object result = cmdCheck.ExecuteScalar();
+
+                              int autorId;
+                              if (result != null)
+                              {
+                                  autorId = Convert.ToInt32(result);
+                              }
+                              else
+                              {
+                                  SqlCommand cmdInsert = new SqlCommand(
+                                      "INSERT INTO Autores (Nome) OUTPUT INSERTED.Id VALUES (@Nome)", con, trans);
+                                  cmdInsert.Parameters.AddWithValue("@Nome", autor);
+                                  autorId = (int)cmdInsert.ExecuteScalar();
+                              }
+
+                              autorIds.Add(autorId);
+                          }
+
+                          string autoresIdString = string.Join(",", autorIds);
+
+                          // 🏢 EDITORA (ComboBox)
+                          string nomeEditora = CbEditora.Text?.Trim();
+                          if (string.IsNullOrEmpty(nomeEditora))
+                          {
+                              MessageBox.Show("Digite ou selecione uma editora antes de salvar!");
+                              return;
+                          }
+
+                          int editoraId;
+                          SqlCommand cmdCheckEditora = new SqlCommand("SELECT Id FROM Editora WHERE Nome = @Nome", con, trans);
+                          cmdCheckEditora.Parameters.AddWithValue("@Nome", nomeEditora);
+                          object resultEditora = cmdCheckEditora.ExecuteScalar();
+
+                          if (resultEditora != null)
+                          {
+                              editoraId = Convert.ToInt32(resultEditora);
+                          }
+                          else
+                          {
+                              SqlCommand cmdInsertEditora = new SqlCommand(
+                                  "INSERT INTO Editora (Nome) OUTPUT INSERTED.Id VALUES (@Nome)", con, trans);
+                              cmdInsertEditora.Parameters.AddWithValue("@Nome", nomeEditora);
+                              editoraId = (int)cmdInsertEditora.ExecuteScalar();
+                          }
+
+                          // 👶 FAIXA ETÁRIA (ComboBox)
+                          int faixaId;
+                          string faixaEscolhida = CbFaixaEtaria.Text?.Trim();
+                          if (string.IsNullOrEmpty(faixaEscolhida))
+                          {
+                              MessageBox.Show("Selecione ou digite uma Faixa Etária válida!");
+                              return;
+                          }
+
+                          SqlCommand cmdFaixa = new SqlCommand("SELECT Id FROM FaixaEtaria WHERE Idades = @Idades", con, trans);
+                          cmdFaixa.Parameters.AddWithValue("@Idades", faixaEscolhida);
+                          object resultFaixa = cmdFaixa.ExecuteScalar();
+
+                          if (resultFaixa != null)
+                          {
+                              faixaId = Convert.ToInt32(resultFaixa);
+                          }
+                          else
+                          {
+                              SqlCommand cmdInsertFaixa = new SqlCommand(
+                                  "INSERT INTO FaixaEtaria (Idades) OUTPUT INSERTED.Id VALUES (@Idades)", con, trans);
+                              cmdInsertFaixa.Parameters.AddWithValue("@Idades", faixaEscolhida);
+                              faixaId = (int)cmdInsertFaixa.ExecuteScalar();
+                          }
+
+                          // 💾 Insere o livro com novos campos
+                          string sqlLivro = @"
+                      INSERT INTO Livros
+                      (Nome, AutoresId, EditoraId, Preco, Quantidade, FaixaEtariaId, Foto,
+                       AnoPublicacao, NumeroPaginas, Idioma, Descricao, DataCadastro, Ativo)
+                      VALUES
+                      (@Nome, @AutoresId, @EditoraId, @Preco, @Quantidade, @FaixaEtariaId, @Foto,
+                       @AnoPublicacao, @NumeroPaginas, @Idioma, @Descricao, GETDATE(), 1);
+                      SELECT SCOPE_IDENTITY();";
+
+                          SqlCommand cmd = new SqlCommand(sqlLivro, con, trans);
+                          cmd.Parameters.AddWithValue("@Nome", Txtnamebook.Text);
+                          cmd.Parameters.AddWithValue("@AutoresId", autoresIdString);
+                          cmd.Parameters.AddWithValue("@EditoraId", editoraId);
+                          cmd.Parameters.AddWithValue("@FaixaEtariaId", faixaId);
+                          cmd.Parameters.AddWithValue("@Preco", decimal.Parse(TxtPreco.Text.Replace(",", "."), System.Globalization.CultureInfo.InvariantCulture));
+                          cmd.Parameters.AddWithValue("@Quantidade", int.Parse(Txtquant.Text));
+
+                          // 📸 Foto do livro (PictureBox)
+                          if (Picturebook.Image != null)
+                          {
+                              using (MemoryStream ms = new MemoryStream())
+                              {
+                                  Picturebook.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                                  cmd.Parameters.AddWithValue("@Foto", ms.ToArray());
+                              }
+                          }
+                          else
+                          {
+                              cmd.Parameters.AddWithValue("@Foto", DBNull.Value);
+                          }
+
+                          // 🆕 Novos campos
+                          cmd.Parameters.AddWithValue("@AnoPublicacao", int.Parse(TxtYears.Text));
+                          cmd.Parameters.AddWithValue("@NumeroPaginas", int.Parse(TxtPages.Text));
+                          cmd.Parameters.AddWithValue("@Idioma", TxtLanguage.Text);
+                          cmd.Parameters.AddWithValue("@Descricao", TxtDescription.Text);
+
+                          int idLivro = Convert.ToInt32(cmd.ExecuteScalar());
+
+                          // 🎭 Gêneros
+                          foreach (int idGenero in generosSelecionados)
+                          {
+                              SqlCommand cmdGenero = new SqlCommand(
+                                  "INSERT INTO LivroGeneros (LivroId, GeneroId) VALUES (@LivroId, @GeneroId)", con, trans);
+                              cmdGenero.Parameters.AddWithValue("@LivroId", idLivro);
+                              cmdGenero.Parameters.AddWithValue("@GeneroId", idGenero);
+                              cmdGenero.ExecuteNonQuery();
+                          }
+
+                          trans.Commit();
+                          MessageBox.Show("📗 Livro cadastrado com sucesso!");
+                      }
+                      catch (Exception ex)
+                      {
+                          trans.Rollback();
+                          MessageBox.Show("Erro ao cadastrar: " + ex.Message);
+                      }
+                  }
+              }
+          }
+          catch (Exception ex)
+          {
+              MessageBox.Show("Erro geral: " + ex.Message);
+          }
+      }
         /*
-          List<int> generosSelecionados = new List<int>();
 
-          // Pega os gêneros selecionados
-          foreach (KeyValuePair<int, string> item in ClbGenero.CheckedItems)
-          {
-              generosSelecionados.Add(item.Key);
-          }
 
-          // Pega os autores do TextBox separados por vírgula
-          string[] nomesAutores = TxtAutor.Text.Split(',');
-          List<int> autorIds = new List<int>();
+      /*
+        List<int> generosSelecionados = new List<int>();
 
-          using (SqlConnection con = Conexao.GetConnection())
-          {
-              con.Open();
+        // Pega os gêneros selecionados
+        foreach (KeyValuePair<int, string> item in ClbGenero.CheckedItems)
+        {
+            generosSelecionados.Add(item.Key);
+        }
 
-              // Processa os autores
-              foreach (string nome in nomesAutores)
-              {
-                  string autor = nome.Trim();
+        // Pega os autores do TextBox separados por vírgula
+        string[] nomesAutores = TxtAutor.Text.Split(',');
+        List<int> autorIds = new List<int>();
 
-                  // Verifica se já existe
-                  SqlCommand cmdCheck = new SqlCommand("SELECT Id FROM Autores WHERE Nome = @Nome", con);
-                  cmdCheck.Parameters.AddWithValue("@Nome", autor);
-                  object result = cmdCheck.ExecuteScalar();
+        using (SqlConnection con = Conexao.GetConnection())
+        {
+            con.Open();
 
-                  int autorId;
-                  if (result != null)
-                  {
-                      autorId = Convert.ToInt32(result);
-                  }
-                  else
-                  {
-                      // Insere se não existir
-                      SqlCommand cmdInsert = new SqlCommand("INSERT INTO Autores (Nome) OUTPUT INSERTED.Id VALUES (@Nome)", con);
-                      cmdInsert.Parameters.AddWithValue("@Nome", autor);
-                      autorId = (int)cmdInsert.ExecuteScalar();
-                  }
+            // Processa os autores
+            foreach (string nome in nomesAutores)
+            {
+                string autor = nome.Trim();
 
-                  autorIds.Add(autorId);
-              }
+                // Verifica se já existe
+                SqlCommand cmdCheck = new SqlCommand("SELECT Id FROM Autores WHERE Nome = @Nome", con);
+                cmdCheck.Parameters.AddWithValue("@Nome", autor);
+                object result = cmdCheck.ExecuteScalar();
 
-              // Concatena os IDs dos autores em uma string separada por vírgula
-              string autoresIdString = string.Join(",", autorIds);
+                int autorId;
+                if (result != null)
+                {
+                    autorId = Convert.ToInt32(result);
+                }
+                else
+                {
+                    // Insere se não existir
+                    SqlCommand cmdInsert = new SqlCommand("INSERT INTO Autores (Nome) OUTPUT INSERTED.Id VALUES (@Nome)", con);
+                    cmdInsert.Parameters.AddWithValue("@Nome", autor);
+                    autorId = (int)cmdInsert.ExecuteScalar();
+                }
 
-              // Primeiro insere o livro
-              string sqlLivro = @"INSERT INTO Livros
-          (Nome, AutoresId, EditoraId, Preco, Quantidade, FaixaEtariaId, Foto)
-          VALUES (@Nome, @AutoresId, @EditoraId, @Preco, @Quantidade, @FaixaEtariaId, @Foto);
-          SELECT SCOPE_IDENTITY();"; // pega o Id do livro inserido
+                autorIds.Add(autorId);
+            }
 
-              SqlCommand cmd = new SqlCommand(sqlLivro, con);
-              cmd.Parameters.AddWithValue("@Nome", Txtnamebook.Text);
-              cmd.Parameters.AddWithValue("@AutoresId", autoresIdString); // IDs separados por vírgula
-              cmd.Parameters.AddWithValue("@Preco", decimal.Parse(TxtPreco.Text.Replace(",", ".")));
-              cmd.Parameters.AddWithValue("@Quantidade", int.Parse(Txtquant.Text));
+            // Concatena os IDs dos autores em uma string separada por vírgula
+            string autoresIdString = string.Join(",", autorIds);
 
-              // Foto do livro
-              if (Picturebook != null)
-              {
-                  using (MemoryStream ms = new MemoryStream())
-                  {
-                      Picturebook.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                      cmd.Parameters.AddWithValue("@Foto", ms.ToArray());
-                  }
-              }
-              else
-              {
-                  cmd.Parameters.AddWithValue("@Foto", DBNull.Value);
-              }
+            // Primeiro insere o livro
+            string sqlLivro = @"INSERT INTO Livros
+        (Nome, AutoresId, EditoraId, Preco, Quantidade, FaixaEtariaId, Foto)
+        VALUES (@Nome, @AutoresId, @EditoraId, @Preco, @Quantidade, @FaixaEtariaId, @Foto);
+        SELECT SCOPE_IDENTITY();"; // pega o Id do livro inserido
 
-              // Editora e faixa etária
-              if (CbEditora.SelectedValue != null)
-              {
-                  cmd.Parameters.AddWithValue("@EditoraId", (int)CbEditora.SelectedValue);
-              }
-              else
-              {
-                  MessageBox.Show("Selecione uma editora antes de salvar!");
-                  return;
-              }
-              if (CbFaixaEtaria.SelectedValue != null)
-              {
-                  cmd.Parameters.AddWithValue("@FaixaEtariaId", (int)CbFaixaEtaria.SelectedValue);
-              }
-              else
-              {
-                  MessageBox.Show("Selecione uma Faixa Etaria antes de salvar!");
-                  return;
-              }
+            SqlCommand cmd = new SqlCommand(sqlLivro, con);
+            cmd.Parameters.AddWithValue("@Nome", Txtnamebook.Text);
+            cmd.Parameters.AddWithValue("@AutoresId", autoresIdString); // IDs separados por vírgula
+            cmd.Parameters.AddWithValue("@Preco", decimal.Parse(TxtPreco.Text.Replace(",", ".")));
+            cmd.Parameters.AddWithValue("@Quantidade", int.Parse(Txtquant.Text));
 
-              int idLivro = Convert.ToInt32(cmd.ExecuteScalar()); // pega o Id do livro inserido
+            // Foto do livro
+            if (Picturebook != null)
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    Picturebook.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    cmd.Parameters.AddWithValue("@Foto", ms.ToArray());
+                }
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@Foto", DBNull.Value);
+            }
 
-              // Insere os gêneros na tabela de ligação LivroGenero
-              foreach (int idGenero in generosSelecionados)
-              {
-                  SqlCommand cmdGenero = new SqlCommand(
-                      "INSERT INTO LivroGeneros (LivroId, GeneroId) VALUES (@LivroId, @GeneroId)", con);
-                  cmdGenero.Parameters.AddWithValue("@LivroId", idLivro);
-                  cmdGenero.Parameters.AddWithValue("@GeneroId", idGenero);
-                  cmdGenero.ExecuteNonQuery();
-              }
+            // Editora e faixa etária
+            if (CbEditora.SelectedValue != null)
+            {
+                cmd.Parameters.AddWithValue("@EditoraId", (int)CbEditora.SelectedValue);
+            }
+            else
+            {
+                MessageBox.Show("Selecione uma editora antes de salvar!");
+                return;
+            }
+            if (CbFaixaEtaria.SelectedValue != null)
+            {
+                cmd.Parameters.AddWithValue("@FaixaEtariaId", (int)CbFaixaEtaria.SelectedValue);
+            }
+            else
+            {
+                MessageBox.Show("Selecione uma Faixa Etaria antes de salvar!");
+                return;
+            }
 
-              MessageBox.Show("Livro cadastrado com sucesso!");
-          }
-      }*/
+            int idLivro = Convert.ToInt32(cmd.ExecuteScalar()); // pega o Id do livro inserido
+
+            // Insere os gêneros na tabela de ligação LivroGenero
+            foreach (int idGenero in generosSelecionados)
+            {
+                SqlCommand cmdGenero = new SqlCommand(
+                    "INSERT INTO LivroGeneros (LivroId, GeneroId) VALUES (@LivroId, @GeneroId)", con);
+                cmdGenero.Parameters.AddWithValue("@LivroId", idLivro);
+                cmdGenero.Parameters.AddWithValue("@GeneroId", idGenero);
+                cmdGenero.ExecuteNonQuery();
+            }
+
+            MessageBox.Show("Livro cadastrado com sucesso!");
+        }
+    }*/
 
         /*
          List<int> generosSelecionados = new List<int>();
@@ -703,15 +895,7 @@ namespace Livraria
             {
              
                 con.Open();
-
-                // --- AUTORES ---
-                SqlDataAdapter daAutor = new SqlDataAdapter("SELECT Id, Nome FROM Autores", con);
-                DataTable dtAutor = new DataTable();
-                daAutor.Fill(dtAutor);
-                CbAutores.DataSource = dtAutor;
-                CbAutores.DisplayMember = "Nome";
-                CbAutores.ValueMember = "Id";
-
+             
                 
                 SqlDataAdapter da = new SqlDataAdapter("SELECT Id, Nome FROM Editora", con);
                 DataTable dt = new DataTable();
@@ -729,7 +913,7 @@ namespace Livraria
                 SqlDataAdapter daGenero = new SqlDataAdapter("SELECT Id, Nome FROM Generos", con);
                 DataTable dtGenero = new DataTable();
                 daGenero.Fill(dtGenero);
-
+                
                 // Adiciona cada gênero como um objeto KeyValuePair (Id + Nome)
                 foreach (DataRow row in dtGenero.Rows)
                 {
@@ -762,6 +946,15 @@ namespace Livraria
             }
         }
 
+        private void TxtDescription_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ClbGenero_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
     

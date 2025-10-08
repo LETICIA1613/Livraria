@@ -37,19 +37,20 @@ namespace Livraria
         }
         private void CarregarLivros(string genero = "", string busca = "")
         {
-            FlpLivros.Controls.Clear(); // limpa cards antigos
+          
+            FlpLivros.Controls.Clear();
 
             using (SqlConnection con = Conexao.GetConnection())
             {
                 con.Open();
 
                 string sql = @"
-            SELECT L.Nome, L.Preco, L.Foto, E.Nome AS Editora
+            SELECT L.Nome, E.Nome AS EditoraNome, L.Preco, L.Foto
             FROM Livros L
             INNER JOIN Editora E ON L.EditoraId = E.Id
             INNER JOIN Generos G ON L.GenerosId = G.Id
             WHERE (@Generos = '' OR G.Nome = @Generos)
-              AND (@Busca = '' OR L.Nome LIKE '%' + @Busca + '%')";
+            AND (@Busca = '' OR L.Nome LIKE '%' + @Busca + '%')";
 
                 SqlCommand cmd = new SqlCommand(sql, con);
                 cmd.Parameters.AddWithValue("@Generos", genero);
@@ -61,7 +62,7 @@ namespace Livraria
                     LivroCard card = new LivroCard
                     {
                         Titulo = reader["Nome"].ToString(),
-                        Editora = reader["Editoraid"].ToString(),
+                        Editora = reader["EditoraNome"].ToString(),
                         Preco = "R$ " + Convert.ToDecimal(reader["Preco"]).ToString("N2")
                     };
 
@@ -77,39 +78,82 @@ namespace Livraria
                     FlpLivros.Controls.Add(card);
                 }
             }
-   
-            using (SqlConnection con = Conexao.GetConnection())
-            {
-                string sql = "SELECT Nome, Editoraid, Preco, Foto FROM Livros";
-                SqlCommand cmd = new SqlCommand(sql, con);
-                con.Open();
-
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    LivroCard card = new LivroCard();
-                    card.Titulo = reader["Nome"].ToString();
-                    card.Editora = reader["Editoraid"].ToString();
-                    card.Preco = "R$ " + reader["Preco"].ToString();
-
-                    // Converter varbinary em imagem
-                    if (reader["Foto"] != DBNull.Value)
-                    {
-                        byte[] imgBytes = (byte[])reader["Foto"];
-                        using (MemoryStream ms = new MemoryStream(imgBytes))
-                        {
-                            card.Imagem = Image.FromStream(ms);
-                        }
-                    }
-
-                    FlpLivros.Controls.Add(card); // usa o nome real do teu painel
-                }
-            }
-        
-
         }
 
-        
+        /* FlpLivros.Controls.Clear(); // limpa cards antigos
+
+         using (SqlConnection con = Conexao.GetConnection())
+         {
+             con.Open();
+
+             string sql = @"
+             SELECT L.Nome, E.Nome AS EditoraNome, L.Preco
+             FROM Livros L
+             INNER JOIN Editora E ON L.EditoraId = E.Id
+             INNER JOIN Generos G ON L.GenerosId = G.Id
+             WHERE (@Generos = '' OR G.Nome = @Generos)
+             AND (@Busca = '' OR L.Nome LIKE '%' + @Busca + '%')";
+
+             SqlCommand cmd = new SqlCommand(sql, con);
+             cmd.Parameters.AddWithValue("@Generos", genero);
+             cmd.Parameters.AddWithValue("@Busca", busca);
+
+             SqlDataReader reader = cmd.ExecuteReader();
+             while (reader.Read())
+             {
+                 LivroCard card = new LivroCard
+                 {
+                     Titulo = reader["Nome"].ToString(),
+                     Editora = reader["EditoraNome"].ToString(), // 👈 agora pega o nome da editora
+                     Preco = "R$ " + Convert.ToDecimal(reader["Preco"]).ToString("N2")
+                 };
+
+
+                 if (reader["Foto"] != DBNull.Value)
+                 {
+                     byte[] imgBytes = (byte[])reader["Foto"];
+                     using (MemoryStream ms = new MemoryStream(imgBytes))
+                     {
+                         card.Imagem = Image.FromStream(ms);
+                     }
+                 }
+
+                 FlpLivros.Controls.Add(card);
+             }
+         }
+
+         using (SqlConnection con = Conexao.GetConnection())
+         {
+             string sql = "SELECT Nome, Editoraid, Preco, Foto FROM Livros";
+             SqlCommand cmd = new SqlCommand(sql, con);
+             con.Open();
+
+             SqlDataReader reader = cmd.ExecuteReader();
+             while (reader.Read())
+             {
+                 LivroCard card = new LivroCard();
+                 card.Titulo = reader["Nome"].ToString();
+                 card.Editora = reader["Editoraid"].ToString();
+                 card.Preco = "R$ " + reader["Preco"].ToString();
+
+                 // Converter varbinary em imagem
+                 if (reader["Foto"] != DBNull.Value)
+                 {
+                     byte[] imgBytes = (byte[])reader["Foto"];
+                     using (MemoryStream ms = new MemoryStream(imgBytes))
+                     {
+                         card.Imagem = Image.FromStream(ms);
+                     }
+                 }
+
+                 FlpLivros.Controls.Add(card); // usa o nome real do teu painel
+             }
+         }
+
+
+     }*/
+
+
 
         private void Txtwrite_TextChanged(object sender, EventArgs e)
         {

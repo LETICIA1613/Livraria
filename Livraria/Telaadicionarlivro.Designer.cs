@@ -32,17 +32,20 @@
             this.Btnadd = new System.Windows.Forms.Button();
             this.Txtnamebook = new System.Windows.Forms.TextBox();
             this.TxtAutor = new System.Windows.Forms.TextBox();
-            this.TxtEditora = new System.Windows.Forms.TextBox();
             this.Picturebook = new System.Windows.Forms.PictureBox();
             this.TxtPreco = new System.Windows.Forms.TextBox();
             this.Btnimage = new System.Windows.Forms.Button();
-            this.TxtGenero = new System.Windows.Forms.TextBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.Txtquant = new System.Windows.Forms.TextBox();
             this.CbFaixaEtaria = new System.Windows.Forms.ComboBox();
-            this.CbAutores = new System.Windows.Forms.ComboBox();
             this.CbEditora = new System.Windows.Forms.ComboBox();
             this.ClbGenero = new System.Windows.Forms.CheckedListBox();
+            this.TxtYears = new System.Windows.Forms.TextBox();
+            this.TxtPages = new System.Windows.Forms.TextBox();
+            this.TxtLanguage = new System.Windows.Forms.TextBox();
+            this.TxtDescription = new System.Windows.Forms.TextBox();
+            this.TxtNacionalidade = new System.Windows.Forms.TextBox();
+            this.TxtBiografia = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.Picturebook)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -72,13 +75,6 @@
             this.TxtAutor.Size = new System.Drawing.Size(185, 20);
             this.TxtAutor.TabIndex = 3;
             // 
-            // TxtEditora
-            // 
-            this.TxtEditora.Location = new System.Drawing.Point(175, 308);
-            this.TxtEditora.Name = "TxtEditora";
-            this.TxtEditora.Size = new System.Drawing.Size(185, 20);
-            this.TxtEditora.TabIndex = 4;
-            // 
             // Picturebook
             // 
             this.Picturebook.Location = new System.Drawing.Point(175, 102);
@@ -107,17 +103,10 @@
             this.Btnimage.UseVisualStyleBackColor = false;
             this.Btnimage.Click += new System.EventHandler(this.Btnimage_Click);
             // 
-            // TxtGenero
-            // 
-            this.TxtGenero.Location = new System.Drawing.Point(175, 357);
-            this.TxtGenero.Name = "TxtGenero";
-            this.TxtGenero.Size = new System.Drawing.Size(185, 20);
-            this.TxtGenero.TabIndex = 10;
-            // 
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(-2, -10);
+            this.pictureBox2.Location = new System.Drawing.Point(-20, -1);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(808, 473);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -140,44 +129,89 @@
             this.CbFaixaEtaria.Size = new System.Drawing.Size(121, 21);
             this.CbFaixaEtaria.TabIndex = 13;
             // 
-            // CbAutores
-            // 
-            this.CbAutores.FormattingEnabled = true;
-            this.CbAutores.Location = new System.Drawing.Point(378, 282);
-            this.CbAutores.Name = "CbAutores";
-            this.CbAutores.Size = new System.Drawing.Size(121, 21);
-            this.CbAutores.TabIndex = 15;
-            // 
             // CbEditora
             // 
             this.CbEditora.FormattingEnabled = true;
-            this.CbEditora.Location = new System.Drawing.Point(378, 307);
+            this.CbEditora.Location = new System.Drawing.Point(175, 307);
             this.CbEditora.Name = "CbEditora";
-            this.CbEditora.Size = new System.Drawing.Size(121, 21);
+            this.CbEditora.Size = new System.Drawing.Size(185, 21);
             this.CbEditora.TabIndex = 16;
             // 
             // ClbGenero
             // 
             this.ClbGenero.FormattingEnabled = true;
-            this.ClbGenero.Location = new System.Drawing.Point(379, 357);
+            this.ClbGenero.Location = new System.Drawing.Point(366, 249);
             this.ClbGenero.Name = "ClbGenero";
-            this.ClbGenero.Size = new System.Drawing.Size(120, 49);
+            this.ClbGenero.Size = new System.Drawing.Size(120, 154);
             this.ClbGenero.TabIndex = 18;
+            this.ClbGenero.SelectedIndexChanged += new System.EventHandler(this.ClbGenero_SelectedIndexChanged);
+            // 
+            // TxtYears
+            // 
+            this.TxtYears.Location = new System.Drawing.Point(554, 65);
+            this.TxtYears.Name = "TxtYears";
+            this.TxtYears.Size = new System.Drawing.Size(99, 20);
+            this.TxtYears.TabIndex = 19;
+            this.TxtYears.Text = "Ano de Publicação";
+            // 
+            // TxtPages
+            // 
+            this.TxtPages.Location = new System.Drawing.Point(554, 91);
+            this.TxtPages.Name = "TxtPages";
+            this.TxtPages.Size = new System.Drawing.Size(100, 20);
+            this.TxtPages.TabIndex = 20;
+            this.TxtPages.Text = "Num páginas";
+            // 
+            // TxtLanguage
+            // 
+            this.TxtLanguage.Location = new System.Drawing.Point(554, 117);
+            this.TxtLanguage.Name = "TxtLanguage";
+            this.TxtLanguage.Size = new System.Drawing.Size(99, 20);
+            this.TxtLanguage.TabIndex = 21;
+            this.TxtLanguage.Text = "Idioma";
+            // 
+            // TxtDescription
+            // 
+            this.TxtDescription.Location = new System.Drawing.Point(522, 193);
+            this.TxtDescription.Name = "TxtDescription";
+            this.TxtDescription.Size = new System.Drawing.Size(233, 20);
+            this.TxtDescription.TabIndex = 22;
+            this.TxtDescription.Text = "Descrição do livro";
+            this.TxtDescription.TextChanged += new System.EventHandler(this.TxtDescription_TextChanged);
+            // 
+            // TxtNacionalidade
+            // 
+            this.TxtNacionalidade.Location = new System.Drawing.Point(522, 230);
+            this.TxtNacionalidade.Name = "TxtNacionalidade";
+            this.TxtNacionalidade.Size = new System.Drawing.Size(206, 20);
+            this.TxtNacionalidade.TabIndex = 23;
+            this.TxtNacionalidade.Text = "Nacionalidade do Autor";
+            // 
+            // TxtBiografia
+            // 
+            this.TxtBiografia.Location = new System.Drawing.Point(522, 265);
+            this.TxtBiografia.Name = "TxtBiografia";
+            this.TxtBiografia.Size = new System.Drawing.Size(206, 20);
+            this.TxtBiografia.TabIndex = 24;
+            this.TxtBiografia.Text = "Biografia do Autor";
             // 
             // Telaadicionarlivro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.TxtBiografia);
+            this.Controls.Add(this.TxtNacionalidade);
+            this.Controls.Add(this.TxtDescription);
+            this.Controls.Add(this.TxtLanguage);
+            this.Controls.Add(this.TxtPages);
+            this.Controls.Add(this.TxtYears);
             this.Controls.Add(this.ClbGenero);
             this.Controls.Add(this.CbEditora);
-            this.Controls.Add(this.CbAutores);
             this.Controls.Add(this.CbFaixaEtaria);
             this.Controls.Add(this.Txtquant);
             this.Controls.Add(this.Btnadd);
-            this.Controls.Add(this.TxtGenero);
             this.Controls.Add(this.TxtPreco);
-            this.Controls.Add(this.TxtEditora);
             this.Controls.Add(this.TxtAutor);
             this.Controls.Add(this.Txtnamebook);
             this.Controls.Add(this.Btnimage);
@@ -197,16 +231,19 @@
         private System.Windows.Forms.Button Btnadd;
         private System.Windows.Forms.TextBox Txtnamebook;
         private System.Windows.Forms.TextBox TxtAutor;
-        private System.Windows.Forms.TextBox TxtEditora;
         private System.Windows.Forms.PictureBox Picturebook;
         private System.Windows.Forms.TextBox TxtPreco;
         private System.Windows.Forms.Button Btnimage;
-        private System.Windows.Forms.TextBox TxtGenero;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.TextBox Txtquant;
         private System.Windows.Forms.ComboBox CbFaixaEtaria;
-        private System.Windows.Forms.ComboBox CbAutores;
         private System.Windows.Forms.ComboBox CbEditora;
         private System.Windows.Forms.CheckedListBox ClbGenero;
+        private System.Windows.Forms.TextBox TxtYears;
+        private System.Windows.Forms.TextBox TxtPages;
+        private System.Windows.Forms.TextBox TxtLanguage;
+        private System.Windows.Forms.TextBox TxtDescription;
+        private System.Windows.Forms.TextBox TxtNacionalidade;
+        private System.Windows.Forms.TextBox TxtBiografia;
     }
 }
