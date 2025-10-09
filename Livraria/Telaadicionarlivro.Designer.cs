@@ -106,7 +106,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(-20, -1);
+            this.pictureBox2.Location = new System.Drawing.Point(-5, -16);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(808, 473);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -148,40 +148,41 @@
             // 
             // TxtYears
             // 
-            this.TxtYears.Location = new System.Drawing.Point(554, 65);
+            this.TxtYears.Location = new System.Drawing.Point(553, 76);
             this.TxtYears.Name = "TxtYears";
-            this.TxtYears.Size = new System.Drawing.Size(99, 20);
+            this.TxtYears.Size = new System.Drawing.Size(175, 20);
             this.TxtYears.TabIndex = 19;
             this.TxtYears.Text = "Ano de Publicação";
+            this.TxtYears.TextChanged += new System.EventHandler(this.TxtYears_TextChanged);
             // 
             // TxtPages
             // 
-            this.TxtPages.Location = new System.Drawing.Point(554, 91);
+            this.TxtPages.Location = new System.Drawing.Point(553, 102);
             this.TxtPages.Name = "TxtPages";
-            this.TxtPages.Size = new System.Drawing.Size(100, 20);
+            this.TxtPages.Size = new System.Drawing.Size(175, 20);
             this.TxtPages.TabIndex = 20;
             this.TxtPages.Text = "Num páginas";
             // 
             // TxtLanguage
             // 
-            this.TxtLanguage.Location = new System.Drawing.Point(554, 117);
+            this.TxtLanguage.Location = new System.Drawing.Point(553, 128);
             this.TxtLanguage.Name = "TxtLanguage";
-            this.TxtLanguage.Size = new System.Drawing.Size(99, 20);
+            this.TxtLanguage.Size = new System.Drawing.Size(175, 20);
             this.TxtLanguage.TabIndex = 21;
             this.TxtLanguage.Text = "Idioma";
             // 
             // TxtDescription
             // 
-            this.TxtDescription.Location = new System.Drawing.Point(522, 193);
+            this.TxtDescription.Location = new System.Drawing.Point(553, 167);
             this.TxtDescription.Name = "TxtDescription";
-            this.TxtDescription.Size = new System.Drawing.Size(233, 20);
+            this.TxtDescription.Size = new System.Drawing.Size(202, 20);
             this.TxtDescription.TabIndex = 22;
             this.TxtDescription.Text = "Descrição do livro";
             this.TxtDescription.TextChanged += new System.EventHandler(this.TxtDescription_TextChanged);
             // 
             // TxtNacionalidade
             // 
-            this.TxtNacionalidade.Location = new System.Drawing.Point(522, 230);
+            this.TxtNacionalidade.Location = new System.Drawing.Point(553, 193);
             this.TxtNacionalidade.Name = "TxtNacionalidade";
             this.TxtNacionalidade.Size = new System.Drawing.Size(206, 20);
             this.TxtNacionalidade.TabIndex = 23;
@@ -189,7 +190,7 @@
             // 
             // TxtBiografia
             // 
-            this.TxtBiografia.Location = new System.Drawing.Point(522, 265);
+            this.TxtBiografia.Location = new System.Drawing.Point(553, 219);
             this.TxtBiografia.Name = "TxtBiografia";
             this.TxtBiografia.Size = new System.Drawing.Size(206, 20);
             this.TxtBiografia.TabIndex = 24;

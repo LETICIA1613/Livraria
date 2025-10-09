@@ -32,19 +32,15 @@
             this.Txtwrite = new System.Windows.Forms.TextBox();
             this.Txt01 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.BtnRomance = new System.Windows.Forms.Button();
-            this.Btnfantasy = new System.Windows.Forms.Button();
-            this.Btnterror = new System.Windows.Forms.Button();
-            this.Btnselfhelp = new System.Windows.Forms.Button();
-            this.Btnsciencefiction = new System.Windows.Forms.Button();
-            this.BtnComedy = new System.Windows.Forms.Button();
-            this.Btnthriller = new System.Windows.Forms.Button();
-            this.BtnUtopia = new System.Windows.Forms.Button();
             this.Btnmenu = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.Btnreligious = new System.Windows.Forms.Button();
             this.FlpLivros = new System.Windows.Forms.FlowLayoutPanel();
-            this.BtnFiction = new System.Windows.Forms.Button();
+            this.ClbGenerosfiltro = new System.Windows.Forms.CheckedListBox();
+            this.BtnFiltrar = new System.Windows.Forms.Button();
+            this.ClbPreco = new System.Windows.Forms.CheckedListBox();
+            this.CbFiltroFX = new System.Windows.Forms.ComboBox();
+            this.ClbFiltroAutor = new System.Windows.Forms.CheckedListBox();
+            this.ChkNovidades = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,102 +76,6 @@
             this.label1.Size = new System.Drawing.Size(0, 13);
             this.label1.TabIndex = 2;
             // 
-            // BtnRomance
-            // 
-            this.BtnRomance.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.BtnRomance.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.BtnRomance.Location = new System.Drawing.Point(37, 99);
-            this.BtnRomance.Name = "BtnRomance";
-            this.BtnRomance.Size = new System.Drawing.Size(119, 23);
-            this.BtnRomance.TabIndex = 0;
-            this.BtnRomance.Text = "Romance";
-            this.BtnRomance.UseVisualStyleBackColor = false;
-            this.BtnRomance.Click += new System.EventHandler(this.BtnRomance_Click);
-            // 
-            // Btnfantasy
-            // 
-            this.Btnfantasy.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.Btnfantasy.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Btnfantasy.Location = new System.Drawing.Point(37, 128);
-            this.Btnfantasy.Name = "Btnfantasy";
-            this.Btnfantasy.Size = new System.Drawing.Size(119, 23);
-            this.Btnfantasy.TabIndex = 1;
-            this.Btnfantasy.Text = "Fantasia";
-            this.Btnfantasy.UseVisualStyleBackColor = false;
-            this.Btnfantasy.Click += new System.EventHandler(this.Btnfantasy_Click);
-            // 
-            // Btnterror
-            // 
-            this.Btnterror.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.Btnterror.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Btnterror.Location = new System.Drawing.Point(37, 157);
-            this.Btnterror.Name = "Btnterror";
-            this.Btnterror.Size = new System.Drawing.Size(119, 23);
-            this.Btnterror.TabIndex = 2;
-            this.Btnterror.Text = "Terror";
-            this.Btnterror.UseVisualStyleBackColor = false;
-            this.Btnterror.Click += new System.EventHandler(this.Btnterror_Click);
-            // 
-            // Btnselfhelp
-            // 
-            this.Btnselfhelp.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.Btnselfhelp.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Btnselfhelp.Location = new System.Drawing.Point(37, 186);
-            this.Btnselfhelp.Name = "Btnselfhelp";
-            this.Btnselfhelp.Size = new System.Drawing.Size(119, 23);
-            this.Btnselfhelp.TabIndex = 3;
-            this.Btnselfhelp.Text = "Autoajuda";
-            this.Btnselfhelp.UseVisualStyleBackColor = false;
-            this.Btnselfhelp.Click += new System.EventHandler(this.Btnselfhelp_Click);
-            // 
-            // Btnsciencefiction
-            // 
-            this.Btnsciencefiction.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.Btnsciencefiction.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Btnsciencefiction.Location = new System.Drawing.Point(37, 215);
-            this.Btnsciencefiction.Name = "Btnsciencefiction";
-            this.Btnsciencefiction.Size = new System.Drawing.Size(119, 23);
-            this.Btnsciencefiction.TabIndex = 4;
-            this.Btnsciencefiction.Text = "Ficção Científica";
-            this.Btnsciencefiction.UseVisualStyleBackColor = false;
-            this.Btnsciencefiction.Click += new System.EventHandler(this.Btnsciencefiction_Click);
-            // 
-            // BtnComedy
-            // 
-            this.BtnComedy.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.BtnComedy.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.BtnComedy.Location = new System.Drawing.Point(37, 244);
-            this.BtnComedy.Name = "BtnComedy";
-            this.BtnComedy.Size = new System.Drawing.Size(119, 23);
-            this.BtnComedy.TabIndex = 5;
-            this.BtnComedy.Text = "Comédia";
-            this.BtnComedy.UseVisualStyleBackColor = false;
-            this.BtnComedy.Click += new System.EventHandler(this.BtnComedy_Click);
-            // 
-            // Btnthriller
-            // 
-            this.Btnthriller.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.Btnthriller.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Btnthriller.Location = new System.Drawing.Point(37, 273);
-            this.Btnthriller.Name = "Btnthriller";
-            this.Btnthriller.Size = new System.Drawing.Size(119, 23);
-            this.Btnthriller.TabIndex = 6;
-            this.Btnthriller.Text = "Suspense";
-            this.Btnthriller.UseVisualStyleBackColor = false;
-            this.Btnthriller.Click += new System.EventHandler(this.Btnthriller_Click);
-            // 
-            // BtnUtopia
-            // 
-            this.BtnUtopia.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.BtnUtopia.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.BtnUtopia.Location = new System.Drawing.Point(37, 302);
-            this.BtnUtopia.Name = "BtnUtopia";
-            this.BtnUtopia.Size = new System.Drawing.Size(119, 23);
-            this.BtnUtopia.TabIndex = 7;
-            this.BtnUtopia.Text = "Utopia";
-            this.BtnUtopia.UseVisualStyleBackColor = false;
-            this.BtnUtopia.Click += new System.EventHandler(this.BtnUtopia_Click);
-            // 
             // Btnmenu
             // 
             this.Btnmenu.BackColor = System.Drawing.Color.CornflowerBlue;
@@ -200,18 +100,6 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
-            // Btnreligious
-            // 
-            this.Btnreligious.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.Btnreligious.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Btnreligious.Location = new System.Drawing.Point(37, 331);
-            this.Btnreligious.Name = "Btnreligious";
-            this.Btnreligious.Size = new System.Drawing.Size(119, 23);
-            this.Btnreligious.TabIndex = 8;
-            this.Btnreligious.Text = "Religioso";
-            this.Btnreligious.UseVisualStyleBackColor = false;
-            this.Btnreligious.Click += new System.EventHandler(this.Btnreligious_Click);
-            // 
             // FlpLivros
             // 
             this.FlpLivros.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
@@ -221,34 +109,79 @@
             this.FlpLivros.TabIndex = 13;
             this.FlpLivros.Paint += new System.Windows.Forms.PaintEventHandler(this.FlpLivros_Paint);
             // 
-            // BtnFiction
+            // ClbGenerosfiltro
             // 
-            this.BtnFiction.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.BtnFiction.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.BtnFiction.Location = new System.Drawing.Point(37, 360);
-            this.BtnFiction.Name = "BtnFiction";
-            this.BtnFiction.Size = new System.Drawing.Size(119, 23);
-            this.BtnFiction.TabIndex = 14;
-            this.BtnFiction.Text = "Ficção ";
-            this.BtnFiction.UseVisualStyleBackColor = false;
-            this.BtnFiction.Click += new System.EventHandler(this.BtnFiction_Click);
+            this.ClbGenerosfiltro.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.ClbGenerosfiltro.FormattingEnabled = true;
+            this.ClbGenerosfiltro.Location = new System.Drawing.Point(12, 322);
+            this.ClbGenerosfiltro.Name = "ClbGenerosfiltro";
+            this.ClbGenerosfiltro.Size = new System.Drawing.Size(134, 109);
+            this.ClbGenerosfiltro.TabIndex = 0;
+            // 
+            // BtnFiltrar
+            // 
+            this.BtnFiltrar.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.BtnFiltrar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.BtnFiltrar.Location = new System.Drawing.Point(161, 59);
+            this.BtnFiltrar.Name = "BtnFiltrar";
+            this.BtnFiltrar.Size = new System.Drawing.Size(75, 23);
+            this.BtnFiltrar.TabIndex = 0;
+            this.BtnFiltrar.Text = "Filtrar";
+            this.BtnFiltrar.UseVisualStyleBackColor = false;
+            this.BtnFiltrar.Click += new System.EventHandler(this.BtnFiltrar_Click);
+            // 
+            // ClbPreco
+            // 
+            this.ClbPreco.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.ClbPreco.FormattingEnabled = true;
+            this.ClbPreco.Location = new System.Drawing.Point(12, 237);
+            this.ClbPreco.Name = "ClbPreco";
+            this.ClbPreco.Size = new System.Drawing.Size(131, 79);
+            this.ClbPreco.TabIndex = 14;
+            // 
+            // CbFiltroFX
+            // 
+            this.CbFiltroFX.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.CbFiltroFX.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.CbFiltroFX.FormattingEnabled = true;
+            this.CbFiltroFX.Location = new System.Drawing.Point(12, 125);
+            this.CbFiltroFX.Name = "CbFiltroFX";
+            this.CbFiltroFX.Size = new System.Drawing.Size(128, 21);
+            this.CbFiltroFX.TabIndex = 0;
+            this.CbFiltroFX.Text = "Faixa Etaria";
+            // 
+            // ClbFiltroAutor
+            // 
+            this.ClbFiltroAutor.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.ClbFiltroAutor.FormattingEnabled = true;
+            this.ClbFiltroAutor.Location = new System.Drawing.Point(12, 152);
+            this.ClbFiltroAutor.Name = "ClbFiltroAutor";
+            this.ClbFiltroAutor.Size = new System.Drawing.Size(120, 79);
+            this.ClbFiltroAutor.TabIndex = 0;
+            // 
+            // ChkNovidades
+            // 
+            this.ChkNovidades.AutoSize = true;
+            this.ChkNovidades.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.ChkNovidades.Location = new System.Drawing.Point(12, 102);
+            this.ChkNovidades.Name = "ChkNovidades";
+            this.ChkNovidades.Size = new System.Drawing.Size(77, 17);
+            this.ChkNovidades.TabIndex = 0;
+            this.ChkNovidades.Text = "Novidades";
+            this.ChkNovidades.UseVisualStyleBackColor = false;
             // 
             // TelaEntrada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.BtnFiction);
+            this.Controls.Add(this.ChkNovidades);
+            this.Controls.Add(this.ClbFiltroAutor);
+            this.Controls.Add(this.CbFiltroFX);
+            this.Controls.Add(this.ClbPreco);
+            this.Controls.Add(this.BtnFiltrar);
+            this.Controls.Add(this.ClbGenerosfiltro);
             this.Controls.Add(this.FlpLivros);
-            this.Controls.Add(this.Btnreligious);
-            this.Controls.Add(this.BtnUtopia);
-            this.Controls.Add(this.Btnthriller);
-            this.Controls.Add(this.BtnComedy);
-            this.Controls.Add(this.Btnsciencefiction);
-            this.Controls.Add(this.Btnselfhelp);
-            this.Controls.Add(this.Btnterror);
-            this.Controls.Add(this.Btnfantasy);
-            this.Controls.Add(this.BtnRomance);
             this.Controls.Add(this.Btnmenu);
             this.Controls.Add(this.Txtwrite);
             this.Controls.Add(this.label1);
@@ -268,18 +201,14 @@
         private System.Windows.Forms.TextBox Txtwrite;
         private System.Windows.Forms.Label Txt01;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button BtnRomance;
-        private System.Windows.Forms.Button Btnfantasy;
-        private System.Windows.Forms.Button Btnterror;
-        private System.Windows.Forms.Button Btnselfhelp;
-        private System.Windows.Forms.Button Btnsciencefiction;
-        private System.Windows.Forms.Button BtnComedy;
-        private System.Windows.Forms.Button Btnthriller;
-        private System.Windows.Forms.Button BtnUtopia;
         private System.Windows.Forms.Button Btnmenu;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button Btnreligious;
         private System.Windows.Forms.FlowLayoutPanel FlpLivros;
-        private System.Windows.Forms.Button BtnFiction;
+        private System.Windows.Forms.CheckedListBox ClbGenerosfiltro;
+        private System.Windows.Forms.Button BtnFiltrar;
+        private System.Windows.Forms.CheckedListBox ClbPreco;
+        private System.Windows.Forms.ComboBox CbFiltroFX;
+        private System.Windows.Forms.CheckedListBox ClbFiltroAutor;
+        private System.Windows.Forms.CheckBox ChkNovidades;
     }
 }
