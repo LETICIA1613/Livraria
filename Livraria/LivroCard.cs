@@ -60,6 +60,14 @@ private void Titulo_Click(object sender, EventArgs e)
         {
 
         }
+
+        private void BtnAddbook_Click(object sender, EventArgs e)
+        {
+            TelaPerfilLivro product = new TelaPerfilLivro();
+            this.Visible = false;
+            product.ShowDialog();
+            this.Visible = true;
+        }
     }
 
 }

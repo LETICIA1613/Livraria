@@ -38,7 +38,7 @@
             // 
             // PicCapa
             // 
-            this.PicCapa.Location = new System.Drawing.Point(16, 13);
+            this.PicCapa.Location = new System.Drawing.Point(29, 13);
             this.PicCapa.Name = "PicCapa";
             this.PicCapa.Size = new System.Drawing.Size(94, 167);
             this.PicCapa.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -59,7 +59,7 @@
             // lblEditora
             // 
             this.lblEditora.AutoSize = true;
-            this.lblEditora.Location = new System.Drawing.Point(38, 203);
+            this.lblEditora.Location = new System.Drawing.Point(50, 203);
             this.lblEditora.Name = "lblEditora";
             this.lblEditora.Size = new System.Drawing.Size(35, 13);
             this.lblEditora.TabIndex = 2;
@@ -77,14 +77,16 @@
             this.BtnAddbook.TabIndex = 4;
             this.BtnAddbook.Text = "Adicionar 🛒";
             this.BtnAddbook.UseVisualStyleBackColor = false;
+            this.BtnAddbook.Click += new System.EventHandler(this.BtnAddbook_Click);
             // 
             // lblPreco
             // 
             this.lblPreco.AutoSize = true;
-            this.lblPreco.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPreco.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPreco.ForeColor = System.Drawing.Color.MediumBlue;
             this.lblPreco.Location = new System.Drawing.Point(63, 226);
             this.lblPreco.Name = "lblPreco";
-            this.lblPreco.Size = new System.Drawing.Size(60, 24);
+            this.lblPreco.Size = new System.Drawing.Size(66, 24);
             this.lblPreco.TabIndex = 3;
             this.lblPreco.Text = "label1";
             // 
@@ -98,7 +100,7 @@
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.PicCapa);
             this.Name = "LivroCard";
-            this.Size = new System.Drawing.Size(139, 295);
+            this.Size = new System.Drawing.Size(159, 295);
             this.Load += new System.EventHandler(this.LivroCard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PicCapa)).EndInit();
             this.ResumeLayout(false);

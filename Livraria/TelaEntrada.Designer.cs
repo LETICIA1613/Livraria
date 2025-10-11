@@ -113,7 +113,7 @@
             // 
             this.ClbGenerosfiltro.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClbGenerosfiltro.FormattingEnabled = true;
-            this.ClbGenerosfiltro.Location = new System.Drawing.Point(12, 322);
+            this.ClbGenerosfiltro.Location = new System.Drawing.Point(6, 341);
             this.ClbGenerosfiltro.Name = "ClbGenerosfiltro";
             this.ClbGenerosfiltro.Size = new System.Drawing.Size(134, 109);
             this.ClbGenerosfiltro.TabIndex = 0;
@@ -134,7 +134,7 @@
             // 
             this.ClbPreco.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClbPreco.FormattingEnabled = true;
-            this.ClbPreco.Location = new System.Drawing.Point(12, 237);
+            this.ClbPreco.Location = new System.Drawing.Point(6, 256);
             this.ClbPreco.Name = "ClbPreco";
             this.ClbPreco.Size = new System.Drawing.Size(131, 79);
             this.ClbPreco.TabIndex = 14;
@@ -154,7 +154,7 @@
             // 
             this.ClbFiltroAutor.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClbFiltroAutor.FormattingEnabled = true;
-            this.ClbFiltroAutor.Location = new System.Drawing.Point(12, 152);
+            this.ClbFiltroAutor.Location = new System.Drawing.Point(6, 171);
             this.ClbFiltroAutor.Name = "ClbFiltroAutor";
             this.ClbFiltroAutor.Size = new System.Drawing.Size(120, 79);
             this.ClbFiltroAutor.TabIndex = 0;
