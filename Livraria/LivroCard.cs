@@ -16,7 +16,7 @@ namespace Livraria
         {
             InitializeComponent();
         }
-
+        public int LivroId { get; set; }
         public Image Imagem
         {
             get { return PicCapa.Image; }
@@ -63,9 +63,9 @@ private void Titulo_Click(object sender, EventArgs e)
 
         private void BtnAddbook_Click(object sender, EventArgs e)
         {
-            TelaPerfilLivro product = new TelaPerfilLivro();
+            TelaPerfilLivro tela = new TelaPerfilLivro(LivroId);
             this.Visible = false;
-            product.ShowDialog();
+            tela.ShowDialog();
             this.Visible = true;
         }
     }

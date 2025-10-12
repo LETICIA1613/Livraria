@@ -127,8 +127,11 @@ namespace Livraria
     List<int> generos = null,
     List<int> autores = null,
     int faixaEtaria = 0,
+    
     List<(decimal min, decimal max)> precos = null)
+            
         {
+
             FlpLivros.Controls.Clear();
 
             using (SqlConnection con = Conexao.GetConnection())
@@ -544,7 +547,17 @@ namespace Livraria
             FlpLivros.AutoScroll = true;
             FlpLivros.FlowDirection = FlowDirection.LeftToRight;
         }
+        private void FlpLivros_ControlClick(object sender, EventArgs e)
+        {
+            Panel card = sender as Panel;
+            if (card != null)
+            {
+                int livroId = (int)card.Tag; // Defina o ID do livro no Tag do card ao criar
+                TelaPerfilLivro perfil = new TelaPerfilLivro(livroId);
+                perfil.ShowDialog();
+            }
+        }
 
-       
+
     }
 }
