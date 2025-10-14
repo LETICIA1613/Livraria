@@ -80,6 +80,7 @@
             this.BtnTelaEntrada.TabIndex = 3;
             this.BtnTelaEntrada.Text = "Arrumar Tela Catálogo";
             this.BtnTelaEntrada.UseVisualStyleBackColor = false;
+            this.BtnTelaEntrada.Click += new System.EventHandler(this.BtnTelaEntrada_Click);
             // 
             // TelaEscolhaAdmin
             // 

@@ -24,5 +24,13 @@ namespace Livraria
             product.ShowDialog();
             this.Visible = true;
         }
+
+        private void BtnTelaEntrada_Click(object sender, EventArgs e)
+        {
+            TelaLayoutAdmin product = new TelaLayoutAdmin();
+            this.Visible = false;
+            product.ShowDialog();
+            this.Visible = true;
+        }
     }
 }
