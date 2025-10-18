@@ -10,11 +10,12 @@ using System.Windows.Forms;
 
 namespace Livraria
 {
-    public partial class LivroCard: UserControl
+    public partial class LivroCard : UserControl
     {
         public LivroCard()
         {
             InitializeComponent();
+            BtnAddbook.Click += BtnAddbook_Click;
         }
         public int LivroId { get; set; }
         public Image Imagem
@@ -45,15 +46,15 @@ namespace Livraria
         }
 
 
-        
-private void Titulo_Click(object sender, EventArgs e)
+
+        private void Titulo_Click(object sender, EventArgs e)
         {
 
         }
 
         private void LivroCard_Load(object sender, EventArgs e)
         {
-           
+
         }
 
         private void lblEditora_Click(object sender, EventArgs e)
@@ -64,10 +65,7 @@ private void Titulo_Click(object sender, EventArgs e)
         private void BtnAddbook_Click(object sender, EventArgs e)
         {
             TelaPerfilLivro tela = new TelaPerfilLivro(LivroId);
-            this.Visible = false;
-            tela.ShowDialog();
-            this.Visible = true;
+            tela.ShowDialog(); // modal, bloqueia até fechar
         }
     }
-
 }

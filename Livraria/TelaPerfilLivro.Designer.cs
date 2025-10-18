@@ -129,13 +129,13 @@
             // 
             this.TxtDescricao.Location = new System.Drawing.Point(43, 297);
             this.TxtDescricao.Name = "TxtDescricao";
-            this.TxtDescricao.Size = new System.Drawing.Size(100, 20);
+            this.TxtDescricao.Size = new System.Drawing.Size(696, 20);
             this.TxtDescricao.TabIndex = 13;
             this.TxtDescricao.TextChanged += new System.EventHandler(this.TxtDescricao_TextChanged);
             // 
             // TxtBiografia
             // 
-            this.TxtBiografia.Location = new System.Drawing.Point(43, 349);
+            this.TxtBiografia.Location = new System.Drawing.Point(43, 362);
             this.TxtBiografia.Name = "TxtBiografia";
             this.TxtBiografia.Size = new System.Drawing.Size(100, 20);
             this.TxtBiografia.TabIndex = 14;

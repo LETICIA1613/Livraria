@@ -185,7 +185,30 @@ namespace Livraria
                 if (faixaEtaria > 0)
                     cmd.Parameters.AddWithValue("@Faixa", faixaEtaria);
 
-                // 🔽 Executa e monta os cards
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    LivroCard card = new LivroCard
+                    {
+                        LivroId = Convert.ToInt32(reader["Id"]), // 🧠 importante
+                        Titulo = reader["Nome"].ToString(),
+                        Editora = reader["EditoraNome"].ToString(),
+                        Preco = "R$ " + Convert.ToDecimal(reader["Preco"]).ToString("F2")
+                    };
+
+                    if (reader["Foto"] != DBNull.Value)
+                    {
+                        byte[] imgBytes = (byte[])reader["Foto"];
+                        using (MemoryStream ms = new MemoryStream(imgBytes))
+                        {
+                            card.Imagem = Image.FromStream(ms);
+                        }
+                    }
+
+                    FlpLivros.Controls.Add(card);
+                }
+
+                /*// 🔽 Executa e monta os cards
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -207,7 +230,7 @@ namespace Livraria
                     }
 
                     FlpLivros.Controls.Add(card);
-                }
+                }*/
             }
         }/*
 

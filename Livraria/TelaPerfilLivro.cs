@@ -21,7 +21,8 @@ namespace Livraria
         public TelaPerfilLivro(int id)
         {
             InitializeComponent();
-            
+            InitializeComponent();
+            this.id = id; // ✅
 
         }
         private void TelaPerfilLivro_Load(object sender, EventArgs e)
@@ -37,41 +38,41 @@ namespace Livraria
             {
                 con.Open();
                 string query = @"
-            SELECT 
-                L.Nome AS Titulo,
-                L.Preco,
-                L.Foto,
-                L.Descricao,
-                E.Nome AS Editora,
-                F.Idades AS FaixaEtaria,
-                STUFF(
-                    (SELECT ', ' + G2.Nome
-                     FROM LivroGenero LG2
-                     INNER JOIN Generos G2 ON LG2.GeneroId = G2.id
-                     WHERE LG2.LivroId = L.id
-                     FOR XML PATH('')), 1, 2, '') AS Generos,
-                STUFF(
-                    (SELECT ', ' + A2.Nome
-                     FROM LivroAutor LA
-                     INNER JOIN Autores A2 ON LA.AutorId = A2.id
-                     WHERE LA.LivroId = L.id
-                     FOR XML PATH('')), 1, 2, '') AS Autores,
-                STUFF(
-                    (SELECT ', ' + A2.Nacionalidade
-                     FROM LivroAutor LA
-                     INNER JOIN Autores A2 ON LA.AutorId = A2.id
-                     WHERE LA.LivroId = L.id
-                     FOR XML PATH('')), 1, 2, '') AS Nacionalidades,
-                STUFF(
-                    (SELECT '; ' + A2.Biografia
-                     FROM LivroAutor LA
-                     INNER JOIN Autores A2 ON LA.AutorId = A2.id
-                     WHERE LA.LivroId = L.id
-                     FOR XML PATH('')), 1, 2, '') AS Biografias
-            FROM Livros L
-            LEFT JOIN Editoras E ON L.EditoraId = E.id
-            LEFT JOIN FaixaEtaria F ON L.FaixaEtariaId = F.id
-            WHERE L.id = @id";
+                SELECT 
+                    L.Nome AS Titulo,
+                    L.Preco,
+                    L.Foto,
+                    L.Descricao,
+                    E.Nome AS Editora,
+                    F.Idades AS FaixaEtaria,
+                    STUFF(
+                        (SELECT ', ' + G2.Nome
+                         FROM LivroGeneros LG2
+                         INNER JOIN Generos G2 ON LG2.GeneroId = G2.Id
+                         WHERE LG2.LivroId = L.Id
+                         FOR XML PATH('')), 1, 2, '') AS Generos,
+                    STUFF(
+                        (SELECT ', ' + A2.Nome
+                         FROM LivroAutores LA2
+                         INNER JOIN Autores A2 ON LA2.AutorId = A2.Id
+                         WHERE LA2.LivroId = L.Id
+                         FOR XML PATH('')), 1, 2, '') AS Autores,
+                    STUFF(
+                        (SELECT ', ' + A2.Nacionalidade
+                         FROM LivroAutores LA2
+                         INNER JOIN Autores A2 ON LA2.AutorId = A2.Id
+                         WHERE LA2.LivroId = L.Id
+                         FOR XML PATH('')), 1, 2, '') AS Nacionalidades,
+                    STUFF(
+                        (SELECT '; ' + A2.Biografia
+                         FROM LivroAutores LA2
+                         INNER JOIN Autores A2 ON LA2.AutorId = A2.Id
+                         WHERE LA2.LivroId = L.Id
+                         FOR XML PATH('')), 1, 2, '') AS Biografias
+                FROM Livros L
+                LEFT JOIN Editora E ON L.EditoraId = E.Id
+                LEFT JOIN FaixaEtaria F ON L.FaixaEtariaId = F.Id
+                WHERE L.Id = @id";
 
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
@@ -82,7 +83,7 @@ namespace Livraria
                         if (reader.Read())
                         {
                             LblTitulo2.Text = reader["Titulo"].ToString();
-                            LblPreco2.Text = reader["Preco"].ToString();
+                            LblPreco2.Text = "R$ " + reader["Preco"].ToString();
                             LblEditora2.Text = reader["Editora"].ToString();
                             LblGenero2.Text = reader["Generos"].ToString();
                             LblFaixa2.Text = reader["FaixaEtaria"].ToString();
@@ -98,8 +99,17 @@ namespace Livraria
                                 {
                                     PbCapa2.Image = Image.FromFile(caminhoFoto);
                                 }
+                                else
+                                {
+                                    PbCapa2.Image = null; // caso a imagem não exista
+                                }
+                            }
+                            else
+                            {
+                                PbCapa2.Image = null;
                             }
                         }
+
                     }/*
                     string query = @"
             SELECT DISTINCT 
