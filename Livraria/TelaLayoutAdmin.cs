@@ -17,8 +17,14 @@ namespace Livraria
             InitializeComponent();
             TornarArrastavel(LblTituloadmin);
             TornarArrastavel(LblAutoradmin);
-            TornarArrastavel(LblDescricaoadmin);
+            TornarArrastavel(TxtDescricaoadmin);
+            TornarArrastavel(TxtBiografiaadmin);
             TornarArrastavel(PbCapaadmin);
+            TornarArrastavel(LblEditoraadmin);
+            TornarArrastavel(LblGeneroadmin);
+            TornarArrastavel(LblFXadmin);
+            TornarArrastavel(LblPrecoadmin);
+            TornarArrastavel(LblNacionalidadeadmin);
         }
 
         private void BtnSalvarLayout_Click(object sender, EventArgs e)
@@ -28,13 +34,25 @@ namespace Livraria
 
                 PosTitulo = LblTituloadmin.Location,
                 PosAutor = LblAutoradmin.Location,
-                PosDescricao = LblDescricaoadmin.Location,
+                PosDescricao = TxtDescricaoadmin.Location,
                 PosImagem = PbCapaadmin.Location,
+                PosEditora = LblEditoraadmin.Location,
+                PosGenero = LblGeneroadmin.Location,
+                PosFaixaEtaria = LblFXadmin.Location,
+                PosPreco = LblPrecoadmin.Location,
+                PosBiografia = TxtBiografiaadmin.Location,
+
 
                 TamTitulo = LblTituloadmin.Size,
                 TamAutor = LblAutoradmin.Size,
-                TamDescricao = LblDescricaoadmin.Size,
-                TamImagem = PbCapaadmin.Size
+                TamDescricao = TxtDescricaoadmin.Size,
+                TamImagem = PbCapaadmin.Size,
+                TamEditora = LblEditoraadmin.Size,
+                TamGenero = LblGeneroadmin.Size,
+                TamFaixaEtaria = LblFXadmin.Size,
+                TamPreco = LblPrecoadmin.Size,
+                TamBiografia = TxtBiografiaadmin.Size
+
             };
             LayoutHelper.Salvar(layout);
             MessageBox.Show("Layout salvo com sucesso!");
@@ -63,6 +81,16 @@ namespace Livraria
             {
                 arrastando = false;
             };
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void LblGeneroadmin_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

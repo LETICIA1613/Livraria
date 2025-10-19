@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System;
 using System.Drawing;
 using System.IO;
 using System.Text.Json;
@@ -17,12 +16,20 @@ namespace Livraria
         {
             public Point PosTitulo { get; set; }
             public Point PosAutor { get; set; }
+            public Point PosEditora { get; set; }
+            public Point PosGenero { get; set; }
+            public Point PosFaixaEtaria { get; set; }
+            public Point PosPreco { get; set; }
             public Point PosDescricao { get; set; }
             public Point PosBiografia { get; set; }
             public Point PosImagem { get; set; }
 
             public Size TamTitulo { get; set; }
             public Size TamAutor { get; set; }
+            public Size TamEditora { get; set; }
+            public Size TamGenero { get; set; }
+            public Size TamFaixaEtaria { get; set; }
+            public Size TamPreco { get; set; }
             public Size TamBiografia { get; set; }
             public Size TamDescricao { get; set; }
             public Size TamImagem { get; set; }

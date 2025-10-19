@@ -16,101 +16,276 @@ namespace Livraria
     {
         private int id;
 
-
-
         public TelaPerfilLivro(int id)
         {
+            this.id = id;
             InitializeComponent();
-            InitializeComponent();
-            this.id = id; // ✅
+            /* InitializeComponent();
+             InitializeComponent();
+             this.id = id; // ✅*/
 
         }
         private void TelaPerfilLivro_Load(object sender, EventArgs e)
         {
-            CarregarInformacoesDoLivro();
+            this.AutoScroll = true;
+            // define altura maior que a tela (assim aparece barra vertical)
+            // e largura igual à largura atual do formulário (assim NÃO aparece barra horizontal)
+            this.AutoScrollMinSize = new Size(this.ClientSize.Width, 1200);
             
+
+            // Configure TextBox aqui (não nos eventos TextChanged, pois podem não rodar)
+            // Configurações para TxtDescricao
+            TxtDescricao.Multiline = true;
+            TxtDescricao.ScrollBars = ScrollBars.None;  // Sem barras internas (rolagem via Panel)
+            TxtDescricao.ReadOnly = true;
+            TxtDescricao.WordWrap = true;
+            TxtDescricao.BorderStyle = BorderStyle.None;  // ✅ Remove bordas
+            TxtDescricao.BackColor = this.BackColor;     // Fundo igual ao formulário (transparente)
+            TxtDescricao.ForeColor = Color.Black;        // Cor do texto
+            TxtDescricao.Font = new Font("Arial", 10);   // Fonte personalizada (ajuste tamanho)
+            TxtDescricao.Height = 200;                   // Altura fixa
+                                                         // Configurações para TxtBiografia (igual)
+            TxtBiografia.Multiline = true;
+            TxtBiografia.ScrollBars = ScrollBars.None;
+            TxtBiografia.ReadOnly = true;
+            TxtBiografia.WordWrap = true;
+            TxtBiografia.BorderStyle = BorderStyle.None;  // ✅ Remove bordas
+            TxtBiografia.BackColor = this.BackColor;
+            TxtBiografia.ForeColor = Color.Black;
+            TxtBiografia.Font = new Font("Arial", 10);
+            TxtBiografia.Height = 200;
+            // ✅ Configuração do Panel para rolagem (como sugerido antes)
+           
+
+            CarregarInformacoesDoLivro();
             AplicarLayout();
+            /* CarregarInformacoesDoLivro();   
+             AplicarLayout();*/
         }
 
         private void CarregarInformacoesDoLivro()
         {
-            using (SqlConnection con = Conexao.GetConnection())
+            try
             {
-                con.Open();
-                string query = @"
-                SELECT 
-                    L.Nome AS Titulo,
-                    L.Preco,
-                    L.Foto,
-                    L.Descricao,
-                    E.Nome AS Editora,
-                    F.Idades AS FaixaEtaria,
-                    STUFF(
-                        (SELECT ', ' + G2.Nome
-                         FROM LivroGeneros LG2
-                         INNER JOIN Generos G2 ON LG2.GeneroId = G2.Id
-                         WHERE LG2.LivroId = L.Id
-                         FOR XML PATH('')), 1, 2, '') AS Generos,
-                    STUFF(
-                        (SELECT ', ' + A2.Nome
-                         FROM LivroAutores LA2
-                         INNER JOIN Autores A2 ON LA2.AutorId = A2.Id
-                         WHERE LA2.LivroId = L.Id
-                         FOR XML PATH('')), 1, 2, '') AS Autores,
-                    STUFF(
-                        (SELECT ', ' + A2.Nacionalidade
-                         FROM LivroAutores LA2
-                         INNER JOIN Autores A2 ON LA2.AutorId = A2.Id
-                         WHERE LA2.LivroId = L.Id
-                         FOR XML PATH('')), 1, 2, '') AS Nacionalidades,
-                    STUFF(
-                        (SELECT '; ' + A2.Biografia
-                         FROM LivroAutores LA2
-                         INNER JOIN Autores A2 ON LA2.AutorId = A2.Id
-                         WHERE LA2.LivroId = L.Id
-                         FOR XML PATH('')), 1, 2, '') AS Biografias
-                FROM Livros L
-                LEFT JOIN Editora E ON L.EditoraId = E.Id
-                LEFT JOIN FaixaEtaria F ON L.FaixaEtariaId = F.Id
-                WHERE L.Id = @id";
+                using (SqlConnection con = Conexao.GetConnection())
+                {
+                    con.Open();
+                    string query = @"
+                    SELECT 
+                        L.Nome AS Titulo,
+                        L.Preco,
+                        L.Foto,
+                        L.Descricao,
+                        E.Nome AS Editora,
+                        F.Idades AS FaixaEtaria,
+                        STUFF(
+                            (SELECT ', ' + G2.Nome
+                             FROM LivroGeneros LG2
+                             INNER JOIN Generos G2 ON LG2.GeneroId = G2.Id
+                             WHERE LG2.LivroId = L.Id
+                             FOR XML PATH('')), 1, 2, '') AS Generos,
+                        STUFF(
+                            (SELECT ', ' + A2.Nome
+                             FROM LivroAutores LA2
+                             INNER JOIN Autores A2 ON LA2.AutorId = A2.Id
+                             WHERE LA2.LivroId = L.Id
+                             FOR XML PATH('')), 1, 2, '') AS Autores,
+                        STUFF(
+                            (SELECT ', ' + A2.Nacionalidade
 
+                             FROM LivroAutores LA2
+                             INNER JOIN Autores A2 ON LA2.AutorId = A2.Id
+                             WHERE LA2.LivroId = L.Id
+                             FOR XML PATH('')), 1, 2, '') AS Nacionalidades,
+                        STUFF(
+                            (SELECT '; ' + A2.Biografia
+                             FROM LivroAutores LA2
+                             INNER JOIN Autores A2 ON LA2.AutorId = A2.Id
+                             WHERE LA2.LivroId = L.Id
+                             FOR XML PATH('')), 1, 2, '') AS Biografias
+                    FROM Livros L
+                    LEFT JOIN Editora E ON L.EditoraId = E.Id
+                    LEFT JOIN FaixaEtaria F ON L.FaixaEtariaId = F.Id
+                    WHERE L.Id = @id";
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@id", id);
-
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        if (reader.Read())
+                        if (reader.HasRows && reader.Read())
                         {
-                            LblTitulo2.Text = reader["Titulo"].ToString();
-                            LblPreco2.Text = "R$ " + reader["Preco"].ToString();
-                            LblEditora2.Text = reader["Editora"].ToString();
-                            LblGenero2.Text = reader["Generos"].ToString();
-                            LblFaixa2.Text = reader["FaixaEtaria"].ToString();
-                            LblAutor2.Text = reader["Autores"].ToString();
-                            LblNacionalidade.Text = reader["Nacionalidades"].ToString();
-                            TxtBiografia.Text = reader["Biografias"].ToString();
-                            TxtDescricao.Text = reader["Descricao"].ToString();
+                            // Debug: Confirma se leu dados
+                            MessageBox.Show("Dados carregados para ID: " + id);
+                            // Trata NULLs e atribui valores
+                            LblTitulo2.Text = reader["Titulo"] != DBNull.Value ? reader["Titulo"].ToString() : "Título não disponível";
+                            LblPreco2.Text = reader["Preco"] != DBNull.Value ? "R$ " + reader["Preco"].ToString() : "Preço não disponível";
+                            LblEditora2.Text = reader["Editora"] != DBNull.Value ? reader["Editora"].ToString() : "Editora não disponível";
+                            LblGenero2.Text = reader["Generos"] != DBNull.Value ? reader["Generos"].ToString() : "Gêneros não disponíveis";
+                            LblFaixa2.Text = reader["FaixaEtaria"] != DBNull.Value ? reader["FaixaEtaria"].ToString() : "Faixa etária não disponível";
+                            LblAutor2.Text = reader["Autores"] != DBNull.Value ? reader["Autores"].ToString() : "Autores não disponíveis";
+                            LblNacionalidade.Text = reader["Nacionalidades"] != DBNull.Value ? reader["Nacionalidades"].ToString() : "Nacionalidades não disponíveis";
+                            TxtBiografia.Text = reader["Biografias"] != DBNull.Value ? reader["Biografias"].ToString() : "Biografias não disponíveis";
+                            TxtDescricao.Text = reader["Descricao"] != DBNull.Value ? reader["Descricao"].ToString() : "Descrição não disponível";
 
-                            if (reader["Foto"] != DBNull.Value)
-                            {
-                                var caminhoFoto = reader["Foto"].ToString();
-                                if (File.Exists(caminhoFoto))
+                                if (reader["Foto"] != DBNull.Value)
                                 {
-                                    PbCapa2.Image = Image.FromFile(caminhoFoto);
+                                    try
+                                    {
+                                        byte[] imgBytes = (byte[])reader["Foto"];
+                                        using (MemoryStream ms = new MemoryStream(imgBytes))
+                                        {
+                                            PbCapa2.Image = Image.FromStream(ms);
+                                        }
+                                    }
+                                    catch (Exception imgEx)
+                                    {
+                                        PbCapa2.Image = null;
+                                        MessageBox.Show("Erro ao carregar imagem: " + imgEx.Message);
+                                    }
                                 }
                                 else
                                 {
-                                    PbCapa2.Image = null; // caso a imagem não exista
+                                    PbCapa2.Image = null;
                                 }
                             }
                             else
                             {
-                                PbCapa2.Image = null;
+                                MessageBox.Show("Nenhum dado encontrado para o ID: " + id);
+                                LblTitulo2.Text = "Livro não encontrado";
+                                /*  if (reader["Foto"] != DBNull.Value)
+                                  {
+                                      string caminhoFoto = reader["Foto"].ToString();
+                                      if (File.Exists(caminhoFoto))
+                                          {
+                                              PbCapa2.Image = Image.FromFile(caminhoFoto);
+                                          }
+                                          else
+                                          {
+                                              PbCapa2.Image = null;
+                                              MessageBox.Show("Imagem não encontrada: " + caminhoFoto);
+                                          }
+                                      }
+                                      else
+                                      {
+                                          PbCapa2.Image = null;
+                                      }
+                                  }
+                                  else
+                                  {
+                                      // Debug: Se não há dados
+                                      MessageBox.Show("Nenhum dado encontrado para o ID: " + id + ". Verifique se o livro existe no banco.");
+                                      // Define valores padrão
+                                      LblTitulo2.Text = "Livro não encontrado";
+                                      // Repita para outros controles...*/
                             }
                         }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar informações do livro: " + ex.Message + "\n\nDetalhes: " + ex.StackTrace);
+            }
+        }
+        private void AplicarLayout()
+        {
+            var layout = LayoutHelper.Carregar();
+            if (layout != null)
+            {
+                LblTitulo2.Location = layout.PosTitulo;
+                LblAutor2.Location = layout.PosAutor;
+                TxtDescricao.Location = layout.PosDescricao;
+                TxtBiografia.Location = layout.PosBiografia;
+                PbCapa2.Location = layout.PosImagem;
 
-                    }/*
+                LblTitulo2.Size = layout.TamTitulo;
+                LblAutor2.Size = layout.TamAutor;
+                TxtBiografia.Size = layout.TamBiografia;
+                PbCapa2.Size = layout.TamImagem;
+            }
+        }
+    
+
+
+
+    /*using (SqlConnection con = Conexao.GetConnection())
+    {
+        con.Open();
+        string query = @"
+            SELECT 
+            L.Nome AS Titulo,
+            L.Preco,
+            L.Foto,
+            L.Descricao,
+            E.Nome AS Editora,
+            F.Idades AS FaixaEtaria,
+            STUFF(
+                (SELECT ', ' + G2.Nome
+                 FROM LivroGeneros LG2
+                 INNER JOIN Generos G2 ON LG2.GeneroId = G2.Id
+                 WHERE LG2.LivroId = L.Id
+                 FOR XML PATH('')), 1, 2, '') AS Generos,
+            STUFF(
+                (SELECT ', ' + A2.Nome
+                 FROM LivroAutores LA2
+                 INNER JOIN Autores A2 ON LA2.AutorId = A2.Id
+                 WHERE LA2.LivroId = L.Id
+                 FOR XML PATH('')), 1, 2, '') AS Autores,
+            STUFF(
+                (SELECT ', ' + A2.Nacionalidade
+                 FROM LivroAutores LA2
+                 INNER JOIN Autores A2 ON LA2.AutorId = A2.Id
+                 WHERE LA2.LivroId = L.Id
+                 FOR XML PATH('')), 1, 2, '') AS Nacionalidades,
+            STUFF(
+                (SELECT '; ' + A2.Biografia
+                 FROM LivroAutores LA2
+                 INNER JOIN Autores A2 ON LA2.AutorId = A2.Id
+                 WHERE LA2.LivroId = L.Id
+                 FOR XML PATH('')), 1, 2, '') AS Biografias
+        FROM Livros L
+        LEFT JOIN Editora E ON L.EditoraId = E.Id
+        LEFT JOIN FaixaEtaria F ON L.FaixaEtariaId = F.Id
+        WHERE L.Id = @id";
+
+        using (SqlCommand cmd = new SqlCommand(query, con))
+        {
+            cmd.Parameters.AddWithValue("@id", id);
+
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    LblTitulo2.Text = reader["Titulo"].ToString();
+                    LblPreco2.Text = "R$ " + reader["Preco"].ToString();
+                    LblEditora2.Text = reader["Editora"].ToString();
+                    LblGenero2.Text = reader["Generos"].ToString();
+                    LblFaixa2.Text = reader["FaixaEtaria"].ToString();
+                    LblAutor2.Text = reader["Autores"].ToString();
+                    LblNacionalidade.Text = reader["Nacionalidades"].ToString();
+                    TxtBiografia.Text = reader["Biografias"].ToString();
+                    TxtDescricao.Text = reader["Descricao"].ToString();
+
+                    if (reader["Foto"] != DBNull.Value)
+                    {
+                        var caminhoFoto = reader["Foto"].ToString();
+                        if (File.Exists(caminhoFoto))
+                        {
+                            PbCapa2.Image = Image.FromFile(caminhoFoto);
+                        }
+                        else
+                        {
+                            PbCapa2.Image = null; // caso a imagem não exista
+                        }
+                    }
+                    else
+                    {
+                        PbCapa2.Image = null;
+                    }
+                }
+    */
+
+                    /*
                     string query = @"
             SELECT DISTINCT 
                 L.Nome AS Nome, 
@@ -152,8 +327,8 @@ namespace Livraria
                         }
                     }
                     */
-                }
-            }
+                
+            
 
             /*
             using (SqlConnection con = Conexao.GetConnection())
@@ -186,7 +361,7 @@ namespace Livraria
                         PbCapa2.Image = Image.FromFile(caminhoImagem);
                     }
                 }
-            }*/
+            }
         }
 
         private void AplicarLayout()
@@ -206,7 +381,7 @@ namespace Livraria
                 PbCapa2.Size = layout.TamImagem;
             }
         }
-
+*/
         /*
         private void CarregarDetalhes(int id)
         {
@@ -272,7 +447,7 @@ namespace Livraria
             }
         }
         */
-
+       
 
 
         private void BtnComprar1_Click(object sender, EventArgs e)
@@ -317,6 +492,11 @@ namespace Livraria
             TxtBiografia.ReadOnly = true;
             TxtBiografia.WordWrap = true;
             TxtBiografia.Height = 200;
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
 
         }
     }
