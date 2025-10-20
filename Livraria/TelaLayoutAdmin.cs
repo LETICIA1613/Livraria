@@ -25,6 +25,18 @@ namespace Livraria
             TornarArrastavel(LblFXadmin);
             TornarArrastavel(LblPrecoadmin);
             TornarArrastavel(LblNacionalidadeadmin);
+            TornarArrastavel(LblInfonomeadmin);
+            TornarArrastavel(LblInfogenadmin);
+            TornarArrastavel(LblInfor);
+            TornarArrastavel(LblInfonomeadmin2);
+            TornarArrastavel(LblNacionalidadeadmin);
+            TornarArrastavel(LblInfoAutoradmin);
+            TornarArrastavel(LblInfoAutoradmin2);
+            TornarArrastavel(LblInfoNaciautoradmin);
+            TornarArrastavel(LblInfoEditoraadmin2);
+            TornarArrastavel(LblInfoFXadmin);
+            TornarArrastavel(LblBiografiaadmin);
+            TornarArrastavel(LblTxtDescricao);
         }
 
         private void BtnSalvarLayout_Click(object sender, EventArgs e)
@@ -89,6 +101,11 @@ namespace Livraria
         }
 
         private void LblGeneroadmin_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LblTxtDescricao_Click(object sender, EventArgs e)
         {
 
         }
