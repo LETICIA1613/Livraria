@@ -20,49 +20,65 @@ namespace Livraria
         {
             this.id = id;
             InitializeComponent();
-            /* InitializeComponent();
-             InitializeComponent();
-             this.id = id; // ✅*/
+            this.BackColor = Color.White;
 
         }
         private void TelaPerfilLivro_Load(object sender, EventArgs e)
         {
             this.AutoScroll = true;
-            // define altura maior que a tela (assim aparece barra vertical)
-            // e largura igual à largura atual do formulário (assim NÃO aparece barra horizontal)
-            this.AutoScrollMinSize = new Size(this.ClientSize.Width, 1200);
-            
 
-            // Configure TextBox aqui (não nos eventos TextChanged, pois podem não rodar)
-            // Configurações para TxtDescricao
-            TxtDescricao.Multiline = true;
-            TxtDescricao.ScrollBars = ScrollBars.None;  // Sem barras internas (rolagem via Panel)
-            TxtDescricao.ReadOnly = true;
-            TxtDescricao.WordWrap = true;
-            TxtDescricao.BorderStyle = BorderStyle.None;  // ✅ Remove bordas
-            TxtDescricao.BackColor = this.BackColor;     // Fundo igual ao formulário (transparente)
-            TxtDescricao.ForeColor = Color.Black;        // Cor do texto
-            TxtDescricao.Font = new Font("Arial", 10);   // Fonte personalizada (ajuste tamanho)
-            TxtDescricao.Height = 200;                   // Altura fixa
-                                                         // Configurações para TxtBiografia (igual)
-            TxtBiografia.Multiline = true;
-            TxtBiografia.ScrollBars = ScrollBars.None;
-            TxtBiografia.ReadOnly = true;
-            TxtBiografia.WordWrap = true;
-            TxtBiografia.BorderStyle = BorderStyle.None;  // ✅ Remove bordas
-            TxtBiografia.BackColor = this.BackColor;
-            TxtBiografia.ForeColor = Color.Black;
-            TxtBiografia.Font = new Font("Arial", 10);
-            TxtBiografia.Height = 200;
-            // ✅ Configuração do Panel para rolagem (como sugerido antes)
-           
-
+            ConfigurarControles();
             CarregarInformacoesDoLivro();
             AplicarLayout();
-            /* CarregarInformacoesDoLivro();   
-             AplicarLayout();*/
-        }
+            AjustarAlturaTextBoxAuto();
+            AtualizarScrollDoForm();
 
+
+        }
+        private void ConfigurarControles()
+        { // Configurar todas as labels para não serem AutoSize
+            foreach (Control control in this.Controls)
+            {
+                if (control is Label label)
+                {
+                    label.AutoSize = false;
+                }
+            }
+
+            // TextBox - descrição
+            TxtDescricao.Multiline = true;
+            TxtDescricao.ReadOnly = true;
+            TxtDescricao.WordWrap = true;
+            TxtDescricao.BorderStyle = BorderStyle.None;
+            TxtDescricao.BackColor = Color.White;
+            TxtDescricao.ForeColor = Color.Black;
+            TxtDescricao.Font = new Font("Arial", 10);
+            TxtDescricao.ScrollBars = ScrollBars.None;
+
+            // TextBox - biografia
+            TxtBiografia.Multiline = true;
+            TxtBiografia.ReadOnly = true;
+            TxtBiografia.WordWrap = true;
+            TxtBiografia.BorderStyle = BorderStyle.None;
+            TxtBiografia.BackColor = Color.White;
+            TxtBiografia.ForeColor = Color.Black;
+            TxtBiografia.Font = new Font("Arial", 10);
+            TxtBiografia.ScrollBars = ScrollBars.None;
+
+            // PictureBox
+            PbCapa2.SizeMode = PictureBoxSizeMode.Zoom;
+
+            // Configurar cores e fontes específicas
+            LblTitulo2.Font = new Font("Arial", 16, FontStyle.Bold);
+            LblTitulo2.ForeColor = Color.DarkBlue;
+
+            LblPreco2.Font = new Font("Arial", 14, FontStyle.Bold);
+            LblPreco2.ForeColor = Color.Green;
+
+            // Habilita scroll na página
+            this.AutoScroll = true;
+        }
+        
         private void CarregarInformacoesDoLivro()
         {
             try
@@ -91,14 +107,13 @@ namespace Livraria
                              WHERE LA2.LivroId = L.Id
                              FOR XML PATH('')), 1, 2, '') AS Autores,
                         STUFF(
-                            (SELECT ', ' + A2.Nacionalidade
-
+                            (SELECT DISTINCT ', ' + A2.Nacionalidade
                              FROM LivroAutores LA2
                              INNER JOIN Autores A2 ON LA2.AutorId = A2.Id
                              WHERE LA2.LivroId = L.Id
                              FOR XML PATH('')), 1, 2, '') AS Nacionalidades,
                         STUFF(
-                            (SELECT '; ' + A2.Biografia
+                            (SELECT CHAR(10) + '• ' + A2.Nome + ': ' + A2.Biografia
                              FROM LivroAutores LA2
                              INNER JOIN Autores A2 ON LA2.AutorId = A2.Id
                              WHERE LA2.LivroId = L.Id
@@ -107,26 +122,45 @@ namespace Livraria
                     LEFT JOIN Editora E ON L.EditoraId = E.Id
                     LEFT JOIN FaixaEtaria F ON L.FaixaEtariaId = F.Id
                     WHERE L.Id = @id";
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@id", id);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        if (reader.HasRows && reader.Read())
-                        {
-                            // Debug: Confirma se leu dados
-                            MessageBox.Show("Dados carregados para ID: " + id);
-                            // Trata NULLs e atribui valores
-                            LblTitulo2.Text = reader["Titulo"] != DBNull.Value ? reader["Titulo"].ToString() : "Título não disponível";
-                            LblPreco2.Text = reader["Preco"] != DBNull.Value ? "R$ " + reader["Preco"].ToString() : "Preço não disponível";
-                            LblEditora2.Text = reader["Editora"] != DBNull.Value ? reader["Editora"].ToString() : "Editora não disponível";
-                            LblGenero2.Text = reader["Generos"] != DBNull.Value ? reader["Generos"].ToString() : "Gêneros não disponíveis";
-                            LblFaixa2.Text = reader["FaixaEtaria"] != DBNull.Value ? reader["FaixaEtaria"].ToString() : "Faixa etária não disponível";
-                            LblAutor2.Text = reader["Autores"] != DBNull.Value ? reader["Autores"].ToString() : "Autores não disponíveis";
-                            LblNacionalidade.Text = reader["Nacionalidades"] != DBNull.Value ? reader["Nacionalidades"].ToString() : "Nacionalidades não disponíveis";
-                            TxtBiografia.Text = reader["Biografias"] != DBNull.Value ? reader["Biografias"].ToString() : "Biografias não disponíveis";
-                            TxtDescricao.Text = reader["Descricao"] != DBNull.Value ? reader["Descricao"].ToString() : "Descrição não disponível";
 
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@id", id);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.HasRows && reader.Read())
+                            {
+                                // DADOS PRINCIPAIS (lado da imagem)
+                                LblTitulo2.Text = reader["Titulo"]?.ToString() ?? "Título não disponível";
+                                LblAutor2.Text = reader["Autores"]?.ToString() ?? "Autores não disponíveis";
+                                LblEditora2.Text = reader["Editora"]?.ToString() ?? "Editora não disponível";
+
+                                // Preço formatado
+                                if (reader["Preco"] != DBNull.Value && decimal.TryParse(reader["Preco"].ToString(), out decimal preco))
+                                {
+                                    LblPreco2.Text = $"R$ {preco:F2}";
+                                }
+                                else
+                                {
+                                    LblPreco2.Text = "Preço não disponível";
+                                }
+
+                                // DESCRIÇÃO
+                                TxtDescricao.Text = reader["Descricao"]?.ToString() ?? "Descrição não disponível";
+
+                                // INFORMAÇÕES DETALHADAS
+                                LblInfoNome2.Text = reader["Titulo"]?.ToString() ?? "Título não disponível";
+                                LblInfoAutor2.Text = reader["Autores"]?.ToString() ?? "Autores não disponíveis";
+                                LblNacionalidade.Text = reader["Nacionalidades"]?.ToString() ?? "Nacionalidades não disponíveis";
+                                LblInfoEditora2.Text = reader["Editora"]?.ToString() ?? "Editora não disponível";
+                                LblGenero2.Text = reader["Generos"]?.ToString() ?? "Gêneros não disponíveis";
+                                LblFaixa2.Text = reader["FaixaEtaria"]?.ToString() ?? "Faixa etária não disponível";
+
+                                // BIOGRAFIA
+                                string biografias = reader["Biografias"]?.ToString() ?? "Biografias não disponíveis";
+                                TxtBiografia.Text = biografias.Replace("&lt;", "<").Replace("&gt;", ">").Replace("&#x0D;", "\r");
+                                AjustarLabelsDinamicas();
+                                // IMAGEM
                                 if (reader["Foto"] != DBNull.Value)
                                 {
                                     try
@@ -140,7 +174,7 @@ namespace Livraria
                                     catch (Exception imgEx)
                                     {
                                         PbCapa2.Image = null;
-                                        MessageBox.Show("Erro ao carregar imagem: " + imgEx.Message);
+                                        Console.WriteLine("Erro ao carregar imagem: " + imgEx.Message);
                                     }
                                 }
                                 else
@@ -150,314 +184,286 @@ namespace Livraria
                             }
                             else
                             {
-                                MessageBox.Show("Nenhum dado encontrado para o ID: " + id);
-                                LblTitulo2.Text = "Livro não encontrado";
-                                /*  if (reader["Foto"] != DBNull.Value)
-                                  {
-                                      string caminhoFoto = reader["Foto"].ToString();
-                                      if (File.Exists(caminhoFoto))
-                                          {
-                                              PbCapa2.Image = Image.FromFile(caminhoFoto);
-                                          }
-                                          else
-                                          {
-                                              PbCapa2.Image = null;
-                                              MessageBox.Show("Imagem não encontrada: " + caminhoFoto);
-                                          }
-                                      }
-                                      else
-                                      {
-                                          PbCapa2.Image = null;
-                                      }
-                                  }
-                                  else
-                                  {
-                                      // Debug: Se não há dados
-                                      MessageBox.Show("Nenhum dado encontrado para o ID: " + id + ". Verifique se o livro existe no banco.");
-                                      // Define valores padrão
-                                      LblTitulo2.Text = "Livro não encontrado";
-                                      // Repita para outros controles...*/
+                                MessageBox.Show("Livro não encontrado!");
                             }
                         }
                     }
+                  
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao carregar informações do livro: " + ex.Message + "\n\nDetalhes: " + ex.StackTrace);
+                MessageBox.Show("Erro ao carregar informações: " + ex.Message);
             }
         }
-        private void AplicarLayout()
-        {
-            var layout = LayoutHelper.Carregar();
-            if (layout != null)
-            {
-                LblTitulo2.Location = layout.PosTitulo;
-                LblAutor2.Location = layout.PosAutor;
-                TxtDescricao.Location = layout.PosDescricao;
-                TxtBiografia.Location = layout.PosBiografia;
-                PbCapa2.Location = layout.PosImagem;
 
-                LblTitulo2.Size = layout.TamTitulo;
-                LblAutor2.Size = layout.TamAutor;
-                TxtBiografia.Size = layout.TamBiografia;
-                PbCapa2.Size = layout.TamImagem;
+        private void AjustarLabelsDinamicas()
+        {
+            // labels que recebem conteúdo variável do DB
+            var dinamicas = new Label[] { LblInfoNome2, LblInfoAutor2, LblNacionalidade, LblInfoEditora2, LblGenero2 };
+
+            foreach (var lbl in dinamicas)
+            {
+                lbl.AutoSize = true;                     // permite ajustar altura automaticamente
+                lbl.MaximumSize = new Size(400, 0);      // largura máxima (ajuste 400 se quiser)
+                lbl.AutoEllipsis = false;                // evita "..." se estiver aparecendo
             }
+
+            // Reposicione controles abaixo se necessário (ex.: LblBiografia e TxtBiografia)
+            int proximoY = LblGenero2.Bottom + 20;
+            LblBiografia.Location = new Point(LblBiografia.Location.X, proximoY);
+            TxtBiografia.Location = new Point(TxtBiografia.Location.X, proximoY + 30);
+
+            // Ajusta textboxes e scroll
+            AjustarAlturaTextBoxAuto();
+            AtualizarScrollDoForm();
         }
-    
 
 
 
-    /*using (SqlConnection con = Conexao.GetConnection())
-    {
-        con.Open();
-        string query = @"
-            SELECT 
-            L.Nome AS Titulo,
-            L.Preco,
-            L.Foto,
-            L.Descricao,
-            E.Nome AS Editora,
-            F.Idades AS FaixaEtaria,
-            STUFF(
-                (SELECT ', ' + G2.Nome
-                 FROM LivroGeneros LG2
-                 INNER JOIN Generos G2 ON LG2.GeneroId = G2.Id
-                 WHERE LG2.LivroId = L.Id
-                 FOR XML PATH('')), 1, 2, '') AS Generos,
-            STUFF(
-                (SELECT ', ' + A2.Nome
-                 FROM LivroAutores LA2
-                 INNER JOIN Autores A2 ON LA2.AutorId = A2.Id
-                 WHERE LA2.LivroId = L.Id
-                 FOR XML PATH('')), 1, 2, '') AS Autores,
-            STUFF(
-                (SELECT ', ' + A2.Nacionalidade
-                 FROM LivroAutores LA2
-                 INNER JOIN Autores A2 ON LA2.AutorId = A2.Id
-                 WHERE LA2.LivroId = L.Id
-                 FOR XML PATH('')), 1, 2, '') AS Nacionalidades,
-            STUFF(
-                (SELECT '; ' + A2.Biografia
-                 FROM LivroAutores LA2
-                 INNER JOIN Autores A2 ON LA2.AutorId = A2.Id
-                 WHERE LA2.LivroId = L.Id
-                 FOR XML PATH('')), 1, 2, '') AS Biografias
-        FROM Livros L
-        LEFT JOIN Editora E ON L.EditoraId = E.Id
-        LEFT JOIN FaixaEtaria F ON L.FaixaEtariaId = F.Id
-        WHERE L.Id = @id";
-
-        using (SqlCommand cmd = new SqlCommand(query, con))
+        private void AjustarAlturaTextBoxAuto()
         {
-            cmd.Parameters.AddWithValue("@id", id);
-
-            using (SqlDataReader reader = cmd.ExecuteReader())
+            try
             {
-                if (reader.Read())
+                // Ajustar altura da DESCRIÇÃO para todo o conteúdo
+                if (!string.IsNullOrEmpty(TxtDescricao.Text))
                 {
-                    LblTitulo2.Text = reader["Titulo"].ToString();
-                    LblPreco2.Text = "R$ " + reader["Preco"].ToString();
-                    LblEditora2.Text = reader["Editora"].ToString();
-                    LblGenero2.Text = reader["Generos"].ToString();
-                    LblFaixa2.Text = reader["FaixaEtaria"].ToString();
-                    LblAutor2.Text = reader["Autores"].ToString();
-                    LblNacionalidade.Text = reader["Nacionalidades"].ToString();
-                    TxtBiografia.Text = reader["Biografias"].ToString();
-                    TxtDescricao.Text = reader["Descricao"].ToString();
-
-                    if (reader["Foto"] != DBNull.Value)
-                    {
-                        var caminhoFoto = reader["Foto"].ToString();
-                        if (File.Exists(caminhoFoto))
-                        {
-                            PbCapa2.Image = Image.FromFile(caminhoFoto);
-                        }
-                        else
-                        {
-                            PbCapa2.Image = null; // caso a imagem não exista
-                        }
-                    }
-                    else
-                    {
-                        PbCapa2.Image = null;
-                    }
+                    int padding = 25;
+                    Size proposedSize = new Size(TxtDescricao.Width, int.MaxValue);
+                    Size textSize = TextRenderer.MeasureText(TxtDescricao.Text, TxtDescricao.Font, proposedSize, TextFormatFlags.WordBreak);
+                    TxtDescricao.Height = textSize.Height + padding;
                 }
-    */
 
-                    /*
-                    string query = @"
-            SELECT DISTINCT 
-                L.Nome AS Nome, 
-                L.Autoresid, 
-                A.Nome AS Autores, 
-                L.Descricao AS Descricao, 
-                L.Foto AS Foto 
-            FROM Livros L
-            JOIN Autores A ON L.Autoresid = A.Id
-            WHERE L.Id = @id";
-
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@id", id);
-
-                SqlDataReader dr = cmd.ExecuteReader();
-                if (dr.Read())
+                // Ajustar altura da BIOGRAFIA para todo o conteúdo
+                if (!string.IsNullOrEmpty(TxtBiografia.Text))
                 {
-                    // Preenche os labels com os dados do banco
-                    LblTitulo2.Text = dr["Nome"].ToString();
-                    LblAutor2.Text = dr["Autores"].ToString();
-                    LblDescricao2.Text = dr["Descricao"].ToString();
-
-                    // Preenche a capa do livro
-                    string caminhoImagem = dr["Foto"].ToString();
-                    if (File.Exists(caminhoImagem))
-                    {
-                        PbCapa2.Image = Image.FromFile(caminhoImagem);
-                        PbCapa2.SizeMode = PictureBoxSizeMode.StretchImage; // garante que a imagem se ajuste
-                    }
-
-                    // Se algum dia você quiser pegar a imagem direto do banco (byte[])
-                    
-                    if (dr["Foto"] != DBNull.Value)
-                    {
-                        byte[] imagemBytes = (byte[])dr["Foto"];
-                        using (MemoryStream ms = new MemoryStream(imagemBytes))
-                        {
-                            PbCapa2.Image = Image.FromStream(ms);
-                        }
-                    }
-                    */
-                
-            
-
-            /*
-            using (SqlConnection con = Conexao.GetConnection())
-            {
-                con.Open();
-                string query = @"
-    SELECT DISTINCT 
-        L.Nome AS Nome, 
-        L.Autoresid, 
-        A.Nome AS Autores, 
-        L.Descricao AS Descricao, 
-        L.Foto AS Foto 
-    FROM Livros L
-    JOIN Autores A ON L.Autoresid = A.Id
-    WHERE L.Id = @id";
-
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@id", idLivro);
-
-                SqlDataReader dr = cmd.ExecuteReader();
-                if (dr.Read())
-                {
-                    LblTitulo2.Text = dr["Nome"].ToString();
-                    LblAutor2.Text = dr["Autores"].ToString();
-                    LblDescricao2.Text = dr["Descricao"].ToString();
-
-                    string caminhoImagem = dr["Foto"].ToString();
-                    if (File.Exists(caminhoImagem))
-                    {
-                        PbCapa2.Image = Image.FromFile(caminhoImagem);
-                    }
+                    int padding = 25;
+                    Size proposedSize = new Size(TxtBiografia.Width, int.MaxValue);
+                    Size textSize = TextRenderer.MeasureText(TxtBiografia.Text, TxtBiografia.Font, proposedSize, TextFormatFlags.WordBreak);
+                    TxtBiografia.Height = textSize.Height + padding;
                 }
             }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Erro ao ajustar altura: {ex.Message}");
+            }
         }
+
+        private void AtualizarScrollDoForm()
+        {
+            try
+            {
+                int maiorBottom = 0;
+
+                // Encontrar o controle mais abaixo na página
+                foreach (Control controle in this.Controls)
+                {
+                    if (controle.Visible && controle.Bottom > maiorBottom)
+                    {
+                        maiorBottom = controle.Bottom;
+                    }
+                }
+
+                // Definir tamanho mínimo para scroll
+                this.AutoScrollMinSize = new Size(0, maiorBottom + 100);
+                this.PerformLayout();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Erro ao atualizar scroll: {ex.Message}");
+                this.AutoScrollMinSize = new Size(0, 1200);
+            }
+        }
+
 
         private void AplicarLayout()
         {
-            var layout = LayoutHelper.Carregar();
-            if (layout != null)
+            try
             {
-                LblTitulo2.Location = layout.PosTitulo;
-                LblAutor2.Location = layout.PosAutor;
-                TxtDescricao.Location = layout.PosDescricao;
-                TxtBiografia.Location = layout.PosBiografia;
+                var layout = LayoutHelper.Carregar();
+
+                // APLICAR TODAS AS POSIÇÕES COM OS NOMES CORRETOS
                 PbCapa2.Location = layout.PosImagem;
 
+                // Informações principais (lado da capa)
+                LblTitulo2.Location = layout.PosTitulo;
+                LblAutor2.Location = layout.PosAutor;
+                LblEditora2.Location = layout.PosEditora;
+                LblPreco2.Location = layout.PosPreco;
+
+                // Descrição
+                LblTxtDescricao.Location = layout.PosDes;
+                TxtDescricao.Location = layout.PosDescricao;
+
+                // Informações detalhadas
+                LblInfor.Location = layout.PosInformacao;
+                LblInfoNome.Location = layout.PosInforNome;
+                LblInfoNome2.Location = layout.PosInforNomeRes;
+                LblInfoAutor.Location = layout.PosInforAutor;
+                LblInfoAutor2.Location = layout.PosInforAutorRes;
+                LblInfoNaciAutor.Location = layout.PosInforNaci;
+                LblNacionalidade.Location = layout.PosInforNaciRes;
+                LblInfoEditora.Location = layout.PosInforEdi;
+                LblInfoEditora2.Location = layout.PosInforEdiRes;
+                LblInfoFX.Location = layout.PosInforFX;
+                LblFaixa2.Location = layout.PosFaixaEtaria;
+                LblInfoGenero.Location = layout.PosInforGen;
+                LblGenero2.Location = layout.PosGenero;
+
+                // Biografia
+                LblBiografia.Location = layout.PosBio;
+                TxtBiografia.Location = layout.PosBiografia;
+
+                // APLICAR TODOS OS TAMANHOS
+                PbCapa2.Size = layout.TamImagem;
                 LblTitulo2.Size = layout.TamTitulo;
                 LblAutor2.Size = layout.TamAutor;
+                LblEditora2.Size = layout.TamEditora;
+                LblPreco2.Size = layout.TamPreco;
+                LblTxtDescricao.Size = layout.TamDes;
+                TxtDescricao.Size = layout.TamDescricao;
+                LblInfor.Size = layout.TamInformacao;
+                LblInfoNome.Size = layout.TamInforNome;
+                LblInfoNome2.Size = layout.TamInforNomeRes;
+                LblInfoAutor.Size = layout.TamInforAutor;
+                LblInfoAutor2.Size = layout.TamInforAutorRes;
+                LblInfoNaciAutor.Size = layout.TamInforNaci;
+                LblNacionalidade.Size = layout.TamInforNaciRes;
+                LblInfoEditora.Size = layout.TamInforEdi;
+                LblInfoEditora2.Size = layout.TamInforEdiRes;
+                LblInfoFX.Size = layout.TamInforFX;
+                LblFaixa2.Size = layout.TamFaixaEtaria;
+                LblInfoGenero.Size = layout.TamInforGen;
+                LblGenero2.Size = layout.TamGenero;
+                LblBiografia.Size = layout.TamBio;
                 TxtBiografia.Size = layout.TamBiografia;
-                PbCapa2.Size = layout.TamImagem;
+
+                this.AutoScroll = true;
+
+                // Debug para verificar se está aplicando corretamente
+                Console.WriteLine("Layout aplicado com sucesso!");
             }
-        }
-*/
-        /*
-        private void CarregarDetalhes(int id)
-        {
-            using (SqlConnection con = Conexao.GetConnection())
+            catch (Exception ex)
             {
-                con.Open();
+                MessageBox.Show("Erro ao aplicar layout: " + ex.Message);
 
-                string query = @"SELECT L.Nome, L.Editoraid, L.Preco, L.Descricao, F.Idades AS FaixaEtaria,  E.Nome AS EditoraNome, L.Foto AS Foto, A.Nome AS Autor, A.Nacionalidade,
-                                 A.Biografia, G.Nome AS Genero 
-                                 FROM Livros L 
-                                 INNER JOIN Generos G ON L.GenerosId = G.Id
-                                 INNER JOIN FaixaEtaria F ON L.FaixaEtariaid = F.Id
-                                 INNER JOIN Autores A ON L.AutoresId = A.Id
-                                 INNER JOIN Editora E ON L.EditoraId = E.Id
-                                 WHERE L.Id = @id";
-
-
-
-                using (SqlCommand cmd = new SqlCommand(query, con))
-                {
-                    cmd.Parameters.AddWithValue("@id", id);
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            LblTitulo2.Text = reader["Titulo"].ToString();
-                            LblGenero2.Text = "Gênero: " + reader["Genero"].ToString();
-                            LblFaixa2.Text = "Faixa: " + reader["FaixaEtaria"].ToString();
-                            LblPreco2.Text = "R$ " + Convert.ToDecimal(reader["Preco"]).ToString("F2");
-
-                            LblAutor2.Text = "Autor: " + reader["AutorNome"].ToString();
-                            LblNacionalidade.Text = "Nacionalidade: " + reader["Nacionalidade"].ToString();
-                            RtbBiografia.Text = reader["Biografia"].ToString();
-                            RtbDescricao.Text = reader["Descricao"].ToString();
-
-                            string caminhoCapa = reader["CaminhoCapa"].ToString();
-                            try
-                            {
-                                if (!string.IsNullOrEmpty(caminhoCapa) && System.IO.File.Exists(caminhoCapa))
-                                {
-                                    PbCapa2.Image = Image.FromFile(caminhoCapa);
-                                }
-                                else
-                                {
-                                    PbCapa2.Image = null; // Nenhuma capa disponível
-                                    PbCapa2.BackColor = Color.LightGray; // Indica visualmente que não há imagem
-                                }
-                            }
-                            catch
-                            {
-                                PbCapa2.Image = null;
-                                PbCapa2.BackColor = Color.LightGray;
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Livro não encontrado!");
-                            this.Close();
-                        }
-                    }
-                }
+                // Se der erro, aplica layout fixo
+                AplicarLayoutFixo();
             }
         }
-        */
-       
+        private void AplicarLayoutFixo()
+        {
+            try
+            {
+                // LAYOUT FIXO QUE FUNCIONA - baseado na estrutura que você mostrou
+                int x = 30, y = 30;
+
+                // Capa
+                PbCapa2.Location = new Point(x, y);
+                PbCapa2.Size = new Size(150, 220);
+
+                // Informações principais (lado direito da capa)
+                LblTitulo2.Location = new Point(200, y);
+                LblTitulo2.Size = new Size(400, 35);
+                LblTitulo2.Font = new Font("Arial", 16, FontStyle.Bold);
+
+                LblAutor2.Location = new Point(200, y + 40);
+                LblAutor2.Size = new Size(400, 25);
+
+                LblEditora2.Location = new Point(200, y + 70);
+                LblEditora2.Size = new Size(400, 25);
+
+                LblPreco2.Location = new Point(200, y + 100);
+                LblPreco2.Size = new Size(200, 30);
+                LblPreco2.Font = new Font("Arial", 14, FontStyle.Bold);
+
+                // Descrição
+                LblTxtDescricao.Location = new Point(x, y + 260);
+                LblTxtDescricao.Size = new Size(200, 25);
+                LblTxtDescricao.Text = "Descrição do Livro";
+                LblTxtDescricao.Font = new Font("Arial", 12, FontStyle.Bold);
+
+                TxtDescricao.Location = new Point(x, y + 290);
+                TxtDescricao.Size = new Size(600, 120);
+
+                // Informações do Livro
+                LblInfor.Location = new Point(x, y + 430);
+                LblInfor.Size = new Size(200, 25);
+                LblInfor.Text = "Informações do Livro";
+                LblInfor.Font = new Font("Arial", 12, FontStyle.Bold);
+
+                // Nome
+                LblInfoNome.Location = new Point(x, y + 460);
+                LblInfoNome.Size = new Size(80, 25);
+                LblInfoNome.Text = "Nome:";
+
+                LblInfoNome2.Location = new Point(x + 90, y + 460);
+                LblInfoNome2.Size = new Size(400, 25);
+
+                // Autor
+                LblInfoAutor.Location = new Point(x, y + 490);
+                LblInfoAutor.Size = new Size(80, 25);
+                LblInfoAutor.Text = "Autor:";
+
+                LblInfoAutor2.Location = new Point(x + 90, y + 490);
+                LblInfoAutor2.Size = new Size(400, 25);
+
+                // Nacionalidade
+                LblInfoNaciAutor.Location = new Point(x, y + 520);
+                LblInfoNaciAutor.Size = new Size(150, 25);
+                LblInfoNaciAutor.Text = "Nacionalidade:";
+
+                LblNacionalidade.Location = new Point(x + 160, y + 520);
+                LblNacionalidade.Size = new Size(400, 25);
+
+                // Editora
+                LblInfoEditora.Location = new Point(x, y + 550);
+                LblInfoEditora.Size = new Size(80, 25);
+                LblInfoEditora.Text = "Editora:";
+
+                LblInfoEditora2.Location = new Point(x + 90, y + 550);
+                LblInfoEditora2.Size = new Size(400, 25);
+
+                // Faixa Etária
+                LblInfoFX.Location = new Point(x, y + 580);
+                LblInfoFX.Size = new Size(100, 25);
+                LblInfoFX.Text = "Faixa Etária:";
+
+                LblFaixa2.Location = new Point(x + 110, y + 580);
+                LblFaixa2.Size = new Size(400, 25);
+
+                // Gênero
+                LblInfoGenero.Location = new Point(x, y + 610);
+                LblInfoGenero.Size = new Size(80, 25);
+                LblInfoGenero.Text = "Gênero:";
+
+                LblGenero2.Location = new Point(x + 90, y + 610);
+                LblGenero2.Size = new Size(400, 25);
+
+                // Biografia
+                LblBiografia.Location = new Point(x, y + 650);
+                LblBiografia.Size = new Size(200, 25);
+                LblBiografia.Text = "Biografia do Autor";
+                LblBiografia.Font = new Font("Arial", 12, FontStyle.Bold);
+
+                TxtBiografia.Location = new Point(x, y + 680);
+                TxtBiografia.Size = new Size(600, 150);
+
+                this.AutoScroll = true;
+                this.AutoScrollMinSize = new Size(0, 900);
+
+                Console.WriteLine("Layout fixo aplicado!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro no layout fixo: " + ex.Message);
+            }
+        }
 
 
         private void BtnComprar1_Click(object sender, EventArgs e)
         {
            // MessageBox.Show("Livro adicionado ao carrinho! 🛒", "Compra", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void LblDescricao2_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void PbCapa2_Click(object sender, EventArgs e)
@@ -477,27 +483,12 @@ namespace Livraria
 
         private void TxtDescricao_TextChanged(object sender, EventArgs e)
         {
-            TxtDescricao.Multiline = true;
-            TxtDescricao.ScrollBars = ScrollBars.None; // sem barra de rolagem
-            TxtDescricao.ReadOnly = true;
-            TxtDescricao.WordWrap = true;               // quebra de linha automática
-            TxtDescricao.Height = 200;                  // ajusta a altura para mostrar bastante texto
-
+           
         }
 
         private void TxtBiografia_TextChanged(object sender, EventArgs e)
         {
-            TxtBiografia.Multiline = true;
-            TxtBiografia.ScrollBars = ScrollBars.None;
-            TxtBiografia.ReadOnly = true;
-            TxtBiografia.WordWrap = true;
-            TxtBiografia.Height = 200;
-
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 }

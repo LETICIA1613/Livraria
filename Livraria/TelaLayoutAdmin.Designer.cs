@@ -41,7 +41,7 @@
             this.LblNacionalidadeadmin = new System.Windows.Forms.Label();
             this.BtnSalvarLayout = new System.Windows.Forms.Button();
             this.PbCapaadmin = new System.Windows.Forms.PictureBox();
-            this.LblTxtDescricao = new System.Windows.Forms.Label();
+            this.LblTxtDescricaoadmin = new System.Windows.Forms.Label();
             this.LblInfor = new System.Windows.Forms.Label();
             this.LblInfoNaciautoradmin = new System.Windows.Forms.Label();
             this.LblInfoEditoraadmin = new System.Windows.Forms.Label();
@@ -58,46 +58,43 @@
             // 
             // LblAutoradmin
             // 
-            this.LblAutoradmin.AutoSize = true;
-            this.LblAutoradmin.Location = new System.Drawing.Point(272, 55);
+            this.LblAutoradmin.Location = new System.Drawing.Point(238, 54);
             this.LblAutoradmin.Name = "LblAutoradmin";
-            this.LblAutoradmin.Size = new System.Drawing.Size(32, 13);
+            this.LblAutoradmin.Size = new System.Drawing.Size(202, 26);
             this.LblAutoradmin.TabIndex = 3;
-            this.LblAutoradmin.Text = "Autor";
+            this.LblAutoradmin.Text = "Autor                                                                 ";
             // 
             // LblTituloadmin
             // 
-            this.LblTituloadmin.AutoSize = true;
             this.LblTituloadmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblTituloadmin.Location = new System.Drawing.Point(271, 18);
+            this.LblTituloadmin.Location = new System.Drawing.Point(229, 18);
             this.LblTituloadmin.Name = "LblTituloadmin";
-            this.LblTituloadmin.Size = new System.Drawing.Size(62, 24);
+            this.LblTituloadmin.Size = new System.Drawing.Size(326, 36);
             this.LblTituloadmin.TabIndex = 2;
-            this.LblTituloadmin.Text = "Título";
+            this.LblTituloadmin.Text = "Título                                                                           " +
+    "        ";
             // 
             // LblEditoraadmin
             // 
-            this.LblEditoraadmin.AutoSize = true;
-            this.LblEditoraadmin.Location = new System.Drawing.Point(272, 81);
+            this.LblEditoraadmin.Location = new System.Drawing.Point(238, 80);
             this.LblEditoraadmin.Name = "LblEditoraadmin";
-            this.LblEditoraadmin.Size = new System.Drawing.Size(40, 13);
+            this.LblEditoraadmin.Size = new System.Drawing.Size(213, 23);
             this.LblEditoraadmin.TabIndex = 4;
-            this.LblEditoraadmin.Text = "Editora";
+            this.LblEditoraadmin.Text = "Editora                                                                       ";
             // 
             // LblGeneroadmin
             // 
-            this.LblGeneroadmin.AutoSize = true;
-            this.LblGeneroadmin.Location = new System.Drawing.Point(98, 649);
+            this.LblGeneroadmin.Location = new System.Drawing.Point(97, 569);
             this.LblGeneroadmin.Name = "LblGeneroadmin";
             this.LblGeneroadmin.Size = new System.Drawing.Size(42, 13);
             this.LblGeneroadmin.TabIndex = 5;
-            this.LblGeneroadmin.Text = "Gênero";
+            this.LblGeneroadmin.Text = "Gênero                                                                           " +
+    "";
             this.LblGeneroadmin.Click += new System.EventHandler(this.LblGeneroadmin_Click);
             // 
             // LblFXadmin
             // 
-            this.LblFXadmin.AutoSize = true;
-            this.LblFXadmin.Location = new System.Drawing.Point(127, 621);
+            this.LblFXadmin.Location = new System.Drawing.Point(123, 541);
             this.LblFXadmin.Name = "LblFXadmin";
             this.LblFXadmin.Size = new System.Drawing.Size(62, 13);
             this.LblFXadmin.TabIndex = 6;
@@ -105,17 +102,16 @@
             // 
             // LblPrecoadmin
             // 
-            this.LblPrecoadmin.AutoSize = true;
             this.LblPrecoadmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblPrecoadmin.Location = new System.Drawing.Point(410, 145);
+            this.LblPrecoadmin.Location = new System.Drawing.Point(385, 129);
             this.LblPrecoadmin.Name = "LblPrecoadmin";
-            this.LblPrecoadmin.Size = new System.Drawing.Size(55, 20);
+            this.LblPrecoadmin.Size = new System.Drawing.Size(137, 31);
             this.LblPrecoadmin.TabIndex = 7;
             this.LblPrecoadmin.Text = "Preço";
             // 
             // BtnCompraradmin
             // 
-            this.BtnCompraradmin.Location = new System.Drawing.Point(320, 202);
+            this.BtnCompraradmin.Location = new System.Drawing.Point(292, 173);
             this.BtnCompraradmin.Name = "BtnCompraradmin";
             this.BtnCompraradmin.Size = new System.Drawing.Size(75, 23);
             this.BtnCompraradmin.TabIndex = 8;
@@ -124,26 +120,25 @@
             // 
             // TxtDescricaoadmin
             // 
-            this.TxtDescricaoadmin.Location = new System.Drawing.Point(40, 346);
+            this.TxtDescricaoadmin.Location = new System.Drawing.Point(16, 296);
             this.TxtDescricaoadmin.Name = "TxtDescricaoadmin";
-            this.TxtDescricaoadmin.Size = new System.Drawing.Size(591, 20);
+            this.TxtDescricaoadmin.Size = new System.Drawing.Size(760, 20);
             this.TxtDescricaoadmin.TabIndex = 9;
             // 
             // TxtBiografiaadmin
             // 
-            this.TxtBiografiaadmin.Location = new System.Drawing.Point(40, 714);
+            this.TxtBiografiaadmin.Location = new System.Drawing.Point(16, 659);
             this.TxtBiografiaadmin.Name = "TxtBiografiaadmin";
-            this.TxtBiografiaadmin.Size = new System.Drawing.Size(591, 20);
+            this.TxtBiografiaadmin.Size = new System.Drawing.Size(760, 20);
             this.TxtBiografiaadmin.TabIndex = 10;
             // 
             // LblNacionalidadeadmin
             // 
-            this.LblNacionalidadeadmin.AutoSize = true;
-            this.LblNacionalidadeadmin.Location = new System.Drawing.Point(195, 564);
+            this.LblNacionalidadeadmin.Location = new System.Drawing.Point(192, 491);
             this.LblNacionalidadeadmin.Name = "LblNacionalidadeadmin";
             this.LblNacionalidadeadmin.Size = new System.Drawing.Size(75, 13);
             this.LblNacionalidadeadmin.TabIndex = 11;
-            this.LblNacionalidadeadmin.Text = "Nacionalidade";
+            this.LblNacionalidadeadmin.Text = "Nacionalidade                                     ";
             // 
             // BtnSalvarLayout
             // 
@@ -160,29 +155,27 @@
             this.PbCapaadmin.Image = ((System.Drawing.Image)(resources.GetObject("PbCapaadmin.Image")));
             this.PbCapaadmin.Location = new System.Drawing.Point(30, 18);
             this.PbCapaadmin.Name = "PbCapaadmin";
-            this.PbCapaadmin.Size = new System.Drawing.Size(161, 252);
-            this.PbCapaadmin.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.PbCapaadmin.Size = new System.Drawing.Size(146, 207);
+            this.PbCapaadmin.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.PbCapaadmin.TabIndex = 1;
             this.PbCapaadmin.TabStop = false;
             // 
-            // LblTxtDescricao
+            // LblTxtDescricaoadmin
             // 
-            this.LblTxtDescricao.AutoSize = true;
-            this.LblTxtDescricao.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblTxtDescricao.Location = new System.Drawing.Point(36, 307);
-            this.LblTxtDescricao.Name = "LblTxtDescricao";
-            this.LblTxtDescricao.Size = new System.Drawing.Size(157, 20);
-            this.LblTxtDescricao.TabIndex = 12;
-            this.LblTxtDescricao.Text = "Descrição do Livro";
-            this.LblTxtDescricao.Click += new System.EventHandler(this.LblTxtDescricao_Click);
+            this.LblTxtDescricaoadmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblTxtDescricaoadmin.Location = new System.Drawing.Point(12, 261);
+            this.LblTxtDescricaoadmin.Name = "LblTxtDescricaoadmin";
+            this.LblTxtDescricaoadmin.Size = new System.Drawing.Size(230, 32);
+            this.LblTxtDescricaoadmin.TabIndex = 12;
+            this.LblTxtDescricaoadmin.Text = "Descrição do Livro";
+            this.LblTxtDescricaoadmin.Click += new System.EventHandler(this.LblTxtDescricao_Click);
             // 
             // LblInfor
             // 
-            this.LblInfor.AutoSize = true;
             this.LblInfor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblInfor.Location = new System.Drawing.Point(36, 465);
+            this.LblInfor.Location = new System.Drawing.Point(12, 393);
             this.LblInfor.Name = "LblInfor";
-            this.LblInfor.Size = new System.Drawing.Size(177, 20);
+            this.LblInfor.Size = new System.Drawing.Size(230, 23);
             this.LblInfor.TabIndex = 17;
             this.LblInfor.Text = "Informações do Livro";
             // 
@@ -190,7 +183,7 @@
             // 
             this.LblInfoNaciautoradmin.AutoSize = true;
             this.LblInfoNaciautoradmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblInfoNaciautoradmin.Location = new System.Drawing.Point(37, 561);
+            this.LblInfoNaciautoradmin.Location = new System.Drawing.Point(34, 488);
             this.LblInfoNaciautoradmin.Name = "LblInfoNaciautoradmin";
             this.LblInfoNaciautoradmin.Size = new System.Drawing.Size(152, 16);
             this.LblInfoNaciautoradmin.TabIndex = 28;
@@ -200,7 +193,7 @@
             // 
             this.LblInfoEditoraadmin.AutoSize = true;
             this.LblInfoEditoraadmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblInfoEditoraadmin.Location = new System.Drawing.Point(39, 589);
+            this.LblInfoEditoraadmin.Location = new System.Drawing.Point(36, 513);
             this.LblInfoEditoraadmin.Name = "LblInfoEditoraadmin";
             this.LblInfoEditoraadmin.Size = new System.Drawing.Size(53, 16);
             this.LblInfoEditoraadmin.TabIndex = 27;
@@ -210,7 +203,7 @@
             // 
             this.LblInfoAutoradmin.AutoSize = true;
             this.LblInfoAutoradmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblInfoAutoradmin.Location = new System.Drawing.Point(39, 535);
+            this.LblInfoAutoradmin.Location = new System.Drawing.Point(36, 461);
             this.LblInfoAutoradmin.Name = "LblInfoAutoradmin";
             this.LblInfoAutoradmin.Size = new System.Drawing.Size(41, 16);
             this.LblInfoAutoradmin.TabIndex = 26;
@@ -220,7 +213,7 @@
             // 
             this.LblInfoFXadmin.AutoSize = true;
             this.LblInfoFXadmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblInfoFXadmin.Location = new System.Drawing.Point(37, 618);
+            this.LblInfoFXadmin.Location = new System.Drawing.Point(36, 541);
             this.LblInfoFXadmin.Name = "LblInfoFXadmin";
             this.LblInfoFXadmin.Size = new System.Drawing.Size(81, 16);
             this.LblInfoFXadmin.TabIndex = 25;
@@ -228,9 +221,8 @@
             // 
             // LblInfonomeadmin
             // 
-            this.LblInfonomeadmin.AutoSize = true;
             this.LblInfonomeadmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblInfonomeadmin.Location = new System.Drawing.Point(39, 506);
+            this.LblInfonomeadmin.Location = new System.Drawing.Point(36, 433);
             this.LblInfonomeadmin.Name = "LblInfonomeadmin";
             this.LblInfonomeadmin.Size = new System.Drawing.Size(47, 16);
             this.LblInfonomeadmin.TabIndex = 24;
@@ -238,11 +230,10 @@
             // 
             // LblBiografiaadmin
             // 
-            this.LblBiografiaadmin.AutoSize = true;
             this.LblBiografiaadmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblBiografiaadmin.Location = new System.Drawing.Point(37, 676);
+            this.LblBiografiaadmin.Location = new System.Drawing.Point(12, 621);
             this.LblBiografiaadmin.Name = "LblBiografiaadmin";
-            this.LblBiografiaadmin.Size = new System.Drawing.Size(155, 20);
+            this.LblBiografiaadmin.Size = new System.Drawing.Size(196, 20);
             this.LblBiografiaadmin.TabIndex = 29;
             this.LblBiografiaadmin.Text = "Biografia do Autor";
             // 
@@ -250,7 +241,7 @@
             // 
             this.LblInfogenadmin.AutoSize = true;
             this.LblInfogenadmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblInfogenadmin.Location = new System.Drawing.Point(37, 646);
+            this.LblInfogenadmin.Location = new System.Drawing.Point(36, 566);
             this.LblInfogenadmin.Name = "LblInfogenadmin";
             this.LblInfogenadmin.Size = new System.Drawing.Size(55, 16);
             this.LblInfogenadmin.TabIndex = 30;
@@ -258,38 +249,39 @@
             // 
             // LblInfonomeadmin2
             // 
-            this.LblInfonomeadmin2.AutoSize = true;
             this.LblInfonomeadmin2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblInfonomeadmin2.Location = new System.Drawing.Point(86, 506);
+            this.LblInfonomeadmin2.Location = new System.Drawing.Point(83, 433);
             this.LblInfonomeadmin2.Name = "LblInfonomeadmin2";
-            this.LblInfonomeadmin2.Size = new System.Drawing.Size(40, 16);
+            this.LblInfonomeadmin2.Size = new System.Drawing.Size(261, 24);
             this.LblInfonomeadmin2.TabIndex = 31;
-            this.LblInfonomeadmin2.Text = "Título";
+            this.LblInfonomeadmin2.Text = "Título                                                                     ";
+            this.LblInfonomeadmin2.Click += new System.EventHandler(this.LblInfonomeadmin2_Click);
             // 
             // LblInfoAutoradmin2
             // 
-            this.LblInfoAutoradmin2.AutoSize = true;
-            this.LblInfoAutoradmin2.Location = new System.Drawing.Point(86, 537);
+            this.LblInfoAutoradmin2.Location = new System.Drawing.Point(83, 463);
             this.LblInfoAutoradmin2.Name = "LblInfoAutoradmin2";
-            this.LblInfoAutoradmin2.Size = new System.Drawing.Size(32, 13);
+            this.LblInfoAutoradmin2.Size = new System.Drawing.Size(217, 13);
             this.LblInfoAutoradmin2.TabIndex = 32;
-            this.LblInfoAutoradmin2.Text = "Autor";
+            this.LblInfoAutoradmin2.Text = "Autor                                                                            " +
+    "      ";
             // 
             // LblInfoEditoraadmin2
             // 
-            this.LblInfoEditoraadmin2.AutoSize = true;
-            this.LblInfoEditoraadmin2.Location = new System.Drawing.Point(98, 592);
+            this.LblInfoEditoraadmin2.Location = new System.Drawing.Point(97, 516);
             this.LblInfoEditoraadmin2.Name = "LblInfoEditoraadmin2";
-            this.LblInfoEditoraadmin2.Size = new System.Drawing.Size(40, 13);
+            this.LblInfoEditoraadmin2.Size = new System.Drawing.Size(155, 13);
             this.LblInfoEditoraadmin2.TabIndex = 33;
-            this.LblInfoEditoraadmin2.Text = "Editora";
+            this.LblInfoEditoraadmin2.Text = "Editora                                                                     ";
             // 
             // TelaLayoutAdmin
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(846, 881);
+            this.AutoScroll = true;
+            this.AutoScrollMinSize = new System.Drawing.Size(0, 2000);
+            this.ClientSize = new System.Drawing.Size(846, 821);
             this.Controls.Add(this.LblInfoEditoraadmin2);
             this.Controls.Add(this.LblInfoAutoradmin2);
             this.Controls.Add(this.LblInfonomeadmin2);
@@ -301,7 +293,7 @@
             this.Controls.Add(this.LblInfoFXadmin);
             this.Controls.Add(this.LblInfonomeadmin);
             this.Controls.Add(this.LblInfor);
-            this.Controls.Add(this.LblTxtDescricao);
+            this.Controls.Add(this.LblTxtDescricaoadmin);
             this.Controls.Add(this.PbCapaadmin);
             this.Controls.Add(this.LblNacionalidadeadmin);
             this.Controls.Add(this.BtnSalvarLayout);
@@ -335,7 +327,7 @@
         private System.Windows.Forms.Label LblNacionalidadeadmin;
         private System.Windows.Forms.Button BtnSalvarLayout;
         private System.Windows.Forms.PictureBox PbCapaadmin;
-        private System.Windows.Forms.Label LblTxtDescricao;
+        private System.Windows.Forms.Label LblTxtDescricaoadmin;
         private System.Windows.Forms.Label LblInfor;
         private System.Windows.Forms.Label LblInfoNaciautoradmin;
         private System.Windows.Forms.Label LblInfoEditoraadmin;
