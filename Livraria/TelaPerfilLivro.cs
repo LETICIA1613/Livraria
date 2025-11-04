@@ -31,6 +31,7 @@ namespace Livraria
             CarregarInformacoesDoLivro();
             AplicarLayout();
             AjustarAlturaTextBoxAuto();
+            CarregarLivrosSemelhantes();
             AtualizarScrollDoForm();
 
 
@@ -459,8 +460,267 @@ namespace Livraria
                 MessageBox.Show("Erro no layout fixo: " + ex.Message);
             }
         }
+        private int paginaAtual = 0;
+        private List<Panel> todosLivros = new List<Panel>();
+        private Button btnProximo;
+        private Button btnAnterior;
 
+        private void CarregarLivrosSemelhantes()
+        {
+            try
+            {
+                using (SqlConnection con = Conexao.GetConnection())
+                {
+                    con.Open();
+                    string query = @"
+            SELECT TOP 12 
+                L.Id,
+                L.Nome AS Titulo,
+                L.Preco,
+                L.Foto,
+                A.Nome AS Autor
+            FROM Livros L
+            INNER JOIN LivroGeneros LG ON L.Id = LG.LivroId
+            INNER JOIN LivroGeneros LG2 ON LG.GeneroId = LG2.GeneroId
+            INNER JOIN LivroAutores LA ON L.Id = LA.LivroId
+            INNER JOIN Autores A ON LA.AutorId = A.Id
+            WHERE LG2.LivroId = @id 
+            AND L.Id != @id
+            GROUP BY L.Id, L.Nome, L.Preco, L.Foto, A.Nome
+            ORDER BY COUNT(LG.GeneroId) DESC, L.Nome";
 
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@id", id);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            // Adicionar título da seção
+                            AdicionarTituloSecao();
+
+                            int y = TxtBiografia.Bottom + 80;
+
+                           // Criar container para os livros (MAIOR)
+                            Panel containerLivros = new Panel();
+                            containerLivros.Location = new Point(30, y);
+                            containerLivros.Size = new Size(700, 230); // Aumentei a altura
+                            containerLivros.BackColor = Color.White;
+                            this.Controls.Add(containerLivros);
+
+                            // Ler todos os livros e criar os panels
+                            while (reader.Read())
+                            {
+                                Panel livroPanel = CriarLivroPanel(reader);
+                                todosLivros.Add(livroPanel);
+                                containerLivros.Controls.Add(livroPanel);
+                            }
+
+                            // Só mostra controles se tiver mais de 4 livros
+                            if (todosLivros.Count > 4)
+                            {
+                                AdicionarBotoesNavegacao(containerLivros);
+                            }
+
+                            // Mostrar primeira página
+                            MostrarPagina(0);
+
+                            if (todosLivros.Count == 0)
+                            {
+                                AdicionarMensagemSemLivros(y);
+                            }
+                        }
+                    }
+                }
+
+                AtualizarScrollDoForm();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Erro ao carregar livros semelhantes: {ex.Message}");
+            }
+        }
+        private void AbrirPerfilLivro(int livroId)
+        {
+            TelaPerfilLivro perfil = new TelaPerfilLivro(livroId);
+            perfil.Show();
+            this.Close();
+        }
+
+        private Panel CriarLivroPanel(SqlDataReader reader)
+        {
+            Panel panelLivro = new Panel();
+            panelLivro.Size = new Size(160, 220); // Aumentei a altura
+            panelLivro.BackColor = Color.White;
+            panelLivro.Cursor = Cursors.Hand;
+            panelLivro.Visible = false;
+
+            // PictureBox para a capa (MAIOR - sem fundo cinza)
+            PictureBox pbCapa = new PictureBox();
+            pbCapa.Location = new Point(5, 0); // Centralizado
+            pbCapa.Size = new Size(150, 140); // MUITO maior
+            pbCapa.SizeMode = PictureBoxSizeMode.Zoom;
+            pbCapa.BackColor = Color.White; // Fundo branco ao invés de cinza
+            pbCapa.BorderStyle = BorderStyle.None; // Sem borda
+
+            // Carregar imagem
+            if (reader["Foto"] != DBNull.Value)
+            {
+                try
+                {
+                    byte[] imgBytes = (byte[])reader["Foto"];
+                    using (MemoryStream ms = new MemoryStream(imgBytes))
+                    {
+                        pbCapa.Image = Image.FromStream(ms);
+                    }
+                }
+                catch
+                {
+                    pbCapa.Image = null;
+                }
+            }
+
+            // Nome do Autor (MAIOR e mais destacado)
+            Label lblAutor = new Label();
+            lblAutor.Location = new Point(5, 145);
+            lblAutor.Size = new Size(150, 18);
+            lblAutor.Text = reader["Autor"]?.ToString() ?? "Autor";
+            lblAutor.Font = new Font("Arial", 9, FontStyle.Bold); // Negrito
+            lblAutor.ForeColor = Color.DarkGray;
+            lblAutor.TextAlign = ContentAlignment.MiddleLeft;
+
+            // Título do Livro (MAIOR)
+            Label lblTitulo = new Label();
+            lblTitulo.Location = new Point(5, 165);
+            lblTitulo.Size = new Size(150, 35);
+            lblTitulo.Text = reader["Titulo"]?.ToString() ?? "Título";
+            lblTitulo.Font = new Font("Arial", 10, FontStyle.Bold); // Maior e negrito
+            lblTitulo.ForeColor = Color.Black;
+
+            // Preço (MAIOR e mais destacado)
+            Label lblPreco = new Label();
+            lblPreco.Location = new Point(5, 200);
+            lblPreco.Size = new Size(150, 18);
+            if (reader["Preco"] != DBNull.Value && decimal.TryParse(reader["Preco"].ToString(), out decimal preco))
+            {
+                lblPreco.Text = $"R$ {preco:F2}";
+            }
+            else
+            {
+                lblPreco.Text = "R$ --";
+            }
+            lblPreco.Font = new Font("Arial", 11, FontStyle.Bold); // Maior
+            lblPreco.ForeColor = Color.Green;
+
+            // Adicionar controles ao panel
+            panelLivro.Controls.Add(pbCapa);
+            panelLivro.Controls.Add(lblAutor);
+            panelLivro.Controls.Add(lblTitulo);
+            panelLivro.Controls.Add(lblPreco);
+
+            // Evento de clique
+            int livroId = Convert.ToInt32(reader["Id"]);
+            panelLivro.Click += (sender, e) => AbrirPerfilLivro(livroId);
+
+            // Fazer todos os controles internos clicáveis também
+            foreach (Control control in panelLivro.Controls)
+            {
+                control.Cursor = Cursors.Hand;
+                control.Click += (sender, e) => AbrirPerfilLivro(livroId);
+            }
+
+            return panelLivro;
+        }
+
+        private void AdicionarBotoesNavegacao(Panel container)
+        {
+            // Botão Anterior (seta esquerda)
+            btnAnterior = new Button();
+            btnAnterior.Location = new Point(container.Left - 40, container.Top + 70);
+            btnAnterior.Size = new Size(30, 30);
+            btnAnterior.Text = "‹";
+            btnAnterior.Font = new Font("Arial", 16, FontStyle.Bold);
+            btnAnterior.BackColor = Color.White;
+            btnAnterior.ForeColor = Color.DarkBlue;
+            btnAnterior.FlatStyle = FlatStyle.Flat;
+            btnAnterior.Cursor = Cursors.Hand;
+            btnAnterior.Click += (sender, e) => MostrarPagina(paginaAtual - 1);
+            this.Controls.Add(btnAnterior);
+            btnAnterior.BringToFront();
+
+            // Botão Próximo (seta direita)
+            btnProximo = new Button();
+            btnProximo.Location = new Point(container.Right + 10, container.Top + 70);
+            btnProximo.Size = new Size(30, 30);
+            btnProximo.Text = "›";
+            btnProximo.Font = new Font("Arial", 16, FontStyle.Bold);
+            btnProximo.BackColor = Color.White;
+            btnProximo.ForeColor = Color.DarkBlue;
+            btnProximo.FlatStyle = FlatStyle.Flat;
+            btnProximo.Cursor = Cursors.Hand;
+            btnProximo.Click += (sender, e) => MostrarPagina(paginaAtual + 1);
+            this.Controls.Add(btnProximo);
+            btnProximo.BringToFront();
+
+            // Inicialmente esconder botão anterior
+            btnAnterior.Visible = false;
+        }
+
+        private void MostrarPagina(int pagina)
+        {
+            // Validar página
+            int totalPaginas = (int)Math.Ceiling(todosLivros.Count / 4.0);
+            if (pagina < 0 || pagina >= totalPaginas) return;
+
+            paginaAtual = pagina;
+
+            // Esconder todos os livros
+            foreach (var livro in todosLivros)
+            {
+                livro.Visible = false;
+            }
+
+            // Mostrar apenas 4 livros da página atual
+            int inicio = pagina * 4;
+            int fim = Math.Min(inicio + 4, todosLivros.Count);
+
+            for (int i = inicio; i < fim; i++)
+            {
+                todosLivros[i].Visible = true;
+                todosLivros[i].Location = new Point((i - inicio) * 170, 0); // Aumentei o espaçamento
+            }
+
+            // Atualizar visibilidade dos botões
+            if (btnAnterior != null && btnProximo != null)
+            {
+                btnAnterior.Visible = (paginaAtual > 0);
+                btnProximo.Visible = (paginaAtual < totalPaginas - 1);
+            }
+        }
+
+        private void AdicionarTituloSecao()
+        {
+            Label lblTituloSecao = new Label();
+            lblTituloSecao.Location = new Point(30, TxtBiografia.Bottom + 30);
+            lblTituloSecao.Size = new Size(400, 35);
+            lblTituloSecao.Text = "LIVROS SEMELHANTES";
+            lblTituloSecao.Font = new Font("Arial", 16, FontStyle.Bold);
+            lblTituloSecao.ForeColor = Color.DarkBlue;
+            lblTituloSecao.BackColor = Color.White;
+
+            this.Controls.Add(lblTituloSecao);
+        }
+
+        private void AdicionarMensagemSemLivros(int y)
+        {
+            Label lblMensagem = new Label();
+            lblMensagem.Location = new Point(30, y);
+            lblMensagem.Size = new Size(400, 30);
+            lblMensagem.Text = "Não foram encontrados livros semelhantes.";
+            lblMensagem.Font = new Font("Arial", 10, FontStyle.Italic);
+            lblMensagem.ForeColor = Color.Gray;
+            lblMensagem.BackColor = Color.White;
+
+            this.Controls.Add(lblMensagem);
+        }
         private void BtnComprar1_Click(object sender, EventArgs e)
         {
            // MessageBox.Show("Livro adicionado ao carrinho! 🛒", "Compra", MessageBoxButtons.OK, MessageBoxIcon.Information);

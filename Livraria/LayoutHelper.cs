@@ -62,6 +62,8 @@ namespace Livraria
             public Size TamDes { get; set; }
             public Size TamBtnComprar { get; set; }
 
+            public Point PosLivrosSemelhantes { get; set; }
+            public Size TamLivrosSemelhantes { get; set; }
         }
 
         public static void Salvar(LayoutInfo layout)
@@ -159,8 +161,11 @@ namespace Livraria
                 TamInforGen = new Size(80, 25),
                 TamGenero = new Size(500, 55),
                 TamBio = new Size(200, 25),
-                TamBiografia = new Size(700, 250)
-                
+                TamBiografia = new Size(700, 250),
+
+
+                PosLivrosSemelhantes = new Point(30, 800), // Ajuste conforme necessário
+                TamLivrosSemelhantes = new Size(600, 200)
             };
 
         }

@@ -115,7 +115,7 @@
             this.BtnCompraradmin.Name = "BtnCompraradmin";
             this.BtnCompraradmin.Size = new System.Drawing.Size(75, 23);
             this.BtnCompraradmin.TabIndex = 8;
-            this.BtnCompraradmin.Text = "button1";
+            this.BtnCompraradmin.Text = "Comprar";
             this.BtnCompraradmin.UseVisualStyleBackColor = true;
             // 
             // TxtDescricaoadmin

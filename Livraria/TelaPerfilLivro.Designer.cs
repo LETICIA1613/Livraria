@@ -61,7 +61,7 @@
             this.BtnComprar1.Name = "BtnComprar1";
             this.BtnComprar1.Size = new System.Drawing.Size(75, 23);
             this.BtnComprar1.TabIndex = 6;
-            this.BtnComprar1.Text = "button1";
+            this.BtnComprar1.Text = "Comprar";
             this.BtnComprar1.UseVisualStyleBackColor = true;
             this.BtnComprar1.Click += new System.EventHandler(this.BtnComprar1_Click);
             // 

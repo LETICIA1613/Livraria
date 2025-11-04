@@ -141,6 +141,9 @@
             // 
             // PictureCadastre
             // 
+            this.PictureCadastre.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.PictureCadastre.Image = ((System.Drawing.Image)(resources.GetObject("PictureCadastre.Image")));
             this.PictureCadastre.Location = new System.Drawing.Point(-6, -4);
             this.PictureCadastre.Name = "PictureCadastre";
