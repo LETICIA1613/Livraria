@@ -52,14 +52,15 @@
             this.LblInfoEditora2 = new System.Windows.Forms.Label();
             this.LblInfoAutor2 = new System.Windows.Forms.Label();
             this.LblInfoNome2 = new System.Windows.Forms.Label();
+            this.BtnCarrinho = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PbCapa2)).BeginInit();
             this.SuspendLayout();
             // 
             // BtnComprar1
             // 
-            this.BtnComprar1.Location = new System.Drawing.Point(279, 181);
+            this.BtnComprar1.Location = new System.Drawing.Point(271, 181);
             this.BtnComprar1.Name = "BtnComprar1";
-            this.BtnComprar1.Size = new System.Drawing.Size(75, 23);
+            this.BtnComprar1.Size = new System.Drawing.Size(85, 23);
             this.BtnComprar1.TabIndex = 6;
             this.BtnComprar1.Text = "Comprar";
             this.BtnComprar1.UseVisualStyleBackColor = true;
@@ -264,6 +265,16 @@
             this.LblInfoNome2.TabIndex = 34;
             this.LblInfoNome2.Text = "Título";
             // 
+            // BtnCarrinho
+            // 
+            this.BtnCarrinho.Location = new System.Drawing.Point(370, 181);
+            this.BtnCarrinho.Name = "BtnCarrinho";
+            this.BtnCarrinho.Size = new System.Drawing.Size(87, 23);
+            this.BtnCarrinho.TabIndex = 35;
+            this.BtnCarrinho.Text = "Adicionar 🛒";
+            this.BtnCarrinho.UseVisualStyleBackColor = true;
+            this.BtnCarrinho.Click += new System.EventHandler(this.BtnCarrinho_Click);
+            // 
             // TelaPerfilLivro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -272,6 +283,7 @@
             this.AutoScrollMinSize = new System.Drawing.Size(0, 2000);
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(800, 881);
+            this.Controls.Add(this.BtnCarrinho);
             this.Controls.Add(this.LblInfoNome2);
             this.Controls.Add(this.LblInfoAutor2);
             this.Controls.Add(this.LblInfoEditora2);
@@ -329,5 +341,6 @@
         private System.Windows.Forms.Label LblInfoEditora2;
         private System.Windows.Forms.Label LblInfoAutor2;
         private System.Windows.Forms.Label LblInfoNome2;
+        private System.Windows.Forms.Button BtnCarrinho;
     }
 }

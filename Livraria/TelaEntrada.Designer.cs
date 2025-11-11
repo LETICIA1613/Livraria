@@ -41,7 +41,9 @@
             this.CbFiltroFX = new System.Windows.Forms.ComboBox();
             this.ClbFiltroAutor = new System.Windows.Forms.CheckedListBox();
             this.ChkNovidades = new System.Windows.Forms.CheckBox();
+            this.PicCarrinho1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicCarrinho1)).BeginInit();
             this.SuspendLayout();
             // 
             // Txtwrite
@@ -170,11 +172,22 @@
             this.ChkNovidades.Text = "Novidades";
             this.ChkNovidades.UseVisualStyleBackColor = false;
             // 
+            // PicCarrinho1
+            // 
+            this.PicCarrinho1.Image = global::Livraria.Properties.Resources.Carrinho;
+            this.PicCarrinho1.Location = new System.Drawing.Point(695, 0);
+            this.PicCarrinho1.Name = "PicCarrinho1";
+            this.PicCarrinho1.Size = new System.Drawing.Size(42, 32);
+            this.PicCarrinho1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PicCarrinho1.TabIndex = 15;
+            this.PicCarrinho1.TabStop = false;
+            // 
             // TelaEntrada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.PicCarrinho1);
             this.Controls.Add(this.ChkNovidades);
             this.Controls.Add(this.ClbFiltroAutor);
             this.Controls.Add(this.CbFiltroFX);
@@ -191,6 +204,7 @@
             this.Text = "TelaEntrada";
             this.Load += new System.EventHandler(this.TelaEntrada_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PicCarrinho1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -210,5 +224,6 @@
         private System.Windows.Forms.ComboBox CbFiltroFX;
         private System.Windows.Forms.CheckedListBox ClbFiltroAutor;
         private System.Windows.Forms.CheckBox ChkNovidades;
+        private System.Windows.Forms.PictureBox PicCarrinho1;
     }
 }

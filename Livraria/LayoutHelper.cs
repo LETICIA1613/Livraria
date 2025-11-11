@@ -64,6 +64,8 @@ namespace Livraria
 
             public Point PosLivrosSemelhantes { get; set; }
             public Size TamLivrosSemelhantes { get; set; }
+            public Point PosBotaoCarrinho { get; set; }
+            public Size TamBotaoCarrinho { get; set; }
         }
 
         public static void Salvar(LayoutInfo layout)
@@ -166,9 +168,10 @@ namespace Livraria
 
                 PosLivrosSemelhantes = new Point(30, 800), // Ajuste conforme necessário
                 TamLivrosSemelhantes = new Size(600, 200)
-            };
 
+            };
         }
+        
     }
 };
         

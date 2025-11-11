@@ -36,6 +36,64 @@ namespace Livraria
             CarregarLivros();
             CarregarGeneros();
 
+            ConfigurarCarrinhoIcon();
+            AtualizarQuantidadeCarrinho();
+        }
+       
+        // PICTOGRAM CARRINHO
+       
+        private Label lblQuantidadeCarrinho;
+
+        // 2. Método para configurar o carrinho (adicione este método)
+        private void ConfigurarCarrinhoIcon()
+        {
+            // A PictureBox JÁ EXISTE no Designer, só configurar o resto
+            PicCarrinho1.Cursor = Cursors.Hand;
+            PicCarrinho1.Click += AbrirTelaCarrinho;
+
+            // Bolinha vermelha da quantidade - POSICIONADA RELATIVA AO picCarrinho
+            lblQuantidadeCarrinho = new Label();
+            lblQuantidadeCarrinho.Size = new Size(18, 18);
+            lblQuantidadeCarrinho.Location = new Point( PicCarrinho1.Right - 8, PicCarrinho1.Top + 2);
+            lblQuantidadeCarrinho.BackColor = Color.Red;
+            lblQuantidadeCarrinho.ForeColor = Color.White;
+            lblQuantidadeCarrinho.Font = new Font("Arial", 7, FontStyle.Bold);
+            lblQuantidadeCarrinho.TextAlign = ContentAlignment.MiddleCenter;
+            lblQuantidadeCarrinho.Visible = false;
+            this.Controls.Add(lblQuantidadeCarrinho);
+
+            // Trazer para frente
+            lblQuantidadeCarrinho.BringToFront();
+        }
+        public void AtualizarQuantidadeCarrinho()
+        {
+            int quantidade = Carrinho.GetQuantidadeTotal();
+
+            if (quantidade > 0)
+            {
+                lblQuantidadeCarrinho.Text = quantidade.ToString();
+                lblQuantidadeCarrinho.Visible = true;
+            }
+            else
+            {
+                lblQuantidadeCarrinho.Visible = false;
+            }
+        }
+       
+
+        
+        // 4. Método para abrir carrinho (adicione este método)
+        private void AbrirTelaCarrinho(object sender, EventArgs e)
+        {
+            if (Carrinho.GetQuantidadeTotal() > 0)
+            {
+                TelaCarrinho telaCarrinho = new TelaCarrinho();
+                telaCarrinho.Show();
+            }
+            else
+            {
+                MessageBox.Show("🛒 Seu carrinho está vazio!");
+            }
         }
 
         private void CarregarFiltros()
@@ -81,46 +139,6 @@ namespace Livraria
                 CbFiltroFX.SelectedIndex = -1;
             }
         }
-/*
-        private void CarregarFiltros()
-        {
-            // Filtro de preço manual
-            ClbPreco.Items.Clear();
-            ClbPreco.Items.Add("Até R$20");
-            ClbPreco.Items.Add("R$20 a R$30");
-            ClbPreco.Items.Add("R$30 a R$50");
-            ClbPreco.Items.Add("R$50 a R$80");
-            ClbPreco.Items.Add("Mais de R$80");
-
-            // Filtro de Autor
-            using (SqlConnection con = Conexao.GetConnection())
-            {
-                con.Open();
-                SqlDataAdapter daAutor = new SqlDataAdapter("SELECT Id, Nome FROM Autores", con);
-                DataTable dtAutor = new DataTable();
-                daAutor.Fill(dtAutor);
-
-                ClbFiltroAutor.Items.Clear();
-                foreach (DataRow row in dtAutor.Rows)
-                {
-                    ClbFiltroAutor.Items.Add(new ListItem(row["Nome"].ToString(), row["Id"].ToString()));
-                }
-            }
-
-            // Filtro de Faixa Etária (ComboBox)
-            using (SqlConnection con = Conexao.GetConnection())
-            {
-                con.Open();
-                SqlDataAdapter daFaixa = new SqlDataAdapter("SELECT Id, Idades FROM FaixaEtaria", con);
-                DataTable dtFaixa = new DataTable();
-                daFaixa.Fill(dtFaixa);
-
-                CbFiltroFX.DataSource = dtFaixa;
-                CbFiltroFX.DisplayMember = "Idades";
-                CbFiltroFX.ValueMember = "Id";
-                CbFiltroFX.SelectedIndex = -1;
-            }
-        }*/
 
         private void CarregarLivros(
     string Nome = "",
@@ -208,114 +226,8 @@ namespace Livraria
                     FlpLivros.Controls.Add(card);
                 }
 
-                /*// 🔽 Executa e monta os cards
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    LivroCard card = new LivroCard
-                    {
-                        Titulo = reader["Nome"].ToString(),
-                        Editora = reader["EditoraNome"].ToString(),
-                        Preco = "R$ " + reader["Preco"].ToString()
-                        // Não mostramos gêneros nem autores
-                    };
-
-                    if (reader["Foto"] != DBNull.Value)
-                    {
-                        byte[] imgBytes = (byte[])reader["Foto"];
-                        using (MemoryStream ms = new MemoryStream(imgBytes))
-                        {
-                            card.Imagem = Image.FromStream(ms);
-                        }
-                    }
-
-                    FlpLivros.Controls.Add(card);
-                }*/
-            }
-        }/*
-
-/*
-        private void CarregarLivros(
-    string Nome = "",
-    List<int> generos = null,
-    int faixaEtaria = 0,
-    List<(decimal min, decimal max)> precos = null)
-        {
-            FlpLivros.Controls.Clear();
-            ClbFiltroAutor.Items.Clear();
-
-
-            using (SqlConnection con = Conexao.GetConnection())
-            {
-                con.Open();
-
-               
-                // Query base
-                string query = @"
-            SELECT DISTINCT L.Id, L.Nome, L.Preco, L.Foto, L.Editoraid, E.Nome AS EditoraNome, F.Idades AS FaixaEtaria
-            FROM Livros L
-            JOIN Editora E ON L.Editoraid = E.Id
-            JOIN FaixaEtaria F ON L.FaixaEtariaId = F.Id
-            LEFT JOIN LivroGeneros LG ON L.Id = LG.LivroId
-            LEFT JOIN Generos G ON LG.GeneroId = G.Id
-            WHERE 1=1
-        ";
-
-                // 🔍 Busca por nome
-                if (!string.IsNullOrEmpty(Nome))
-                    query += " AND L.Nome LIKE @Nome";
-
-                // 🎨 Filtro de gêneros (muitos-para-muitos)
-                if (generos != null && generos.Count > 0)
-                    query += " AND LG.GeneroId IN (" + string.Join(",", generos) + ")";
-
-                // 👶 Faixa etária
-                if (faixaEtaria > 0)
-                    query += " AND L.FaixaEtariaId = @Faixa";
-
-                // 💰 Faixas de preço
-                if (precos != null && precos.Count > 0)
-                {
-                    List<string> condicoesPreco = new List<string>();
-                    foreach (var faixa in precos)
-                        condicoesPreco.Add($"(L.Preco >= {faixa.min} AND L.Preco <= {faixa.max})");
-
-                    query += " AND (" + string.Join(" OR ", condicoesPreco) + ")";
-                }
-
-                SqlCommand cmd = new SqlCommand(query, con);
-
-                if (!string.IsNullOrEmpty(Nome))
-                    cmd.Parameters.AddWithValue("@Nome", "%" + Nome + "%");
-
-                if (faixaEtaria > 0)
-                    cmd.Parameters.AddWithValue("@Faixa", faixaEtaria);
-
-                // 🔽 Executa e monta os cards
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    LivroCard card = new LivroCard
-                    {
-                        Titulo = reader["Nome"].ToString(),
-                        Editora = reader["EditoraNome"].ToString(),
-                        Preco = "R$ " + reader["Preco"].ToString()
-                    };
-
-                    if (reader["Foto"] != DBNull.Value)
-                    {
-                        byte[] imgBytes = (byte[])reader["Foto"];
-                        using (MemoryStream ms = new MemoryStream(imgBytes))
-                        {
-                            card.Imagem = Image.FromStream(ms);
-                        }
-                    }
-
-                    FlpLivros.Controls.Add(card);
-                }
             }
         }
-*/
         private void CarregarGeneros()
         {
             using (SqlConnection con = Conexao.GetConnection())
@@ -405,51 +317,7 @@ namespace Livraria
         }
 
        
-/*
-        private void BtnFiltrar_Click(object sender, EventArgs e)
-        {
-            string busca = Txtwrite.Text.Trim();
-            if (busca == "Digite sua busca") busca = string.Empty;
 
-            // 📚 Gêneros selecionados
-            List<int> generosSelecionados = new List<int>();
-            foreach (var item in ClbGenerosfiltro.CheckedItems)
-            {
-                if (item is GeneroItem genero)
-                    generosSelecionados.Add(genero.Id);
-            }
-
-
-            // 👶 Faixa etária
-            int faixaEtariaSelecionada = 0;
-            if (CbFiltroFX.SelectedValue != null && int.TryParse(CbFiltroFX.SelectedValue.ToString(), out int faixaId))
-                faixaEtariaSelecionada = faixaId;
-
-            // 💰 Faixas de preço (intervalos)
-            List<(decimal min, decimal max)> faixasPreco = new List<(decimal, decimal)>();
-
-            foreach (var item in ClbPreco.CheckedItems)
-            {
-                string texto = item.ToString();
-
-                if (texto.Contains("Até R$20"))
-                    faixasPreco.Add((0, 20));
-                else if (texto.Contains("R$20 a R$30"))
-                    faixasPreco.Add((20, 30));
-                else if (texto.Contains("R$30 a R$50"))
-                    faixasPreco.Add((30, 50));
-                else if (texto.Contains("R$50 a R$80"))
-                    faixasPreco.Add((50, 80));
-                else if (texto.Contains("Mais de R$80"))
-                    faixasPreco.Add((80, decimal.MaxValue));
-            }
-
-            // E chama assim:
-            CarregarLivros(busca, generosSelecionados, faixaEtariaSelecionada, faixasPreco);
-        }
-    
-        */
-    
 
 
     private class ListItem

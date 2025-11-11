@@ -12,7 +12,7 @@ using System.IO;
 
 namespace Livraria
 {
-    public partial class TelaPerfilLivro: Form
+    public partial class TelaPerfilLivro : Form
     {
         private int id;
 
@@ -34,7 +34,7 @@ namespace Livraria
             CarregarLivrosSemelhantes();
             AtualizarScrollDoForm();
 
-
+            
         }
         private void ConfigurarControles()
         { // Configurar todas as labels para não serem AutoSize
@@ -78,8 +78,44 @@ namespace Livraria
 
             // Habilita scroll na página
             this.AutoScroll = true;
+
+            // BOTÃO VOLTAR
+            Button btnVoltar = new Button();
+            btnVoltar.Text = "← Voltar";
+            btnVoltar.BackColor = Color.Gray;
+            btnVoltar.ForeColor = Color.White;
+            btnVoltar.Font = new Font("Arial", 10, FontStyle.Bold);
+            btnVoltar.Size = new Size(100, 35);
+            btnVoltar.Location = new Point(20, 20); // Canto superior esquerdo
+            btnVoltar.Cursor = Cursors.Hand;
+            btnVoltar.FlatStyle = FlatStyle.Flat;
+            btnVoltar.Click += (sender, e) => VoltarParaCatalogo();
+
+            this.Controls.Add(btnVoltar);
+
+            BtnCarrinho.Text = "🛒 Adicionar ao Carrinho";
+            BtnCarrinho.BackColor = Color.DodgerBlue;
+            BtnCarrinho.ForeColor = Color.White;
+            BtnCarrinho.Font = new Font("Arial", 10, FontStyle.Bold); // Fonte menor
+            BtnCarrinho.Size = new Size(180, 35); // BOTÃO MENOR
+            BtnCarrinho.Cursor = Cursors.Hand;
+            BtnCarrinho.FlatStyle = FlatStyle.Flat;
+            BtnCarrinho.FlatAppearance.BorderSize = 0;
+
+            BtnCarrinho.Click += BtnAdicionarCarrinho_Click;
+
+            this.Controls.Add(BtnCarrinho);
         }
-        
+        private void VoltarParaCatalogo()
+        {
+            this.Close();
+            TelaEntrada catalogo = new TelaEntrada();
+            catalogo.Show();
+            this.Hide();
+
+            // FORÇAR ATUALIZAÇÃO NO CATÁLOGO
+            catalogo.AtualizarQuantidadeCarrinho();
+        }
         private void CarregarInformacoesDoLivro()
         {
             try
@@ -189,7 +225,7 @@ namespace Livraria
                             }
                         }
                     }
-                  
+
                 }
             }
             catch (Exception ex)
@@ -292,6 +328,7 @@ namespace Livraria
                 LblEditora2.Location = layout.PosEditora;
                 LblPreco2.Location = layout.PosPreco;
 
+
                 // Descrição
                 LblTxtDescricao.Location = layout.PosDes;
                 TxtDescricao.Location = layout.PosDescricao;
@@ -339,6 +376,24 @@ namespace Livraria
                 LblBiografia.Size = layout.TamBio;
                 TxtBiografia.Size = layout.TamBiografia;
 
+                // POSIÇÃO DO BOTÃO ADICIONAR AO CARRINHO
+                if (layout.PosBotaoCarrinho != Point.Empty) // Ou use uma posição padrão como (0,0)
+                {
+                    BtnCarrinho.Location = layout.PosBotaoCarrinho;
+                }
+                else
+                {
+                    BtnCarrinho.Location = new Point(450, 150); // Posição padrão
+                }
+
+                if (layout.TamBotaoCarrinho != Size.Empty) // Ou use Size(0,0)
+                {
+                    BtnCarrinho.Size = layout.TamBotaoCarrinho;
+                }
+                else
+                {
+                    BtnCarrinho.Size = new Size(220, 45); // Tamanho padrão
+                }
                 this.AutoScroll = true;
 
                 // Debug para verificar se está aplicando corretamente
@@ -347,6 +402,7 @@ namespace Livraria
             catch (Exception ex)
             {
                 MessageBox.Show("Erro ao aplicar layout: " + ex.Message);
+                
 
                 // Se der erro, aplica layout fixo
                 AplicarLayoutFixo();
@@ -450,8 +506,12 @@ namespace Livraria
                 TxtBiografia.Location = new Point(x, y + 680);
                 TxtBiografia.Size = new Size(600, 150);
 
+                BtnCarrinho.Location = new Point(200, y + 140); // ABAIXO DO PREÇO
+                BtnCarrinho.Size = new Size(180, 35);
+
                 this.AutoScroll = true;
                 this.AutoScrollMinSize = new Size(0, 900);
+
 
                 Console.WriteLine("Layout fixo aplicado!");
             }
@@ -499,7 +559,7 @@ namespace Livraria
 
                             int y = TxtBiografia.Bottom + 80;
 
-                           // Criar container para os livros (MAIOR)
+                            // Criar container para os livros (MAIOR)
                             Panel containerLivros = new Panel();
                             containerLivros.Location = new Point(30, y);
                             containerLivros.Size = new Size(700, 230); // Aumentei a altura
@@ -721,9 +781,73 @@ namespace Livraria
 
             this.Controls.Add(lblMensagem);
         }
+
+        private void BtnAdicionarCarrinho_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Buscar informações completas do livro
+                using (SqlConnection con = Conexao.GetConnection())
+                {
+                    con.Open();
+                    string query = @"
+                SELECT 
+                    L.Id,
+                    L.Nome AS Titulo,
+                    L.Preco,
+                    L.Foto,
+                    STUFF(
+                        (SELECT ', ' + A2.Nome
+                         FROM LivroAutores LA2
+                         INNER JOIN Autores A2 ON LA2.AutorId = A2.Id
+                         WHERE LA2.LivroId = L.Id
+                         FOR XML PATH('')), 1, 2, '') AS Autores
+                FROM Livros L
+                WHERE L.Id = @id";
+
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@id", id);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                string titulo = reader["Titulo"]?.ToString() ?? "Título não disponível";
+                                string autor = reader["Autores"]?.ToString() ?? "Autor não disponível";
+                                decimal preco = reader["Preco"] != DBNull.Value ?
+                                              Convert.ToDecimal(reader["Preco"]) : 0;
+
+                                byte[] foto = null;
+                                if (reader["Foto"] != DBNull.Value)
+                                {
+                                    foto = (byte[])reader["Foto"];
+                                }
+
+                                // Adicionar ao carrinho
+                                Carrinho.AdicionarLivro(id, titulo, autor, preco, foto);
+
+                                // Feedback visual
+                                MessageBox.Show($"✅ '{titulo}' adicionado ao carrinho!\n\n" +
+                                              $"Itens no carrinho: {Carrinho.GetQuantidadeTotal()}\n" +
+                                              $"Total: R$ {Carrinho.GetTotal():F2}",
+                                              "Carrinho",
+                                              MessageBoxButtons.OK,
+                                              MessageBoxIcon.Information);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao adicionar ao carrinho: {ex.Message}",
+                              "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        } 
         private void BtnComprar1_Click(object sender, EventArgs e)
         {
-           // MessageBox.Show("Livro adicionado ao carrinho! 🛒", "Compra", MessageBoxButtons.OK, MessageBoxIcon.Information);
+         
         }
 
         private void PbCapa2_Click(object sender, EventArgs e)
@@ -750,5 +874,9 @@ namespace Livraria
         {
         }
 
+        private void BtnCarrinho_Click(object sender, EventArgs e)
+        {
+            VoltarParaCatalogo();
+        }
     }
 }
