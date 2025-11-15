@@ -21,6 +21,7 @@ namespace Livraria
             this.id = id;
             InitializeComponent();
             this.BackColor = Color.White;
+           
 
         }
         private void TelaPerfilLivro_Load(object sender, EventArgs e)
@@ -33,9 +34,10 @@ namespace Livraria
             AjustarAlturaTextBoxAuto();
             CarregarLivrosSemelhantes();
             AtualizarScrollDoForm();
-
-            
+           
         }
+
+     
         private void ConfigurarControles()
         { // Configurar todas as labels para não serem AutoSize
             foreach (Control control in this.Controls)
@@ -108,13 +110,13 @@ namespace Livraria
         }
         private void VoltarParaCatalogo()
         {
-            this.Close();
-            TelaEntrada catalogo = new TelaEntrada();
-            catalogo.Show();
-            this.Hide();
+            
+            TelaEntrada product = new TelaEntrada();
+            this.Visible = false;
+            product.ShowDialog();
+            this.Visible = true;
 
             // FORÇAR ATUALIZAÇÃO NO CATÁLOGO
-            catalogo.AtualizarQuantidadeCarrinho();
         }
         private void CarregarInformacoesDoLivro()
         {
@@ -548,6 +550,8 @@ namespace Livraria
             AND L.Id != @id
             GROUP BY L.Id, L.Nome, L.Preco, L.Foto, A.Nome
             ORDER BY COUNT(LG.GeneroId) DESC, L.Nome";
+                    
+                   
 
                     using (SqlCommand cmd = new SqlCommand(query, con))
                     {
@@ -600,11 +604,19 @@ namespace Livraria
         }
         private void AbrirPerfilLivro(int livroId)
         {
-            TelaPerfilLivro perfil = new TelaPerfilLivro(livroId);
-            perfil.Show();
-            this.Close();
-        }
+            // Fecha outras telas de perfil se necessário
+            foreach (Form form in Application.OpenForms)
+            {
+                if (form is TelaPerfilLivro && form != this)
+                {
+                    form.Close();
+                }
+            }
 
+            // Abre o novo perfil
+            TelaPerfilLivro perfil = new TelaPerfilLivro(livroId);
+            perfil.Show(); // Note: "Show" com S maiúsculo
+        }
         private Panel CriarLivroPanel(SqlDataReader reader)
         {
             Panel panelLivro = new Panel();
@@ -675,9 +687,24 @@ namespace Livraria
             panelLivro.Controls.Add(lblAutor);
             panelLivro.Controls.Add(lblTitulo);
             panelLivro.Controls.Add(lblPreco);
+            
+            int livroId = Convert.ToInt32(reader["Id"]);
+
+            panelLivro.Click += (sender, e) => AbrirPerfilLivro(livroId);
+            // EVENTO CORRETO - sem fechar a tela atual
+          
+            foreach (Control control in panelLivro.Controls)
+            {
+                control.Cursor = Cursors.Hand;
+                control.Click += (sender, e) => AbrirPerfilLivro(livroId);
+            }
+
+            return panelLivro;
+       
+        }
 
             // Evento de clique
-            int livroId = Convert.ToInt32(reader["Id"]);
+          /*  int livroId = Convert.ToInt32(reader["Id"]);
             panelLivro.Click += (sender, e) => AbrirPerfilLivro(livroId);
 
             // Fazer todos os controles internos clicáveis também
@@ -688,7 +715,7 @@ namespace Livraria
             }
 
             return panelLivro;
-        }
+        }*/
 
         private void AdicionarBotoesNavegacao(Panel container)
         {
@@ -877,6 +904,35 @@ namespace Livraria
         private void BtnCarrinho_Click(object sender, EventArgs e)
         {
             VoltarParaCatalogo();
+        }
+
+        private void BtnVoltar1_Click(object sender, EventArgs e)
+        {
+            Form telaAnterior = null;
+            foreach (Form form in Application.OpenForms)
+            {
+                if (form != this && form.Visible == false)
+                {
+                    telaAnterior = form;
+                    break;
+                }
+            }
+
+            // Se encontrou tela anterior, mostra ela
+            if (telaAnterior != null)
+            {
+                telaAnterior.Show();
+                this.Close(); // Fecha a tela atual
+            }
+            else
+            {
+                // Se não encontrou, volta para o catálogo ou tela principal
+                TelaEntrada product = new TelaEntrada();
+                this.Visible = false;
+                product.ShowDialog();
+                this.Visible = true;
+               
+            }
         }
     }
 }

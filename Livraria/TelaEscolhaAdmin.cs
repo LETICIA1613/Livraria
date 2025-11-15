@@ -32,5 +32,15 @@ namespace Livraria
             product.ShowDialog();
             this.Visible = true;
         }
+
+        private void Btnescolhagestão_Click(object sender, EventArgs e)
+        {
+            GestaoEstoque admin = new GestaoEstoque();
+            this.Visible = false;
+            admin.ShowDialog();
+            this.Visible = true;
+        }
+        
+      
     }
 }

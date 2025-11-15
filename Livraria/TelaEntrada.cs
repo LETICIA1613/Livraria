@@ -444,11 +444,22 @@ namespace Livraria
             if (card != null)
             {
                 int livroId = (int)card.Tag; // Defina o ID do livro no Tag do card ao criar
-                TelaPerfilLivro perfil = new TelaPerfilLivro(livroId);
-                perfil.ShowDialog();
+                TelaPerfilLivro product = new TelaPerfilLivro(livroId);
+                this.Visible = false;
+                product.ShowDialog();
+                this.Visible = true;
+               
             }
         }
 
+        private void sistemaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void livrosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

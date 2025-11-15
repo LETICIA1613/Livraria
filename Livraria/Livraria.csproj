@@ -86,6 +86,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormQuantidadeEstoque.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormQuantidadeEstoque.Designer.cs">
+      <DependentUpon>FormQuantidadeEstoque.cs</DependentUpon>
+    </Compile>
     <Compile Include="GestaoEstoque.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +120,7 @@
     </Compile>
     <Compile Include="Seguranca.cs" />
     <Compile Include="Sessao.cs" />
+    <Compile Include="SessaoUsuario.cs" />
     <Compile Include="Telaadicionarlivro.cs">
       <SubType>Form</SubType>
     </Compile>

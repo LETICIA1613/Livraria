@@ -69,6 +69,7 @@
             this.Btnescolhagestão.TabIndex = 2;
             this.Btnescolhagestão.Text = "Gestão de Estoque";
             this.Btnescolhagestão.UseVisualStyleBackColor = false;
+            this.Btnescolhagestão.Click += new System.EventHandler(this.Btnescolhagestão_Click);
             // 
             // BtnTelaEntrada
             // 

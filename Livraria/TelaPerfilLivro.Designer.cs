@@ -53,12 +53,13 @@
             this.LblInfoAutor2 = new System.Windows.Forms.Label();
             this.LblInfoNome2 = new System.Windows.Forms.Label();
             this.BtnCarrinho = new System.Windows.Forms.Button();
+            this.BtnVoltar1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PbCapa2)).BeginInit();
             this.SuspendLayout();
             // 
             // BtnComprar1
             // 
-            this.BtnComprar1.Location = new System.Drawing.Point(271, 181);
+            this.BtnComprar1.Location = new System.Drawing.Point(279, 181);
             this.BtnComprar1.Name = "BtnComprar1";
             this.BtnComprar1.Size = new System.Drawing.Size(85, 23);
             this.BtnComprar1.TabIndex = 6;
@@ -275,6 +276,16 @@
             this.BtnCarrinho.UseVisualStyleBackColor = true;
             this.BtnCarrinho.Click += new System.EventHandler(this.BtnCarrinho_Click);
             // 
+            // BtnVoltar1
+            // 
+            this.BtnVoltar1.Location = new System.Drawing.Point(696, 24);
+            this.BtnVoltar1.Name = "BtnVoltar1";
+            this.BtnVoltar1.Size = new System.Drawing.Size(75, 23);
+            this.BtnVoltar1.TabIndex = 36;
+            this.BtnVoltar1.Text = "Voltar";
+            this.BtnVoltar1.UseVisualStyleBackColor = true;
+            this.BtnVoltar1.Click += new System.EventHandler(this.BtnVoltar1_Click);
+            // 
             // TelaPerfilLivro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -283,6 +294,7 @@
             this.AutoScrollMinSize = new System.Drawing.Size(0, 2000);
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(800, 881);
+            this.Controls.Add(this.BtnVoltar1);
             this.Controls.Add(this.BtnCarrinho);
             this.Controls.Add(this.LblInfoNome2);
             this.Controls.Add(this.LblInfoAutor2);
@@ -342,5 +354,6 @@
         private System.Windows.Forms.Label LblInfoAutor2;
         private System.Windows.Forms.Label LblInfoNome2;
         private System.Windows.Forms.Button BtnCarrinho;
+        private System.Windows.Forms.Button BtnVoltar1;
     }
 }

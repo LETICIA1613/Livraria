@@ -1,6 +1,6 @@
 ﻿namespace Livraria
 {
-    partial class GestaoEstoque
+    partial class FormQuantidadeEstoque
     {
         /// <summary>
         /// Required designer variable.
@@ -28,17 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // GestaoEstoque
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "GestaoEstoque";
-            this.Text = "GestaoEstoque";
-            this.ResumeLayout(false);
-
+            this.Text = "FormQuantidadeEstoque";
         }
 
         #endregion
