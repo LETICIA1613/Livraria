@@ -35,13 +35,12 @@ namespace Livraria
 
             CarregarLivros();
             CarregarGeneros();
-
+            
             ConfigurarCarrinhoIcon();
             AtualizarQuantidadeCarrinho();
         }
        
-        // PICTOGRAM CARRINHO
-       
+
         private Label lblQuantidadeCarrinho;
 
         // 2. Método para configurar o carrinho (adicione este método)
@@ -140,16 +139,8 @@ namespace Livraria
             }
         }
 
-        private void CarregarLivros(
-    string Nome = "",
-    List<int> generos = null,
-    List<int> autores = null,
-    int faixaEtaria = 0,
-    
-    List<(decimal min, decimal max)> precos = null)
-            
+        private void CarregarLivros(string Nome = "", List<int> generos = null, List<int> autores = null, int faixaEtaria = 0, List<(decimal min, decimal max)> precos = null)
         {
-
             FlpLivros.Controls.Clear();
 
             using (SqlConnection con = Conexao.GetConnection())
@@ -168,7 +159,7 @@ namespace Livraria
             LEFT JOIN Autores A ON LA.AutorId = A.Id
             WHERE 1=1
         ";
-
+                
                 // 🔍 Busca por nome
                 if (!string.IsNullOrEmpty(Nome))
                     query += " AND L.Nome LIKE @Nome";
@@ -206,10 +197,12 @@ namespace Livraria
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
+                    
+              
                     LivroCard card = new LivroCard
                     {
-                        LivroId = Convert.ToInt32(reader["Id"]), // 🧠 importante
-                        Titulo = reader["Nome"].ToString(),
+                        LivroId = Convert.ToInt32(reader["Id"]),
+                        Titulo = reader["Nome"].ToString(),  // ← AGORA USA O NOME CORRIGIDO
                         Editora = reader["EditoraNome"].ToString(),
                         Preco = "R$ " + Convert.ToDecimal(reader["Preco"]).ToString("F2")
                     };
@@ -222,10 +215,16 @@ namespace Livraria
                             card.Imagem = Image.FromStream(ms);
                         }
                     }
-
                     FlpLivros.Controls.Add(card);
+                    card.Click += (sender, e) =>
+                    {
+                        TelaPerfilLivro product = new TelaPerfilLivro(card.LivroId); // ✅ false por padrão = veio da TelaEntrada
+                        this.Visible = false;
+                        product.ShowDialog();
+                        this.Visible = true;
+                    };
+                   
                 }
-
             }
         }
         private void CarregarGeneros()
@@ -350,8 +349,7 @@ namespace Livraria
 
         }
 
-            
-         
+
 
         private void Btnmenu_Click(object sender, EventArgs e)
         {
@@ -438,28 +436,6 @@ namespace Livraria
             FlpLivros.AutoScroll = true;
             FlpLivros.FlowDirection = FlowDirection.LeftToRight;
         }
-        private void FlpLivros_ControlClick(object sender, EventArgs e)
-        {
-            Panel card = sender as Panel;
-            if (card != null)
-            {
-                int livroId = (int)card.Tag; // Defina o ID do livro no Tag do card ao criar
-                TelaPerfilLivro product = new TelaPerfilLivro(livroId);
-                this.Visible = false;
-                product.ShowDialog();
-                this.Visible = true;
-               
-            }
-        }
-
-        private void sistemaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void livrosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
+  
     }
 }

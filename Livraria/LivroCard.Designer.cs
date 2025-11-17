@@ -48,10 +48,10 @@
             // lblTitulo
             // 
             this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitulo.Location = new System.Drawing.Point(28, 183);
+            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulo.Location = new System.Drawing.Point(26, 183);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(57, 20);
+            this.lblTitulo.Size = new System.Drawing.Size(52, 18);
             this.lblTitulo.TabIndex = 1;
             this.lblTitulo.Text = "label1";
             this.lblTitulo.Click += new System.EventHandler(this.Titulo_Click);
@@ -71,7 +71,7 @@
             this.BtnAddbook.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.BtnAddbook.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.BtnAddbook.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnAddbook.Location = new System.Drawing.Point(19, 253);
+            this.BtnAddbook.Location = new System.Drawing.Point(29, 253);
             this.BtnAddbook.Name = "BtnAddbook";
             this.BtnAddbook.Size = new System.Drawing.Size(91, 23);
             this.BtnAddbook.TabIndex = 4;
