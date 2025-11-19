@@ -154,6 +154,8 @@
             this.TxtYears.TabIndex = 19;
             this.TxtYears.Text = "Ano de Publicação";
             this.TxtYears.TextChanged += new System.EventHandler(this.TxtYears_TextChanged);
+            this.TxtYears.Enter += new System.EventHandler(this.TxtYears_Enter);
+            this.TxtYears.Leave += new System.EventHandler(this.TxtYears_Leave);
             // 
             // TxtPages
             // 
@@ -162,6 +164,8 @@
             this.TxtPages.Size = new System.Drawing.Size(175, 20);
             this.TxtPages.TabIndex = 20;
             this.TxtPages.Text = "Num páginas";
+            this.TxtPages.Enter += new System.EventHandler(this.TxtPages_Enter);
+            this.TxtPages.Leave += new System.EventHandler(this.TxtPages_Leave);
             // 
             // TxtLanguage
             // 
@@ -170,6 +174,8 @@
             this.TxtLanguage.Size = new System.Drawing.Size(175, 20);
             this.TxtLanguage.TabIndex = 21;
             this.TxtLanguage.Text = "Idioma";
+            this.TxtLanguage.Enter += new System.EventHandler(this.TxtLanguage_Enter);
+            this.TxtLanguage.Leave += new System.EventHandler(this.TxtLanguage_Leave);
             // 
             // TxtDescription
             // 
@@ -179,6 +185,8 @@
             this.TxtDescription.TabIndex = 22;
             this.TxtDescription.Text = "Descrição do livro";
             this.TxtDescription.TextChanged += new System.EventHandler(this.TxtDescription_TextChanged);
+            this.TxtDescription.Enter += new System.EventHandler(this.TxtDescription_Enter);
+            this.TxtDescription.Leave += new System.EventHandler(this.TxtDescription_Leave);
             // 
             // TxtNacionalidade
             // 
@@ -187,6 +195,8 @@
             this.TxtNacionalidade.Size = new System.Drawing.Size(206, 20);
             this.TxtNacionalidade.TabIndex = 23;
             this.TxtNacionalidade.Text = "Nacionalidade do Autor";
+            this.TxtNacionalidade.Enter += new System.EventHandler(this.TxtNacionalidade_Enter);
+            this.TxtNacionalidade.Leave += new System.EventHandler(this.TxtNacionalidade_Leave);
             // 
             // TxtBiografia
             // 
@@ -195,6 +205,8 @@
             this.TxtBiografia.Size = new System.Drawing.Size(206, 20);
             this.TxtBiografia.TabIndex = 24;
             this.TxtBiografia.Text = "Biografia do Autor";
+            this.TxtBiografia.Enter += new System.EventHandler(this.TxtBiografia_Enter);
+            this.TxtBiografia.Leave += new System.EventHandler(this.TxtBiografia_Leave);
             // 
             // Telaadicionarlivro
             // 
