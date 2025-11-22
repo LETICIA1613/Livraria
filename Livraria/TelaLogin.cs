@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -32,7 +33,7 @@ namespace Livraria
             string senha = TextPW3.Text;
             string senhaHash = Seguranca.HashSenha(senha);
 
-
+           
             using (SqlConnection con = Conexao.GetConnection())
             {
                  con.Open();

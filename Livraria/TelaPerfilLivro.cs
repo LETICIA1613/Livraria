@@ -16,10 +16,15 @@ namespace Livraria
     {
         private int id;
         private bool veioDeOutroLivro; // ✅ Controla se veio de outro livro semelhante
+      
+        private decimal precoLivro; // ← Ou assim?
+        private string titulo; // ← Ou assim?
+
 
         // ✅ Construtor para quando vem da TelaEntrada
         public TelaPerfilLivro(int id) : this(id, false)
         {
+            
         }
 
         // ✅ Construtor para quando vem de outro livro semelhante
@@ -28,10 +33,11 @@ namespace Livraria
             this.id = id;
             this.veioDeOutroLivro = veioDeOutroLivro;
             InitializeComponent();
-            this.BackColor = Color.White;
+            this.BackColor = Color.PowderBlue;
         }
         private void TelaPerfilLivro_Load(object sender, EventArgs e)
         {
+            
             this.AutoScroll = true;
             ConfigurarControles();
             CarregarInformacoesDoLivro();
@@ -56,7 +62,7 @@ namespace Livraria
             TxtDescricao.ReadOnly = true;
             TxtDescricao.WordWrap = true;
             TxtDescricao.BorderStyle = BorderStyle.None;
-            TxtDescricao.BackColor = Color.White;
+            TxtDescricao.BackColor = Color.PowderBlue;
             TxtDescricao.ForeColor = Color.Black;
             TxtDescricao.Font = new Font("Arial", 10);
             TxtDescricao.ScrollBars = ScrollBars.None;
@@ -66,7 +72,7 @@ namespace Livraria
             TxtBiografia.ReadOnly = true;
             TxtBiografia.WordWrap = true;
             TxtBiografia.BorderStyle = BorderStyle.None;
-            TxtBiografia.BackColor = Color.White;
+            TxtBiografia.BackColor = Color.PowderBlue;
             TxtBiografia.ForeColor = Color.Black;
             TxtBiografia.Font = new Font("Arial", 10);
             TxtBiografia.ScrollBars = ScrollBars.None;
@@ -86,8 +92,8 @@ namespace Livraria
 
             // BOTÃO VOLTAR
             Button BtnVoltar1 = new Button();
-            BtnVoltar1.Text = "← Voltar";
-            BtnVoltar1.BackColor = Color.Gray;
+            BtnVoltar1.Text = "Voltar";
+            BtnVoltar1.BackColor = Color.PowderBlue;
             BtnVoltar1.ForeColor = Color.White;
             BtnVoltar1.Font = new Font("Arial", 10, FontStyle.Bold);
             BtnVoltar1.Size = new Size(100, 35);
@@ -567,7 +573,7 @@ namespace Livraria
                             Panel containerLivros = new Panel();
                             containerLivros.Location = new Point(30, y);
                             containerLivros.Size = new Size(700, 230); // Aumentei a altura
-                            containerLivros.BackColor = Color.White;
+                            containerLivros.BackColor = Color.Transparent;
                             this.Controls.Add(containerLivros);
 
                             // Ler todos os livros e criar os panels
@@ -606,6 +612,7 @@ namespace Livraria
         // ✅ VOLTAR INTELIGENTE
         private void BtnVoltar1_Click(object sender, EventArgs e)
         {
+           
             if (veioDeOutroLivro)
             {
                 // ✅ Se veio de outro livro semelhante, volta para ele
@@ -635,7 +642,7 @@ namespace Livraria
         {
             Panel panelLivro = new Panel();
             panelLivro.Size = new Size(160, 220);
-            panelLivro.BackColor = Color.White;
+            panelLivro.BackColor = Color.Transparent;
             panelLivro.Cursor = Cursors.Hand;
             panelLivro.Visible = false;
             // PictureBox para a capa (MAIOR - sem fundo cinza)
@@ -643,7 +650,7 @@ namespace Livraria
             pbCapa.Location = new Point(5, 0); // Centralizado
             pbCapa.Size = new Size(150, 140); // MUITO maior
             pbCapa.SizeMode = PictureBoxSizeMode.Zoom;
-            pbCapa.BackColor = Color.White; // Fundo branco ao invés de cinza
+            pbCapa.BackColor = Color.Transparent; // Fundo branco ao invés de cinza
             pbCapa.BorderStyle = BorderStyle.None; // Sem borda
 
             // Carregar imagem
@@ -671,6 +678,7 @@ namespace Livraria
             lblAutor.Font = new Font("Arial", 9, FontStyle.Bold); // Negrito
             lblAutor.ForeColor = Color.DarkGray;
             lblAutor.TextAlign = ContentAlignment.MiddleLeft;
+            lblAutor.BackColor = Color.Transparent;
 
             // Título do Livro (MAIOR)
             Label lblTitulo = new Label();
@@ -679,6 +687,8 @@ namespace Livraria
             lblTitulo.Text = reader["Titulo"]?.ToString() ?? "Título";
             lblTitulo.Font = new Font("Arial", 10, FontStyle.Bold); // Maior e negrito
             lblTitulo.ForeColor = Color.Black;
+            lblTitulo.BackColor = Color.Transparent;
+
 
             // Preço (MAIOR e mais destacado)
             Label lblPreco = new Label();
@@ -694,6 +704,8 @@ namespace Livraria
             }
             lblPreco.Font = new Font("Arial", 11, FontStyle.Bold); // Maior
             lblPreco.ForeColor = Color.Green;
+            lblPreco.BackColor = Color.Transparent;
+
 
             // Adicionar controles ao panel
             panelLivro.Controls.Add(pbCapa);
@@ -719,9 +731,6 @@ namespace Livraria
         }
        
 
-     
-       
-
         // Evento de clique
         /*  int livroId = Convert.ToInt32(reader["Id"]);
           panelLivro.Click += (sender, e) => AbrirPerfilLivro(livroId);
@@ -744,7 +753,7 @@ namespace Livraria
             btnAnterior.Size = new Size(30, 30);
             btnAnterior.Text = "‹";
             btnAnterior.Font = new Font("Arial", 16, FontStyle.Bold);
-            btnAnterior.BackColor = Color.White;
+            btnAnterior.BackColor = Color.Transparent;
             btnAnterior.ForeColor = Color.DarkBlue;
             btnAnterior.FlatStyle = FlatStyle.Flat;
             btnAnterior.Cursor = Cursors.Hand;
@@ -758,7 +767,7 @@ namespace Livraria
             btnProximo.Size = new Size(30, 30);
             btnProximo.Text = "›";
             btnProximo.Font = new Font("Arial", 16, FontStyle.Bold);
-            btnProximo.BackColor = Color.White;
+            btnProximo.BackColor = Color.Transparent;
             btnProximo.ForeColor = Color.DarkBlue;
             btnProximo.FlatStyle = FlatStyle.Flat;
             btnProximo.Cursor = Cursors.Hand;
@@ -810,7 +819,7 @@ namespace Livraria
             lblTituloSecao.Text = "LIVROS SEMELHANTES";
             lblTituloSecao.Font = new Font("Arial", 16, FontStyle.Bold);
             lblTituloSecao.ForeColor = Color.DarkBlue;
-            lblTituloSecao.BackColor = Color.White;
+            lblTituloSecao.BackColor = Color.Transparent;
 
             this.Controls.Add(lblTituloSecao);
         }
@@ -823,14 +832,82 @@ namespace Livraria
             lblMensagem.Text = "Não foram encontrados livros semelhantes.";
             lblMensagem.Font = new Font("Arial", 10, FontStyle.Italic);
             lblMensagem.ForeColor = Color.Gray;
-            lblMensagem.BackColor = Color.White;
+            lblMensagem.BackColor = Color.Transparent;
 
             this.Controls.Add(lblMensagem);
         }
     
         private void BtnAdicionarCarrinho_Click(object sender, EventArgs e)
-        {
+        { 
             try
+            {
+                // VERIFICAR ESTOQUE ANTES DE BUSCAR INFORMAÇÕES DO LIVRO
+                if (!Carrinho.VerificarEstoqueDisponivel(id, 1))
+                {
+                    MessageBox.Show("Desculpe, este livro não está disponível em estoque!",
+                        "Estoque Insuficiente", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Buscar informações completas do livro
+                using (SqlConnection con = Conexao.GetConnection())
+                {
+                    con.Open();
+                    string query = @"
+        SELECT 
+            L.Id,
+            L.Nome AS Titulo,
+            L.Preco,
+            L.Foto,
+            STUFF(
+                (SELECT ', ' + A2.Nome
+                 FROM LivroAutores LA2
+                 INNER JOIN Autores A2 ON LA2.AutorId = A2.Id
+                 WHERE LA2.LivroId = L.Id
+                 FOR XML PATH('')), 1, 2, '') AS Autores
+        FROM Livros L
+        WHERE L.Id = @id";
+
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@id", id);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                string titulo = reader["Titulo"]?.ToString() ?? "Título não disponível";
+                                string autor = reader["Autores"]?.ToString() ?? "Autor não disponível";
+                                decimal preco = reader["Preco"] != DBNull.Value ?
+                                              Convert.ToDecimal(reader["Preco"]) : 0;
+
+                                byte[] foto = null;
+                                if (reader["Foto"] != DBNull.Value)
+                                {
+                                    foto = (byte[])reader["Foto"];
+                                }
+
+                                // Adicionar ao carrinho
+                                Carrinho.AdicionarLivro(id, titulo, autor, preco, foto);
+
+                                // Feedback visual
+                                MessageBox.Show($"✅ '{titulo}' adicionado ao carrinho!\n\n" +
+                                              $"Itens no carrinho: {Carrinho.GetQuantidadeTotal()}\n" +
+                                              $"Total: R$ {Carrinho.GetTotal():F2}",
+                                              "Carrinho",
+                                              MessageBoxButtons.OK,
+                                              MessageBoxIcon.Information);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao adicionar ao carrinho: {ex.Message}",
+                              "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        
+           /* try
             {
                 // Buscar informações completas do livro
                 using (SqlConnection con = Conexao.GetConnection())
@@ -888,12 +965,19 @@ namespace Livraria
             {
                 MessageBox.Show($"Erro ao adicionar ao carrinho: {ex.Message}",
                               "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            }*/
 
         } 
         private void BtnComprar1_Click(object sender, EventArgs e)
         {
-         
+            // Se você tem uma variável com o livro atual
+            decimal preco = precoLivro; // Acesse o preço do livro
+            int quantidade = 1; // Sempre 1 livro por compra
+
+            TelaPagamentos product = new TelaPagamentos(preco, quantidade);
+            this.Visible = false;
+            product.ShowDialog();
+            this.Visible = true;
         }
 
         private void PbCapa2_Click(object sender, EventArgs e)

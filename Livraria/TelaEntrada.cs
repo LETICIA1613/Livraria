@@ -106,6 +106,36 @@ namespace Livraria
             ClbPreco.Items.Add("Mais de R$80");
 
             // ✍️ Autores
+            using (var con = Conexao.GetConnection())
+            {
+                SqlDataAdapter daAutor = new SqlDataAdapter("SELECT Id, Nome FROM Autores", con);
+                DataTable dtAutor = new DataTable();
+                daAutor.Fill(dtAutor);
+
+                ClbFiltroAutor.Items.Clear();
+                foreach (DataRow row in dtAutor.Rows)
+                {
+                    ClbFiltroAutor.Items.Add(new AutorItem
+                    {
+                        Id = Convert.ToInt32(row["Id"]),
+                        Nome = row["Nome"].ToString()
+                    }, false);
+                }
+            }
+            using (var con = Conexao.GetConnection())
+            {
+                SqlDataAdapter daFaixa = new SqlDataAdapter("SELECT Id, Idades FROM FaixaEtaria", con);
+                DataTable dtFaixa = new DataTable();
+                daFaixa.Fill(dtFaixa);
+
+                CbFiltroFX.DataSource = dtFaixa;
+                CbFiltroFX.DisplayMember = "Idades";
+                CbFiltroFX.ValueMember = "Id";
+                CbFiltroFX.SelectedIndex = -1;
+            }
+        }
+            /*
+            // ✍️ Autores
             using (SqlConnection con = Conexao.GetConnection())
             {
                 con.Open();
@@ -136,8 +166,8 @@ namespace Livraria
                 CbFiltroFX.DisplayMember = "Idades";
                 CbFiltroFX.ValueMember = "Id";
                 CbFiltroFX.SelectedIndex = -1;
-            }
-        }
+            }*/
+        
 
         private void CarregarLivros(string Nome = "", List<int> generos = null, List<int> autores = null, int faixaEtaria = 0, List<(decimal min, decimal max)> precos = null)
         {

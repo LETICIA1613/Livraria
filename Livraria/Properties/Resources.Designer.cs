@@ -103,6 +103,36 @@ namespace Livraria.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap TelaCarrinho_talvez_ {
+            get {
+                object obj = ResourceManager.GetObject("TelaCarrinho(talvez)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TelaPerfilLivro {
+            get {
+                object obj = ResourceManager.GetObject("TelaPerfilLivro", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TelaPerfilLivro1 {
+            get {
+                object obj = ResourceManager.GetObject("TelaPerfilLivro1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Title_of_your_Brainstorm_Whiteboard {
             get {
                 object obj = ResourceManager.GetObject("Title of your Brainstorm Whiteboard", resourceCulture);

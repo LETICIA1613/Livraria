@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TelaPerfilLivro));
             this.BtnComprar1 = new System.Windows.Forms.Button();
             this.LblNacionalidade = new System.Windows.Forms.Label();
-            this.PbCapa2 = new System.Windows.Forms.PictureBox();
             this.TxtDescricao = new System.Windows.Forms.TextBox();
             this.TxtBiografia = new System.Windows.Forms.TextBox();
             this.LblEditora2 = new System.Windows.Forms.Label();
@@ -54,6 +53,7 @@
             this.LblInfoNome2 = new System.Windows.Forms.Label();
             this.BtnCarrinho = new System.Windows.Forms.Button();
             this.BtnVoltar1 = new System.Windows.Forms.Button();
+            this.PbCapa2 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.PbCapa2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,17 +75,6 @@
             this.LblNacionalidade.Size = new System.Drawing.Size(218, 28);
             this.LblNacionalidade.TabIndex = 7;
             this.LblNacionalidade.Text = "Nacionalidade";
-            // 
-            // PbCapa2
-            // 
-            this.PbCapa2.Image = ((System.Drawing.Image)(resources.GetObject("PbCapa2.Image")));
-            this.PbCapa2.Location = new System.Drawing.Point(30, 24);
-            this.PbCapa2.Name = "PbCapa2";
-            this.PbCapa2.Size = new System.Drawing.Size(133, 232);
-            this.PbCapa2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.PbCapa2.TabIndex = 0;
-            this.PbCapa2.TabStop = false;
-            this.PbCapa2.Click += new System.EventHandler(this.PbCapa2_Click);
             // 
             // TxtDescricao
             // 
@@ -286,14 +275,25 @@
             this.BtnVoltar1.UseVisualStyleBackColor = true;
             this.BtnVoltar1.Click += new System.EventHandler(this.BtnVoltar1_Click);
             // 
+            // PbCapa2
+            // 
+            this.PbCapa2.Image = ((System.Drawing.Image)(resources.GetObject("PbCapa2.Image")));
+            this.PbCapa2.Location = new System.Drawing.Point(30, 24);
+            this.PbCapa2.Name = "PbCapa2";
+            this.PbCapa2.Size = new System.Drawing.Size(133, 232);
+            this.PbCapa2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PbCapa2.TabIndex = 0;
+            this.PbCapa2.TabStop = false;
+            this.PbCapa2.Click += new System.EventHandler(this.PbCapa2_Click);
+            // 
             // TelaPerfilLivro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.AutoScrollMinSize = new System.Drawing.Size(0, 2000);
-            this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(800, 881);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.ClientSize = new System.Drawing.Size(817, 881);
             this.Controls.Add(this.BtnVoltar1);
             this.Controls.Add(this.BtnCarrinho);
             this.Controls.Add(this.LblInfoNome2);

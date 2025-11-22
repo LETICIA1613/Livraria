@@ -1,6 +1,6 @@
 ﻿namespace Livraria
 {
-    partial class GestaoEstoque
+    partial class TelaPagamentos
     {
         /// <summary>
         /// Required designer variable.
@@ -30,15 +30,15 @@
         {
             this.SuspendLayout();
             // 
-            // GestaoEstoque
+            // TelaPagamentos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.SkyBlue;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "GestaoEstoque";
-            this.Text = "GestaoEstoque";
-            this.Load += new System.EventHandler(this.GestaoEstoque_Load);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.ClientSize = new System.Drawing.Size(838, 518);
+            this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Name = "TelaPagamentos";
+            this.Load += new System.EventHandler(this.TelaPagamentos_Load);
             this.ResumeLayout(false);
 
         }

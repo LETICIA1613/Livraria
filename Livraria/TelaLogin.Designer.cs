@@ -36,10 +36,10 @@
             this.directoryEntry1 = new System.DirectoryServices.DirectoryEntry();
             this.directoryEntry2 = new System.DirectoryServices.DirectoryEntry();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.PictureLogin = new System.Windows.Forms.PictureBox();
             this.Pictureolhos2 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureLogin)).BeginInit();
+            this.PictureLogin = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.Pictureolhos2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureLogin)).BeginInit();
             this.SuspendLayout();
             // 
             // TextEmail2
@@ -100,16 +100,6 @@
             this.linkLabel1.Text = "Não tenho um Cadastro! Cadastrar-se";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
-            // PictureLogin
-            // 
-            this.PictureLogin.Image = ((System.Drawing.Image)(resources.GetObject("PictureLogin.Image")));
-            this.PictureLogin.Location = new System.Drawing.Point(-1, -49);
-            this.PictureLogin.Name = "PictureLogin";
-            this.PictureLogin.Size = new System.Drawing.Size(805, 545);
-            this.PictureLogin.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.PictureLogin.TabIndex = 17;
-            this.PictureLogin.TabStop = false;
-            // 
             // Pictureolhos2
             // 
             this.Pictureolhos2.Image = ((System.Drawing.Image)(resources.GetObject("Pictureolhos2.Image")));
@@ -120,6 +110,16 @@
             this.Pictureolhos2.TabIndex = 18;
             this.Pictureolhos2.TabStop = false;
             this.Pictureolhos2.Click += new System.EventHandler(this.Pictureolhos2_Click);
+            // 
+            // PictureLogin
+            // 
+            this.PictureLogin.Image = ((System.Drawing.Image)(resources.GetObject("PictureLogin.Image")));
+            this.PictureLogin.Location = new System.Drawing.Point(-1, -49);
+            this.PictureLogin.Name = "PictureLogin";
+            this.PictureLogin.Size = new System.Drawing.Size(805, 545);
+            this.PictureLogin.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PictureLogin.TabIndex = 17;
+            this.PictureLogin.TabStop = false;
             // 
             // TelaLogin
             // 
@@ -135,8 +135,8 @@
             this.Controls.Add(this.label1);
             this.Name = "TelaLogin";
             this.Load += new System.EventHandler(this.TelaLogin_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.PictureLogin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Pictureolhos2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureLogin)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

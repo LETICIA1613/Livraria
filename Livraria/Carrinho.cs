@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 namespace Livraria
 {
 
-        public static class Carrinho
-        {
+    public static class Carrinho
+    {
         private static List<LivroCarrinho> itens = new List<LivroCarrinho>();
         public static void LimparCarrinho()
         {
@@ -362,8 +362,80 @@ namespace Livraria
             var item = itens.FirstOrDefault(i => i.LivroId == livroId);
             return item?.Quantidade ?? 0;
         }
+    
+     public static void FinalizarCompra()
+        {
+            try
+            {
+                using (SqlConnection con = Conexao.GetConnection())
+                {
+                    con.Open();
+
+                    // Para cada item no carrinho, diminuir a quantidade no banco
+                    foreach (var item in GetItens())
+                    {
+                        string query = @"
+                        UPDATE Livros 
+                        SET Quantidade = Quantidade - @Quantidade 
+                        WHERE Id = @LivroId 
+                        AND Quantidade >= @Quantidade
+                        AND Ativo = 1";
+
+                        using (SqlCommand cmd = new SqlCommand(query, con))
+                        {
+                            cmd.Parameters.AddWithValue("@Quantidade", item.Quantidade);
+                            cmd.Parameters.AddWithValue("@LivroId", item.LivroId);
+
+                            int rowsAffected = cmd.ExecuteNonQuery();
+
+                            if (rowsAffected == 0)
+                            {
+                                // Se não conseguiu atualizar, pode ser porque o estoque é insuficiente
+                                // ou o livro está inativo
+                                throw new Exception($"Não foi possível reservar o livro '{item.Titulo}'. Verifique o estoque.");
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao finalizar compra: {ex.Message}");
+            }
+
+        }
+        public static bool VerificarEstoqueDisponivel(int livroId, int quantidadeDesejada)
+        {
+            try
+            {
+                using (SqlConnection con = Conexao.GetConnection())
+                {
+                    con.Open();
+                    string query = @"
+                SELECT Quantidade 
+                FROM Livros 
+                WHERE Id = @LivroId 
+                AND Ativo = 1 
+                AND Quantidade >= @Quantidade";
+
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@LivroId", livroId);
+                        cmd.Parameters.AddWithValue("@Quantidade", quantidadeDesejada);
+
+                        var result = cmd.ExecuteScalar();
+                        return result != null;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 
+}
     public class LivroCarrinho
     {
         public int LivroId { get; set; }
@@ -373,4 +445,4 @@ namespace Livraria
         public byte[] Foto { get; set; }
         public int Quantidade { get; set; }
     }
-}
+

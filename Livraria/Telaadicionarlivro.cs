@@ -25,6 +25,8 @@ namespace Livraria
         string cs = @"Data Source=sqlexpress;Initial Catalog=CJ3027481PR2;User Id=aluno;Password=aluno;";
      
         string caminhoFoto = "";
+    
+
         private void Btnimage_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
